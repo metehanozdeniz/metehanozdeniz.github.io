@@ -10,3 +10,21 @@ applause-button {
     }
   }
   
+  .clap-count {
+    @extend h4;
+    color: var(--accent-color);
+    display: none;
+  
+    svg {
+      height: 1em;
+    }
+  
+    .flat {
+      fill: var(--body-bg);
+    }
+  
+    .outline {
+      fill: var(--accent-color);
+    }
+  }
+  
