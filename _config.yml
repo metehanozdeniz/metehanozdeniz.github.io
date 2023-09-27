@@ -17,7 +17,7 @@ url:                   https://metehanozdeniz.github.io
 
 # Language of your content in 2-letter code, e.g.: en, de.
 # You may also provide a location, e.g.: en-us, de_AT.
-lang:                  tr
+lang:                  tr-TR, en-US
 
 # The title of your blog. Used in the sidebar and the browser tab.
 title:                 Metehan Özdeniz
@@ -192,6 +192,27 @@ disqus:                metehan-ozdeniz
 #Lightbox setting
 lightbox: true
 
+# Set which comment system to use
+comments:
+  # 'disqus' or 'giscus' are available
+  provider: giscus
+
+# You must install giscus github app before use.(https://github.com/apps/giscus)
+# Make sure all variables are set properly. Check below link for detail.
+# https://giscus.app/
+giscus:
+  data-repo="metehanozdeniz/metehanozdeniz.github.io"
+  data-repo-id="R_kgDOKY9pBQ"
+  data-category="Comments"
+  data-category-id="DIC_kwDOKY9pBc4CZqUD"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="1"
+  data-input-position="top"
+  data-theme="light"
+  data-lang="tr"
+  crossorigin="anonymous"
 
 # Hydejack Settings
 # ----------------------------------------------------------------------------------------
