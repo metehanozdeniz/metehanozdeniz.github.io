@@ -1,46 +1,15 @@
-{% assign provider = site.comments.provider | default:"disqus" %}
-  {% if provider == "disqus" %}
-    {% assign disqus = site.disqus | default:site.disqus_shortname %}
-      {% if disqus %}
-        <div id="disqus_thread"></div>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-        <script>!function(w, d) {
-          if (d.getElementById("disqus_thread")) {
-            if (w.DISQUS) {
-              w.DISQUS.reset({
-              reload: true,
-              config() {
-                this.page.url = w.location.href;
-                this.page.title = d.title;
-              },
-            });
-    } else {
-      w.disqus_config = function disqusConfig() {
-        this.page.url = w.location.href;
-        this.page.title = d.title;
-      };
-      w.loadJSDeferred(d.getElementById("_hrefDisqus").href + '/embed.js');
-    }
-  }
-}(window, document);</script>
-      {% endif %}
-{% elsif provider == "giscus" %}
-  {% assign giscus = site.giscus %}
-  {% if giscus.data-repo %}
-    <script src="https://giscus.app/client.js"
-            data-repo={{ giscus.data-repo }}
-            data-repo-id={{ giscus.data-repo-id }}
-            data-category={{ giscus.data-category }}
-            data-category-id={{ giscus.data-category-id }}
-            data-mapping={{ giscus.data-mapping }}
-            data-strict={{ giscus.data-strict }}
-            data-reactions-enabled={{ giscus.data-reaction-enabled }}
-            data-emit-metadata={{ giscus.data-emit-metadata }}
-            data-input-position={{ giscus.data-input-position }}
-            data-theme={{ giscus.data-theme }}
-            data-lang={{ giscus.data-lang }}
-            crossorigin={{ giscus.crossorigin }}
-            async>
-    </script>
-  {% endif %}
-{% endif %}
+<script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="tr"
+        crossorigin="anonymous"
+        async>
+</script>
