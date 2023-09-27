@@ -23,10 +23,11 @@
     }
   }
 }(window, document);</script>
-{% endif %}
-{% elsif provider == "giscus" %}
+      {% endif %}
+  {% endif %}
+{% if provider == "giscus" %}
   {% assign giscus = site.giscus %}
-  {% if giscus.repo %}
+  {% if giscus.data-repo %}
     <script src="https://giscus.app/client.js"
             data-repo={{ giscus.data-repo }}
             data-repo-id={{ giscus.data-repo-id }}
