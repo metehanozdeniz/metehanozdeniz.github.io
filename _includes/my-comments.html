@@ -24,8 +24,7 @@
   }
 }(window, document);</script>
       {% endif %}
-  {% endif %}
-{% if provider == "giscus" %}
+{% elsif provider == "giscus" %}
   {% assign giscus = site.giscus %}
   {% if giscus.data-repo %}
     <script src="https://giscus.app/client.js"
