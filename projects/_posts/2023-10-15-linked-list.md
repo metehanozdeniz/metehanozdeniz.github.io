@@ -18,7 +18,7 @@ keywords:
   - Veri Yapıları
 ---
 
-## Bağlı Liste Yapısı ile Öğrenci Otomasyonu
+## Bağlı Liste Yapısı
 
 Bu ***tek yönlü bağlı liste*** örneği aşağıdaki senaryo göz önüne alınarak tasarlanmıştır.
 
