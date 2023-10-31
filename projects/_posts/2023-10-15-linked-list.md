@@ -18,7 +18,7 @@ keywords:
   - Veri Yapıları
 ---
 
-## Bağlı Liste Yapısı
+## Bağlı Liste Yapısı (Linked List)
 
 Bu ***tek yönlü bağlı liste*** örneği aşağıdaki senaryo göz önüne alınarak tasarlanmıştır.
 
