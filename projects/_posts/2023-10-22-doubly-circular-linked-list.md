@@ -22,7 +22,7 @@ keywords:
 
 ## Çift Yönlü Bağlı Liste (Doubly Circular Linked List)
 
-Bu örnekte **çift yönlü dairesel bağlı liste** yapısı kullanışmıştır.
+Bu örnekte **çift yönlü dairesel bağlı liste** yapısı kullanılmıştır.
 
 sunucu, yük ve max. kapasite bilgileri içeren struct yapısı, çift yönlü dairesel bağlı listede tutularak aşağıdaki üç fonksiyon yazılmıştır.
 * **`üretici`**: Fonksiyon ile yük üretilmektedir ve yükü en az sunucudan başlamak üzere üretilen yükü sunuculara dağıtılmaktadır. Her yük dağılımından sonra sunucular boş kapasite miktarına göre yeniden sıralanmaktadır. (veriler değil, adresleri değişmektedir)
