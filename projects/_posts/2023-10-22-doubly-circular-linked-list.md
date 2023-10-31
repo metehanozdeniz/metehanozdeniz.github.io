@@ -5,6 +5,8 @@ categories:
   - projects
 tags:
   - C
+  - Doubly Circular Linked List
+  - Data Structures
 image: /assets/img/projects/doubly-circular-linked-list.png
 description: |
   C programlama dili ile, çift yönlü dairesel bağlı liste yapısı kullanılarak örnek uygulama

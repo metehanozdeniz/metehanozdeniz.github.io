@@ -22,7 +22,7 @@ keywords:
 
 ## Stack (Yığın) Kullanarak Infix-Postfix Dönüşümü
 
-Bu örnekte **Stack Yapısı** kullanılarak infix bir ifade postfix ifadeye dönüştürülmüştür. Ardından elde edilen postfix ifade yine stack yapısı kullanılarak ilgili hesaplamalar yapılmıştır. Yapılan her adım ekrana yazdırılmıştır. Ayrıca ilgili infix ifade bir txt dosyasından **(dosya.txt)** okunarak alınmıştır.
+Bu örnekte **Stack Yapısı** kullanılarak infix bir ifade postfix ifadeye dönüştürülmüştür. Ardından elde edilen postfix ifade yine stack yapısı kullanılarak ilgili hesaplamalar yapılmıştır. Yapılan her adım ekrana yazdırılmıştır. Ayrıca ilgili infix ifade bir txt dosyasından **(infix.txt)** okunarak alınmıştır.
 
 # Code :
 
@@ -272,7 +272,7 @@ int postfix_hesapla(char *postfix) {
 int main() {
     FILE *dosya;
     char infix[200]; // Dosyadan okunan infix ifadenin saklanacağı karakter dizisi
-    dosya = fopen("dosya.txt", "r"); // dosya.txt adlı dosyayı okuma modunda açıyoruz
+    dosya = fopen("infix.txt", "r"); // infix.txt adlı dosyayı okuma modunda açıyoruz
 
     if (dosya == NULL) {
         printf("Dosya bulunamadi!\n");
@@ -296,3 +296,9 @@ int main() {
     return 0;
 }
 ~~~
+
+~~~
+3+4*2/(1-5)^2
+~~~
+Örnek **infix.txt** dosyası
+{:.figcaption}

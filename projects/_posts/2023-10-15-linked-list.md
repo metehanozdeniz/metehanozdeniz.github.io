@@ -5,6 +5,8 @@ categories:
   - projects
 tags:
   - C
+  - Linked List
+  - Data Structures
 image: /assets/img/projects/linked-list.png
 description: |
   C programlama dili ile, tek yönlü bağlı liste yapısı kullanılarak öğrenci otomasyonu uygulaması
