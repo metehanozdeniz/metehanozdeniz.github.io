@@ -20,7 +20,7 @@ keywords:
   - Veri Yapıları
 ---
 
-## Stack (Yığın) Kullanarak Infix-Postfix Dönüşümü
+## Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü
 
 Bu örnekte **Stack Yapısı** kullanılarak infix bir ifade postfix ifadeye dönüştürülmüştür. Ardından elde edilen postfix ifade yine stack yapısı kullanılarak ilgili hesaplamalar yapılmıştır. Yapılan her adım ekrana yazdırılmıştır. Ayrıca ilgili infix ifade bir txt dosyasından **(infix.txt)** okunarak alınmıştır.
 
