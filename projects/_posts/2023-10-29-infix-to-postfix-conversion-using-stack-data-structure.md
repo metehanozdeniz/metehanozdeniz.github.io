@@ -297,8 +297,41 @@ int main() {
 }
 ~~~
 
-~~~
+~~~txt
 3+4*2/(1-5)^2
 ~~~
 Örnek **infix.txt** dosyası
+{:.figcaption}
+
+~~~terminal
+// file: "OUTPUT"
+Infix: 3+4*2/(1-5)^2
+Infix: +4*2/(1-5)^2        | Stack :                     | Postfix: 3
+Infix: 4*2/(1-5)^2         | Stack : +                   | Postfix: 3
+Infix: *2/(1-5)^2          | Stack : +                   | Postfix: 34
+Infix: 2/(1-5)^2           | Stack : *+                  | Postfix: 34
+Infix: /(1-5)^2            | Stack : *+                  | Postfix: 342
+Infix: (1-5)^2             | Stack : /+                  | Postfix: 342*
+Infix: 1-5)^2              | Stack : (/+                 | Postfix: 342*
+Infix: -5)^2               | Stack : (/+                 | Postfix: 342*1
+Infix: 5)^2                | Stack : -(/+                | Postfix: 342*1
+Infix: )^2                 | Stack : -(/+                | Postfix: 342*15
+Infix: ^2                  | Stack : /+                  | Postfix: 342*15-
+Infix: 2                   | Stack : ^/+                 | Postfix: 342*15-
+Infix:                     | Stack : ^/+                 | Postfix: 342*15-2
+Infix:                     | Stack:                      | Postfix: 342*15-2^/+
+Infix:                     | Stack: 3                    | Postfix: 42*15-2^/+
+Infix:                     | Stack: 43                   | Postfix: 2*15-2^/+
+Infix:                     | Stack: 243                  | Postfix: *15-2^/+
+Infix:                     | Stack: 83                   | Postfix: 15-2^/+
+Infix:                     | Stack: 183                  | Postfix: 5-2^/+
+Infix:                     | Stack: 5183                 | Postfix: -2^/+
+Infix:                     | Stack: -483                 | Postfix: 2^/+
+Infix:                     | Stack: 2-483                | Postfix: ^/+
+Infix:                     | Stack: 1683                 | Postfix: /+
+Infix:                     | Stack: 03                   | Postfix: +
+Infix:                     | Stack: 3                    | Postfix:
+Sonuc: 3
+~~~
+**Output**
 {:.figcaption}
