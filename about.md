@@ -23,7 +23,7 @@ Someone who manipulates the system behind reality.
 "Per aspera ad astra", from Finland in the Nineteenth Century, 1894
 {:.figcaption}
 
-Hey there, My name is **Metehan Özdeniz**. I'm twenty four years old. I'm studying computer engineering at Necmettin Erbakan University. I develope open source web application and desktop applicaton. I'm interested in cyber security in my spare time. I love art, music and traveling. My biggest motivation is Turkey's founder.
+Hey there, I'm **Metehan**. I'm a computer engineer candidate, passionate about learning new skills and creating software to make the world a better place. I am a curious person and a fast learner, hard work doesn't scare me. My goal is to create things that make a difference. I love art and technology. My biggest motivation is Turkey’s founder.
 
 **Mustafa Kemal Atatürk says:** 
 {:.lead}
