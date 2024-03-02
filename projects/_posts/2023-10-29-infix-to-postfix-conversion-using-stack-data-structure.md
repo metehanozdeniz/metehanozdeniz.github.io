@@ -18,6 +18,8 @@ keywords:
   - Data Structures
   - Yığın
   - Veri Yapıları
+  - infix
+  - postfix
 ---
 
 ## Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü
