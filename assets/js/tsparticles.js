@@ -109,7 +109,8 @@ tsParticles.load("tsparticles", {
       events: {
         onHover: {
           enable: false,
-          mode: "repulse"
+          mode: "repulse",
+          parallax: { enable: true, force: 100, smooth: 50 }
         },
         onClick: {
           enable: true,
