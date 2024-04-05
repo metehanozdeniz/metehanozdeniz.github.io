@@ -45,8 +45,8 @@ continue_reading:      >
 
 cookies_banner:
   text:                >
-    Bu site çerez kullanıyor. [Çerez Politikası](/cookies-policy/).
-  okay:                Tamam
+    I respect your privacy and aim for the best website experience in compliance with GDPR. Allowing cookies enables a tailored experience, while disabling them may reduce personalization. [GPDR](/cookies-policy/).
+  okay:                Ok
 
 not_found:
   title:               '404 Error: Sayfa Bulunamadı'
