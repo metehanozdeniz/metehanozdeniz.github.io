@@ -185,6 +185,8 @@ google_analytics:      G-CB4287NP8H
 # pages with `comments: true` in the front matter.
 disqus:                metehan-ozdeniz
 
+lightbox:              true
+
 # Setting a tinyletter username will enable the newsletter subscription box.
 # PRO version only!
 # tinyletter:            <username>
