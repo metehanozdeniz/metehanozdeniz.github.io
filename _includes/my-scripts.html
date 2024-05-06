@@ -7,7 +7,7 @@
     .getElementById("_pushState")
     .addEventListener("hy-push-state-load", function () {
       get_clap_count();
-      apply_lightbox();
+      addLoadEvent(initLightbox)
     });
 </script>
 
