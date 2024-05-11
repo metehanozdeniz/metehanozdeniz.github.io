@@ -7,10 +7,12 @@ image: /assets/img/projects/emotions.jpg
 description: |
   Derin öğrenme ile Cnn modeli kullanarak metin sınıflandırması ve duygu analizi
 slug: text-classification-and-sentiment-analysis-using-cnn
-last_modified_at: 30.04.2024
+last_modified_at: 12.05.2024
 keywords:
   - Artificial Intelligence
   - Deep Learning
+  - Convolutional Neural Network
+  - Emotion Analysis
   - Data Science
   - Data Analysis
   - Text Classification
@@ -20,6 +22,7 @@ keywords:
   - Derin öğrenme
 ---
 
+* Source Code
 * Dataset
 * Import Libraries
 * Read and Preprocessing Data
@@ -41,6 +44,9 @@ keywords:
 Bu yapay zeka projesinde, **CNN** modelini kullanarak sosyal medya mesajları gibi metinlerde yer alan duyguları 
 tespit etmek hedeflenmiştir.
 
+# Source Code
+[GitHub](https://github.com/metehanozdeniz/emotion-analysis){:target="_blank"}
+{:.lead}
 
 # Dataset
 * [train.txt](https://gist.githubusercontent.com/metehanozdeniz/6ab60d22c0a6a0bd97e80ff6db0c8d19/raw/d1ba4d35bd5652cf422a0bc5d894abbf6ca9288a/train.txt)
