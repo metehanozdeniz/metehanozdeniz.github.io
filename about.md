@@ -2,6 +2,7 @@
 layout: about
 Title: About Me
 image: /assets/img/Per_aspera_ad_astra.jpg
+hide_description: true
 description: >
   My name is Metehan Özdeniz.
 ---

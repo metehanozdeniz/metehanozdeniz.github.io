@@ -53,10 +53,10 @@ menu:
     url:               /
   - title:             My Projects
     url:               /projects/
+  - title:             Machine Learning
+    url:               /machine-learning/
   - title:             Software
     url:               /software/
-  - title:             Cyber Security
-    url:               /cyber-security/
   - title:             About Me
     url:               /about/
 

@@ -3,14 +3,14 @@
 layout: list
 
 # The title of the tag's page.
-title: Cyber Security
+title: Machine Learning
 
 # The name of the tag, used in a post's front matter (e.g. tags: [<slug>]).
-slug: cyber-security
+slug: machine-learning
 
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
-  Anything about Cyber Security
+  Anything about ML
 
 # (Optional) You can disable grouping posts by date.
 # no_groups: true
@@ -18,5 +18,5 @@ description: >
 # Exclude this example category from the sitemap.
 # DON'T USE THIS SETTING IN YOUR CATEGORIES!
 sitemap: true
-menu: false
+menu: true
 ---
