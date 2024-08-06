@@ -3,7 +3,7 @@ layout: post
 title: Multiple Linear Regression Example
 categories: [machine-learning]
 tags: [linear-regression]
-image: /assets/img/machine-learning/mlr.gif
+image: /assets/img/machine-learning/seaborn_output.png
 description: |
   Multiple Linear Regression Example
 slug: multiple-linear-regression-example
