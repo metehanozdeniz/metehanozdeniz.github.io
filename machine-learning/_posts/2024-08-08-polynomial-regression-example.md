@@ -5,7 +5,7 @@ categories: [machine-learning]
 tags: [polynomial-regression]
 image: /assets/img/machine-learning/polynomial_regression.gif
 description: |
-  Polynomial Regression Example
+  Bu yazıda da eğitim seviyesi ile maaş miktarı arasındaki ilişkiyi inceleyen bir polynomial regression modelini ele alacağız.
 slug: polynomial-regression-example
 last_modified_at: 09.08.2024
 keywords:
@@ -20,6 +20,16 @@ keywords:
   - Veri Bilimi
   - Veri Analizi
 ---
+* Dataset
+* Import Libraries
+* Data Preprocessing
+  * Read Data
+  * Graphical Analysis of Data
+  * Split Data
+* Polynomial Regression
+  * Train and Predict
+* Visualize Results
+{:toc}
 Bu modelde, bağımsız değişkenler üzerindeki polinom terimleri (x, x², x³, vb.) eklenir. Bu sayede, verideki doğrusal olmayan ilişkiler yakalanabilir.
 
 y= β_0 + β_1 x_1 + β_2 x_2^2 + … + β_n + x_n^n
@@ -44,7 +54,7 @@ from sklearn.linear_model import LinearRegression
 
 # Data Preprocessing
 
-# Read Data
+## Read Data
 
 ~~~python
 data = pd.read_csv('salaries.csv')
