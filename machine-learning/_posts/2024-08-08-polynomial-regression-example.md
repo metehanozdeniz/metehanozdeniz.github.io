@@ -32,7 +32,7 @@ keywords:
 {:toc}
 Bu modelde, bağımsız değişkenler üzerindeki polinom terimleri (x, x², x³, vb.) eklenir. Bu sayede, verideki doğrusal olmayan ilişkiler yakalanabilir.
 
-y= β_0 + β_1 x_1 + β_2 x_2^2 + … + β_n + x_n^n
+$$ y= β_0 + β_1 x_1 + β_2 x_2^2 + … + β_n x_n^n $$
 
 Örneğin, doğrusal regresyon (lineer regresyon) bir veriyi düz bir çizgi ile modellemeye çalışırken, polynomial regresyon bu çizgiyi eğrilerle modelleyebilir. Bu özellikle verilerdeki karmaşık desenleri daha iyi yakalamak için faydalıdır.
 
@@ -218,4 +218,4 @@ plt.show()
 ~~~
 ![polynomial regression](/assets/img/machine-learning/polynomial_regression_scatter_and_plot2.png)
 
-Grafikten de anlaşılacağı üzere 4. derecen bir polynomial regression modeli daha iyi bir sonuç verdi.
+Grafikten de anlaşılacağı üzere 4. derece bir polynomial regression modeli daha iyi bir sonuç verdi.
