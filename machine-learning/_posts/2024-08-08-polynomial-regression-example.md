@@ -2,7 +2,7 @@
 layout: post
 title: Polynomial Regression Example
 categories: [machine-learning]
-tags: [polynomial-regression]
+tags: [prediction]
 image: /assets/img/machine-learning/polynomial_regression.gif
 description: |
   Bu yazıda da eğitim seviyesi ile maaş miktarı arasındaki ilişkiyi inceleyen bir polynomial regression modelini ele alacağız.

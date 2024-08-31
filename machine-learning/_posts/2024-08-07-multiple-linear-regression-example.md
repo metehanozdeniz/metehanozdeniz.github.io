@@ -2,7 +2,7 @@
 layout: post
 title: Multiple Linear Regression Example
 categories: [machine-learning]
-tags: [linear-regression]
+tags: [prediction]
 image: /assets/img/machine-learning/mlr.gif
 description: |
   Multiple Linear Regression Example

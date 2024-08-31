@@ -2,7 +2,7 @@
 layout: post
 title: Support Vector Regression (SVR) Example
 categories: [machine-learning]
-tags: [support-vector-regression]
+tags: [prediction]
 image: /assets/img/machine-learning/support_vector_regression_cover.png
 description: |
   Bu yazıda da eğitim seviyesi ile maaş miktarı arasındaki ilişkiyi inceleyen bir support vector regression modelini ele alacağız.
