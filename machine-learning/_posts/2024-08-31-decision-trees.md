@@ -262,8 +262,8 @@ predict_1 = dtr_1.predict(egitim_seviyesi_X)
 # Plot the results
 
 ~~~python
-plt.scatter(egitim_seviyesi_X, maas_Y, color='red', label='max_depth=None')
-plt.plot(egitim_seviyesi_X, predict_1, color='blue', label='Decision Tree Regression')
+plt.scatter(egitim_seviyesi_X, maas_Y, color='red', label='Dataset')
+plt.plot(egitim_seviyesi_X, predict_1, color='blue', label='max_depth=None')
 plt.title('Decision Tree Regression')
 plt.xlabel('Egitim Seviyesi')
 plt.ylabel('Maas')
