@@ -20,6 +20,8 @@ keywords:
   - Veri Bilimi
   - Veri Analizi
 ---
+* 1. Temel Kavramlar
+{:toc}
 
 Karar ağaçları, veriyi dallara ayırarak kararlar verir. Ağaç yapısı, kök düğümden (root) başlayarak, her düğümde bir özelliğin (feature) değeri üzerinden bir karar alır ve bu karara göre dallanarak ilerler. Son düğümler (yaprak düğümler) ise sınıflandırma veya regresyon sonuçlarını temsil eder.
 
