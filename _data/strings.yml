@@ -10,38 +10,38 @@
 
 # Free version
 # ---------------------------------------------------------------------------------------
-home:                  Ana Sayfa
-pages:                 Sayfalar
-posts:                 Postlar
-about:                 Hakkında
-related_posts:         İlgili Yazılar
-other_projects:        Diğer Projeler
-comments:              Yorumlar
-jump_to:               Git
-navigation:            Navigasyon
-social:                Sosyal
-links:                 Bağlantılar
+home:                  Home
+pages:                 Pages
+posts:                 Posts
+about:                 About
+related_posts:         Related Posts
+other_projects:        Other Projects
+comments:              Comments
+jump_to:               Jump to
+navigation:            Navigation
+social:                Social
+links:                 Links
 links_icon:            'icon-link'
-pagination:            Sayfalandırma
-newer:                 Yeni
-older:                 Eski
-forward:               İleri
-back:                  Geri
-permalink:             Kalıcı Bağlantı
+pagination:            Pagination
+newer:                 Newer
+older:                 Older
+forward:               Forward
+back:                  Back
+permalink:             Permalink
 permalink_icon:        'content-hash'
 templates:             Templates (for web app)
 present:               present
-toc:                   İçindekiler
-note:                  Not
-description:           Açıklama
-search:                Ara
-search_placeholder:    Birşeyler yaz...
+toc:                   Table of Contents
+note:                  Note
+description:           Description
+search:                Search
+search_placeholder:    Search...
 
-loading:               Yükleniyor...
-redirecting:           Yönlendiriliyor...
+loading:               Loading...
+redirecting:           Redirecting...
 
 continue_reading:      >
-  Okumaya devam et <!--post_title-->
+  Continue reading <!--post_title-->
 
 cookies_banner:
   text:                >
@@ -49,37 +49,37 @@ cookies_banner:
   okay:                Ok
 
 not_found:
-  title:               '404 Error: Sayfa Bulunamadı'
+  title:               '404 Error: Page Not Found'
   message:             |
-    Üzgünüm, aradığınız sayfa bulunamadı...
-    <!--home_link--> 'ya dönün.
-  home_link:           Ana Sayfa
+    Sorry, but the page you were trying to view does not exist.
+    Go back to the <!--home_link-->.
+  home_link:           Home
 
 offline:
-  title:               'İnternet Bağlantısı Yok.'
+  title:               'Offline'
   message:             |
-    Üzgünüm, internet bağlantınızın olduğundan emin olun...
+    It seems you're offline. Please reconnect to the internet and try again.
     <!--home_link--> 'ya dönün.
-  home_link:           Ana Sayfa
+  home_link:           Home
 
 error:
-  title:               Hata
+  title:               'Error'
   message:             |
-    Üzgünüm. Sayfa yüklenirken bir sorun oluştu. <!--link-->.
+    Sorry, but something went wrong. <!--link-->.
 
 # Separators
 # ---------------------------------------------------------------------------------------
-posted:                'Gönderildi'
-last_modified_at:      'Son değiştirilme tarihi'
+posted:                'Posted'
+last_modified_at:      'Last modified at'
 last_modified_at_icon: 'icon-history'
 colon:                 ':'
 separator:             '|'
-category_start:        'tarihinde '
+category_start:        'Categorized under '
 category_spearator:    ' / '
-tag_start:             'içinde '
+tag_start:             'tagged '
 tag_separator:         ', '
 from_to_separator:     '–'
-breadcrumbs_home:      'Ana Sayfa'
+breadcrumbs_home:      'Home'
 breadcrumbs_separator: '/'
 
 # Date formats

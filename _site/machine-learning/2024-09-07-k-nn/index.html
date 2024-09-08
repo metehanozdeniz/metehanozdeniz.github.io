@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>K-NN (K-Nearest Neighbors) | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="K-NN (K-Nearest Neighbors)" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="K-NN En Yakın Komşu (K-Nearest Neighbors) algoritması, gözetimli öğrenmeye dayalı ve temelde sınıflandırma veya regresyon problemlerinde kullanılan basit ve sezgisel bir algoritmadır. K-NN, bir veri noktasının sınıfını belirlemek için veri uzayındaki diğer noktalarla olan mesafelerini kullanır." />
+<meta property="og:description" content="K-NN En Yakın Komşu (K-Nearest Neighbors) algoritması, gözetimli öğrenmeye dayalı ve temelde sınıflandırma veya regresyon problemlerinde kullanılan basit ve sezgisel bir algoritmadır. K-NN, bir veri noktasının sınıfını belirlemek için veri uzayındaki diğer noktalarla olan mesafelerini kullanır." />
+<link rel="canonical" href="http://localhost:4000/machine-learning/2024-09-07-k-nn/" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/2024-09-07-k-nn/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/machine-learning/knn.gif" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-09-07T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/machine-learning/knn.gif" />
+<meta property="twitter:title" content="K-NN (K-Nearest Neighbors)" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-09-08T00:00:00+03:00","datePublished":"2024-09-07T00:00:00+03:00","description":"K-NN En Yakın Komşu (K-Nearest Neighbors) algoritması, gözetimli öğrenmeye dayalı ve temelde sınıflandırma veya regresyon problemlerinde kullanılan basit ve sezgisel bir algoritmadır. K-NN, bir veri noktasının sınıfını belirlemek için veri uzayındaki diğer noktalarla olan mesafelerini kullanır.","headline":"K-NN (K-Nearest Neighbors)","image":"http://localhost:4000/assets/img/machine-learning/knn.gif","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/2024-09-07-k-nn/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/machine-learning/2024-09-07-k-nn/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Artificial Intelligence,Machine Learning,Data Science,Data Analysis,K-NN,K-Nearest Neighbors,Yapay Zeka,Makine Öğrenmesi,En Yakın Komşu,Veri Bilimi,Veri Analizi">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/machine-learning/2024-09-07-k-nn/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/machine-learning/">machine-learning</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-09-07-k-nn</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-machine-learning-k-nn" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        K-NN (K-Nearest Neighbors)
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time> Categorized under <a href="/machine-learning/" class="flip-title">Machine Learning</a> tagged <a href="/tag-classification/" class="flip-title">Classification</a>
+           
+          <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 08 Sep 2024">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-09-08T00:00:00+03:00">08-09-2024</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/machine-learning/knn.gif"
+  
+  alt="K-NN (K-Nearest Neighbors)"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      K-NN En Yakın Komşu (K-Nearest Neighbors) algoritması, gözetimli öğrenmeye dayalı ve temelde sınıflandırma veya regresyon problemlerinde kullanılan basit ve sezgisel bir algoritmadır. K-NN, bir veri noktasının sınıfını belirlemek için veri uzayındaki diğer noktalarla olan mesafelerini kullanır.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <ul id="markdown-toc">
+  <li><a href="#1-k-nn-algoritması-nasıl-çalışır" id="markdown-toc-1-k-nn-algoritması-nasıl-çalışır">1. K-NN Algoritması Nasıl Çalışır?</a>    <ul>
+      <li><a href="#a-eğitim-verilerini-saklama" id="markdown-toc-a-eğitim-verilerini-saklama">a. Eğitim Verilerini Saklama:</a></li>
+      <li><a href="#b-mesafe-hesaplama" id="markdown-toc-b-mesafe-hesaplama">b. Mesafe Hesaplama:</a></li>
+      <li><a href="#c-k-en-yakın-komşuyu-bulma" id="markdown-toc-c-k-en-yakın-komşuyu-bulma">c. K En Yakın Komşuyu Bulma</a></li>
+      <li><a href="#d-sınıf-tahmini-sınıflandırma-veya-değer-tahmini-regresyon" id="markdown-toc-d-sınıf-tahmini-sınıflandırma-veya-değer-tahmini-regresyon">d. Sınıf Tahmini (Sınıflandırma) veya Değer Tahmini (Regresyon):</a>        <ul>
+          <li><a href="#sınıflandırma" id="markdown-toc-sınıflandırma">Sınıflandırma</a></li>
+          <li><a href="#regresyon" id="markdown-toc-regresyon">Regresyon</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#2-k-değerinin-önemi" id="markdown-toc-2-k-değerinin-önemi">2. K Değerinin Önemi</a></li>
+  <li><a href="#3-k-nnnin-avantajları-ve-dezavantajları" id="markdown-toc-3-k-nnnin-avantajları-ve-dezavantajları">3. K-NN’nin Avantajları ve Dezavantajları</a>    <ul>
+      <li><a href="#avantajlar" id="markdown-toc-avantajlar">Avantajlar:</a>        <ul>
+          <li><a href="#basitlik" id="markdown-toc-basitlik">Basitlik</a></li>
+          <li><a href="#parametrik-olmayan-yapı" id="markdown-toc-parametrik-olmayan-yapı">Parametrik Olmayan Yapı</a></li>
+          <li><a href="#eğitimsiz-model" id="markdown-toc-eğitimsiz-model">Eğitimsiz Model</a></li>
+        </ul>
+      </li>
+      <li><a href="#dezavantajlar" id="markdown-toc-dezavantajlar">Dezavantajlar</a>        <ul>
+          <li><a href="#hafıza-tüketimi" id="markdown-toc-hafıza-tüketimi">Hafıza Tüketimi</a></li>
+          <li><a href="#yavaşlık" id="markdown-toc-yavaşlık">Yavaşlık</a></li>
+          <li><a href="#kararsızlık-ambiguity" id="markdown-toc-kararsızlık-ambiguity">Kararsızlık (Ambiguity)</a></li>
+          <li><a href="#özniteliklerin-ölçeklendirilmesi" id="markdown-toc-özniteliklerin-ölçeklendirilmesi">Özniteliklerin Ölçeklendirilmesi</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#4-k-nnnin-uygulama-alanları" id="markdown-toc-4-k-nnnin-uygulama-alanları">4. K-NN’nin Uygulama Alanları</a></li>
+  <li><a href="#5-örnek-uygulama" id="markdown-toc-5-örnek-uygulama">5. Örnek Uygulama</a></li>
+  <li><a href="#dataset" id="markdown-toc-dataset">Dataset</a></li>
+  <li><a href="#import-the-necessary-modules-and-libraries" id="markdown-toc-import-the-necessary-modules-and-libraries">Import the necessary modules and libraries</a></li>
+  <li><a href="#description-of-dataset" id="markdown-toc-description-of-dataset">Description of Dataset</a>    <ul>
+      <li><a href="#read-data" id="markdown-toc-read-data">Read Data</a></li>
+    </ul>
+  </li>
+  <li><a href="#data-preprocessing" id="markdown-toc-data-preprocessing">Data Preprocessing</a>    <ul>
+      <li><a href="#checking-and-removing-nan-values" id="markdown-toc-checking-and-removing-nan-values">Checking and removing NAN values</a></li>
+      <li><a href="#duplicated" id="markdown-toc-duplicated">Duplicated</a></li>
+      <li><a href="#graphical-analysis-of-data" id="markdown-toc-graphical-analysis-of-data">Graphical Analysis of Data</a></li>
+      <li><a href="#splitting-data" id="markdown-toc-splitting-data">Splitting Data</a>        <ul>
+          <li><a href="#traintest-split" id="markdown-toc-traintest-split">Train/Test Split</a></li>
+        </ul>
+      </li>
+      <li><a href="#scaling-the-data" id="markdown-toc-scaling-the-data">Scaling the Data</a></li>
+    </ul>
+  </li>
+  <li><a href="#building-model" id="markdown-toc-building-model">Building Model</a>    <ul>
+      <li><a href="#find-the-best-k-value" id="markdown-toc-find-the-best-k-value">Find the best k value</a></li>
+      <li><a href="#create-a-knn-model" id="markdown-toc-create-a-knn-model">Create a KNN Model</a></li>
+      <li><a href="#fit-the-model" id="markdown-toc-fit-the-model">Fit the Model</a></li>
+    </ul>
+  </li>
+  <li><a href="#predict" id="markdown-toc-predict">Predict</a></li>
+  <li><a href="#evaluate" id="markdown-toc-evaluate">Evaluate</a>    <ul>
+      <li><a href="#accuracy-of-knn" id="markdown-toc-accuracy-of-knn">Accuracy of KNN</a></li>
+      <li><a href="#confusion-matrix" id="markdown-toc-confusion-matrix">Confusion Matrix</a></li>
+      <li><a href="#classification-report" id="markdown-toc-classification-report">Classification Report</a></li>
+    </ul>
+  </li>
+  <li><a href="#example-patient" id="markdown-toc-example-patient">Example Patient</a></li>
+</ul>
+<p>K-NN, yeni bir veri noktasını sınıflandırmak için eğitim veri kümesindeki en yakın K komşuyu dikkate alır. Bir veri noktasına en yakın K komşunun sınıflarına bakarak yeni veri noktasının hangi sınıfa ait olduğu tahmin edilir. Algoritma, eğitim süreci sırasında bir model oluşturmaz, sadece mevcut veri noktalarını saklar ve tahmin yaparken bu noktalar arasındaki mesafeyi kullanır.</p>
+
+<h1 id="1-k-nn-algoritması-nasıl-çalışır">1. K-NN Algoritması Nasıl Çalışır?</h1>
+
+<p>K-NN, aşağıdaki adımları izleyerek çalışır:</p>
+
+<h2 id="a-eğitim-verilerini-saklama">a. Eğitim Verilerini Saklama:</h2>
+
+<p>K-NN bir “lazy learning” algoritmasıdır, yani eğitim aşamasında yalnızca verileri saklar ve herhangi bir genelleme yapmaz. Model eğitimi sırasında hesaplama yapmaz, tüm hesaplamalar tahmin aşamasında gerçekleştirilir.</p>
+
+<h2 id="b-mesafe-hesaplama">b. Mesafe Hesaplama:</h2>
+
+<p>Bir yeni veri noktası geldiğinde, algoritma bu noktayı sınıflandırmak için eğitim veri kümesindeki tüm noktalarla olan mesafeyi hesaplar. Mesafe hesaplamada varsayılan olarak Minkowski mesafesi kullanılır, ancak bazı durumlarda Manhattan mesafesi, Euclidean mesafesi gibi başka mesafe ölçütleri de kullanılabilir.</p>
+
+<p>Minkowski Distance:</p>
+
+\[d(x, y) = \left( \sum_{i=1}^{n}{\left|x_i - y_i\right|^p}\right)^{\frac{1}{p}}\]
+
+<p><img src="/assets/img/machine-learning/minkowski.jpg" alt="Minkowski Distance" /></p>
+
+<p>Euclidean Distance:</p>
+
+\[d(p,q) = \sqrt{\sum_{i=1}^{n}{(p_i - q_i)^2}} = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}\]
+
+<p><img src="/assets/img/machine-learning/Euclidean_distance.svg" alt="Euclidean Distance" /></p>
+
+<h2 id="c-k-en-yakın-komşuyu-bulma">c. K En Yakın Komşuyu Bulma</h2>
+
+<p>Mesafeler hesaplandıktan sonra, yeni veri noktasına en yakın olan K adet veri noktası seçilir. Buradaki K, modelin bir hiperparametresidir ve seçilen en yakın komşuların sayısını ifade eder. K sayısı genellikle deneysel olarak belirlenir.</p>
+
+<p><img src="/assets/img/machine-learning/k_value.webp" alt="k value" /></p>
+
+<h2 id="d-sınıf-tahmini-sınıflandırma-veya-değer-tahmini-regresyon">d. Sınıf Tahmini (Sınıflandırma) veya Değer Tahmini (Regresyon):</h2>
+
+<h3 id="sınıflandırma">Sınıflandırma</h3>
+<p>K en yakın komşunun sınıflarına bakılır ve en çok tekrar eden sınıf, yeni veri noktasının sınıfı olarak atanır (çoğunluk oyu prensibi). Örneğin, en yakın komşular arasında 3 veri noktası varsa ve bunların ikisi sınıf A’ya ait, biri sınıf B’ye aitse, yeni nokta sınıf A olarak sınıflandırılır.</p>
+
+<p><img src="/assets/img/machine-learning/knn_classification.gif" alt="knn classification" /></p>
+
+<h3 id="regresyon">Regresyon</h3>
+
+<p>K en yakın komşunun değerlerinin ortalaması alınarak yeni veri noktasının değeri tahmin edilir.</p>
+
+<h1 id="2-k-değerinin-önemi">2. K Değerinin Önemi</h1>
+
+<p>K değeri algoritmanın başarısını doğrudan etkiler:</p>
+<ul>
+  <li>Eğer K değeri çok küçük seçilirse (örneğin K=1), model aşırı öğrenme (overfitting) yapabilir, yani eğitim verisine çok duyarlı hale gelir ve genelleme yeteneği zayıflar.</li>
+  <li>Eğer K değeri çok büyük seçilirse, bu sefer modelin genelleme yeteneği artar ancak bazı detayları göz ardı edebilir, bu da modelin yetersiz öğrenmesine (underfitting) yol açabilir.</li>
+</ul>
+
+<p>Genellikle K değeri olarak tek sayı tercih edilir ki, çoğunluk oyu prensibiyle karışıklık olmasın.</p>
+
+<h1 id="3-k-nnnin-avantajları-ve-dezavantajları">3. K-NN’nin Avantajları ve Dezavantajları</h1>
+
+<h2 id="avantajlar">Avantajlar:</h2>
+
+<h3 id="basitlik">Basitlik</h3>
+<p>Algoritma oldukça basit ve sezgiseldir. Eğitimi oldukça hızlıdır çünkü sadece veri noktalarını saklar.</p>
+
+<h3 id="parametrik-olmayan-yapı">Parametrik Olmayan Yapı</h3>
+<p>K-NN, parametrik olmayan bir yöntemdir, yani veriyi herhangi bir dağılım varsayımına zorlamaz.</p>
+
+<h3 id="eğitimsiz-model">Eğitimsiz Model</h3>
+<p>K-NN modelinde herhangi bir eğitim aşaması olmadığından, dinamik verilerle kolayca kullanılabilir.</p>
+
+<h2 id="dezavantajlar">Dezavantajlar</h2>
+
+<h3 id="hafıza-tüketimi">Hafıza Tüketimi</h3>
+<p>K-NN, tüm eğitim verilerini sakladığı için hafıza açısından maliyetli olabilir.</p>
+
+<h3 id="yavaşlık">Yavaşlık</h3>
+<p>K-NN, tahmin aşamasında her veri noktası için tüm mesafeleri hesapladığından büyük veri kümelerinde yavaş çalışabilir.</p>
+
+<h3 id="kararsızlık-ambiguity">Kararsızlık (Ambiguity)</h3>
+<p>K en yakın komşular arasında eşit oy dağılımı varsa hangi sınıfın seçileceği konusunda kararsızlık oluşabilir.</p>
+
+<h3 id="özniteliklerin-ölçeklendirilmesi">Özniteliklerin Ölçeklendirilmesi</h3>
+<p>Veriler arasında büyük ölçek farkları varsa, mesafe hesaplamaları yanıltıcı olabilir. Bu nedenle özellik ölçeklendirme (normalizasyon veya standartlaştırma) çoğunlukla gereklidir.</p>
+
+<h1 id="4-k-nnnin-uygulama-alanları">4. K-NN’nin Uygulama Alanları</h1>
+
+<ul>
+  <li><strong>Sınıflandırma Problemleri :</strong> E-posta spam sınıflandırma, el yazısı karakter tanıma, hastalık tespiti gibi.</li>
+  <li><strong>Regresyon Problemleri :</strong> Ev fiyat tahmini gibi.</li>
+  <li><strong>Öneri Sistemleri :</strong> Benzer kullanıcılar veya öğeler arasındaki yakınlıkları kullanarak önerilerde bulunmak.</li>
+</ul>
+
+<p>K-NN, basitliği ve sezgiselliği ile küçük veri kümelerinde etkili bir sınıflandırma ve regresyon algoritmasıdır. Ancak büyük veri kümelerinde hesaplama maliyeti yüksek olabileceğinden, veri yapıları veya hızlandırma teknikleriyle birlikte kullanılabilir. Optimal K değeri deneysel olarak belirlenmelidir, bu sayede doğru denge sağlanabilir.</p>
+
+<h1 id="5-örnek-uygulama">5. Örnek Uygulama</h1>
+
+<p>K-NN algoritmasını kullanarak meme kanserini tespit eden bir model oluşturalım.</p>
+
+<h1 id="dataset">Dataset</h1>
+
+<ul>
+  <li><a href="/assets/datasets/breast_cancer_dataset.csv">breast_cancer_dataset.csv</a></li>
+</ul>
+
+<h1 id="import-the-necessary-modules-and-libraries">Import the necessary modules and libraries</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="p">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">"ignore"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="description-of-dataset">Description of Dataset</h1>
+
+<h2 id="read-data">Read Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'breast_cancer_dataset.csv'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         id diagnosis  radius_mean  texture_mean  perimeter_mean  area_mean  \
+0    842302         M        17.99         10.38          122.80     1001.0   
+1    842517         M        20.57         17.77          132.90     1326.0   
+2  84300903         M        19.69         21.25          130.00     1203.0   
+3  84348301         M        11.42         20.38           77.58      386.1   
+4  84358402         M        20.29         14.34          135.10     1297.0   
+
+   smoothness_mean  compactness_mean  concavity_mean  concave points_mean  \
+0          0.11840           0.27760          0.3001              0.14710   
+1          0.08474           0.07864          0.0869              0.07017   
+2          0.10960           0.15990          0.1974              0.12790   
+3          0.14250           0.28390          0.2414              0.10520   
+4          0.10030           0.13280          0.1980              0.10430   
+
+   ...  texture_worst  perimeter_worst  area_worst  smoothness_worst  \
+0  ...          17.33           184.60      2019.0            0.1622   
+1  ...          23.41           158.80      1956.0            0.1238   
+2  ...          25.53           152.50      1709.0            0.1444   
+3  ...          26.50            98.87       567.7            0.2098   
+4  ...          16.67           152.20      1575.0            0.1374   
+
+   compactness_worst  concavity_worst  concave points_worst  symmetry_worst  \
+0             0.6656           0.7119                0.2654          0.4601   
+1             0.1866           0.2416                0.1860          0.2750   
+2             0.4245           0.4504                0.2430          0.3613   
+3             0.8663           0.6869                0.2575          0.6638   
+4             0.2050           0.4000                0.1625          0.2364   
+
+   fractal_dimension_worst  Unnamed: 32  
+0                  0.11890          NaN  
+1                  0.08902          NaN  
+2                  0.08758          NaN  
+3                  0.17300          NaN  
+4                  0.07678          NaN  
+
+[5 rows x 33 columns]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">describe</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 id  radius_mean  texture_mean  perimeter_mean    area_mean  \
+count  5.690000e+02   569.000000    569.000000      569.000000   569.000000   
+mean   3.037183e+07    14.127292     19.289649       91.969033   654.889104   
+std    1.250206e+08     3.524049      4.301036       24.298981   351.914129   
+min    8.670000e+03     6.981000      9.710000       43.790000   143.500000   
+25%    8.692180e+05    11.700000     16.170000       75.170000   420.300000   
+50%    9.060240e+05    13.370000     18.840000       86.240000   551.100000   
+75%    8.813129e+06    15.780000     21.800000      104.100000   782.700000   
+max    9.113205e+08    28.110000     39.280000      188.500000  2501.000000   
+
+       smoothness_mean  compactness_mean  concavity_mean  concave points_mean  \
+count       569.000000        569.000000      569.000000           569.000000   
+mean          0.096360          0.104341        0.088799             0.048919   
+std           0.014064          0.052813        0.079720             0.038803   
+min           0.052630          0.019380        0.000000             0.000000   
+25%           0.086370          0.064920        0.029560             0.020310   
+50%           0.095870          0.092630        0.061540             0.033500   
+75%           0.105300          0.130400        0.130700             0.074000   
+max           0.163400          0.345400        0.426800             0.201200   
+
+       symmetry_mean  ...  texture_worst  perimeter_worst   area_worst  \
+count     569.000000  ...     569.000000       569.000000   569.000000   
+mean        0.181162  ...      25.677223       107.261213   880.583128   
+std         0.027414  ...       6.146258        33.602542   569.356993   
+min         0.106000  ...      12.020000        50.410000   185.200000   
+25%         0.161900  ...      21.080000        84.110000   515.300000   
+50%         0.179200  ...      25.410000        97.660000   686.500000   
+75%         0.195700  ...      29.720000       125.400000  1084.000000   
+max         0.304000  ...      49.540000       251.200000  4254.000000   
+
+       smoothness_worst  compactness_worst  concavity_worst  \
+count        569.000000         569.000000       569.000000   
+mean           0.132369           0.254265         0.272188   
+std            0.022832           0.157336         0.208624   
+min            0.071170           0.027290         0.000000   
+25%            0.116600           0.147200         0.114500   
+50%            0.131300           0.211900         0.226700   
+75%            0.146000           0.339100         0.382900   
+max            0.222600           1.058000         1.252000   
+
+       concave points_worst  symmetry_worst  fractal_dimension_worst  \
+count            569.000000      569.000000               569.000000   
+mean               0.114606        0.290076                 0.083946   
+std                0.065732        0.061867                 0.018061   
+min                0.000000        0.156500                 0.055040   
+25%                0.064930        0.250400                 0.071460   
+50%                0.099930        0.282200                 0.080040   
+75%                0.161400        0.317900                 0.092080   
+max                0.291000        0.663800                 0.207500   
+
+       Unnamed: 32  
+count          0.0  
+mean           NaN  
+std            NaN  
+min            NaN  
+25%            NaN  
+50%            NaN  
+75%            NaN  
+max            NaN  
+
+[8 rows x 32 columns]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">info</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 569 entries, 0 to 568
+Data columns (total 33 columns):
+ #   Column                   Non-Null Count  Dtype  
+---  ------                   --------------  -----  
+ 0   id                       569 non-null    int64  
+ 1   diagnosis                569 non-null    object 
+ 2   radius_mean              569 non-null    float64
+ 3   texture_mean             569 non-null    float64
+ 4   perimeter_mean           569 non-null    float64
+ 5   area_mean                569 non-null    float64
+ 6   smoothness_mean          569 non-null    float64
+ 7   compactness_mean         569 non-null    float64
+ 8   concavity_mean           569 non-null    float64
+ 9   concave points_mean      569 non-null    float64
+ 10  symmetry_mean            569 non-null    float64
+ 11  fractal_dimension_mean   569 non-null    float64
+ 12  radius_se                569 non-null    float64
+ 13  texture_se               569 non-null    float64
+ 14  perimeter_se             569 non-null    float64
+ 15  area_se                  569 non-null    float64
+ 16  smoothness_se            569 non-null    float64
+ 17  compactness_se           569 non-null    float64
+ 18  concavity_se             569 non-null    float64
+ 19  concave points_se        569 non-null    float64
+ 20  symmetry_se              569 non-null    float64
+ 21  fractal_dimension_se     569 non-null    float64
+ 22  radius_worst             569 non-null    float64
+ 23  texture_worst            569 non-null    float64
+ 24  perimeter_worst          569 non-null    float64
+ 25  area_worst               569 non-null    float64
+ 26  smoothness_worst         569 non-null    float64
+ 27  compactness_worst        569 non-null    float64
+ 28  concavity_worst          569 non-null    float64
+ 29  concave points_worst     569 non-null    float64
+ 30  symmetry_worst           569 non-null    float64
+ 31  fractal_dimension_worst  569 non-null    float64
+ 32  Unnamed: 32              0 non-null      float64
+dtypes: float64(31), int64(1), object(1)
+memory usage: 146.8+ KB
+None
+</code></pre></div></div>
+
+<h1 id="data-preprocessing">Data Preprocessing</h1>
+
+<p>Verisetinde <code class="language-plaintext highlighter-rouge">diagnosis</code> sütunu teşhisi belirtiyor:</p>
+<ul>
+  <li>M - (malignant) : Kötü huylu (cancer)</li>
+  <li>B - (benign) : İyi huylu (non-cancerous)</li>
+</ul>
+
+<p>Bu <strong>M</strong> ve <strong>B</strong> değerlerini mapping işlemi ile sayısal değerlere dönüştürüyorum. (Kötü huylu 1 ve iyi huylu 0)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'diagnosis'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'diagnosis'</span><span class="p">].</span><span class="nb">map</span><span class="p">({</span><span class="s">'M'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'B'</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'diagnosis'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diagnosis
+0    357
+1    212
+Name: count, dtype: int64
+</code></pre></div></div>
+
+<h2 id="checking-and-removing-nan-values">Checking and removing NAN values</h2>
+
+<p>Şimdi verisetinden <code class="language-plaintext highlighter-rouge">NaN</code> değerleri çıkartıyorum.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id                           0
+diagnosis                    0
+radius_mean                  0
+texture_mean                 0
+perimeter_mean               0
+area_mean                    0
+smoothness_mean              0
+compactness_mean             0
+concavity_mean               0
+concave points_mean          0
+symmetry_mean                0
+fractal_dimension_mean       0
+radius_se                    0
+texture_se                   0
+perimeter_se                 0
+area_se                      0
+smoothness_se                0
+compactness_se               0
+concavity_se                 0
+concave points_se            0
+symmetry_se                  0
+fractal_dimension_se         0
+radius_worst                 0
+texture_worst                0
+perimeter_worst              0
+area_worst                   0
+smoothness_worst             0
+compactness_worst            0
+concavity_worst              0
+concave points_worst         0
+symmetry_worst               0
+fractal_dimension_worst      0
+Unnamed: 32                569
+dtype: int64
+</code></pre></div></div>
+
+<p>Sadece hiç değer verilmeyen isimsiz bir sütun (<code class="language-plaintext highlighter-rouge">Unnamed</code>) var. O sütunu çıkartıyorum</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id                         0
+diagnosis                  0
+radius_mean                0
+texture_mean               0
+perimeter_mean             0
+area_mean                  0
+smoothness_mean            0
+compactness_mean           0
+concavity_mean             0
+concave points_mean        0
+symmetry_mean              0
+fractal_dimension_mean     0
+radius_se                  0
+texture_se                 0
+perimeter_se               0
+area_se                    0
+smoothness_se              0
+compactness_se             0
+concavity_se               0
+concave points_se          0
+symmetry_se                0
+fractal_dimension_se       0
+radius_worst               0
+texture_worst              0
+perimeter_worst            0
+area_worst                 0
+smoothness_worst           0
+compactness_worst          0
+concavity_worst            0
+concave points_worst       0
+symmetry_worst             0
+fractal_dimension_worst    0
+dtype: int64
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">id</code> sütunu bir işe yaramayacağı için <code class="language-plaintext highlighter-rouge">id</code> sütununuda çıkartıyorum.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Index(['diagnosis', 'radius_mean', 'texture_mean', 'perimeter_mean',
+       'area_mean', 'smoothness_mean', 'compactness_mean', 'concavity_mean',
+       'concave points_mean', 'symmetry_mean', 'fractal_dimension_mean',
+       'radius_se', 'texture_se', 'perimeter_se', 'area_se', 'smoothness_se',
+       'compactness_se', 'concavity_se', 'concave points_se', 'symmetry_se',
+       'fractal_dimension_se', 'radius_worst', 'texture_worst',
+       'perimeter_worst', 'area_worst', 'smoothness_worst',
+       'compactness_worst', 'concavity_worst', 'concave points_worst',
+       'symmetry_worst', 'fractal_dimension_worst'],
+      dtype='object')
+</code></pre></div></div>
+
+<h2 id="duplicated">Duplicated</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">duplicated</span><span class="p">().</span><span class="nb">sum</span><span class="p">()</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<h2 id="graphical-analysis-of-data">Graphical Analysis of Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># graph shows that there are some features that are highly correlated with each other
+</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'.0%'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/breast_cancer_heatmap.png" alt="breast cancer heatmap" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'radius_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'radius_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'texture_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'texture_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'perimeter_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'perimeter_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'area_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'area_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'smoothness_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'smoothness_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'compactness_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'compactness_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'concavity_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'concavity_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'concave points_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'concave points_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'symmetry_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'symmetry_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'fractal_dimension_mean'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'fractal_dimension_worst'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/breast_cancer_scatterplot.png" alt="breast cancer scatterplot" /></p>
+
+<h2 id="splitting-data">Splitting Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'diagnosis'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'diagnosis'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="traintest-split">Train/Test Split</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x_test</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(455, 30) (114, 30)
+</code></pre></div></div>
+
+<h2 id="scaling-the-data">Scaling the Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="building-model">Building Model</h1>
+
+<h2 id="find-the-best-k-value">Find the best k value</h2>
+
+<p>1’den 20’ye kadar olan bütün <code class="language-plaintext highlighter-rouge">k</code> değerlerini teker teker deneyerek en iyi <code class="language-plaintext highlighter-rouge">k</code> değerini bulmaya çalışalım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">find_best_k</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+    <span class="s">"""
+    This function finds the best value of K for KNN algorithm
+    
+    Parameters:
+    x_train: Training data
+    y_train: Training labels
+
+    Returns:
+    best_k: Best value of K for KNN algorithm
+
+    Example:
+    k = find_best_k(x_train, y_train)
+    """</span>
+
+    <span class="n">k_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">k_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_range</span><span class="p">:</span>
+        <span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">knn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s">'accuracy'</span><span class="p">)</span>
+        <span class="n">k_scores</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span>
+
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_range</span><span class="p">,</span> <span class="n">k_scores</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Value of K for KNN'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Cross-Validated Accuracy'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Value of K for KNN vs Cross-Validated Accuracy'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">best_k</span> <span class="o">=</span> <span class="n">k_scores</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">k_scores</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Best K value is: '</span><span class="p">,</span> <span class="n">best_k</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">best_k</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">k</span> <span class="o">=</span> <span class="n">find_best_k</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/value_of_best_k.png" alt="Value of K for KNN vs Cross-Validated Accuracy" /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Best K value is:  8
+</code></pre></div></div>
+
+<p>Görüldüğü üzere en iyi <code class="language-plaintext highlighter-rouge">k</code> değerini 8 olarak belirledik. Şimdi <code class="language-plaintext highlighter-rouge">k</code> değerini 8 alarak K-NN modelini oluşturalım.</p>
+
+<h2 id="create-a-knn-model">Create a KNN Model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">'minkowski'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="fit-the-model">Fit the Model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">knn</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div></div>
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsClassifier(n_neighbors=8)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked="" /><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">KNeighborsClassifier</label><div class="sk-toggleable__content"><pre>KNeighborsClassifier(n_neighbors=8)</pre></div></div></div></div></div>
+
+<h1 id="predict">Predict</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="evaluate">Evaluate</h1>
+
+<h2 id="accuracy-of-knn">Accuracy of KNN</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'Accuracy of KNN: '</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Accuracy of KNN:  0.956140350877193
+</code></pre></div></div>
+
+<h2 id="confusion-matrix">Confusion Matrix</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'d'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'Blues'</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'Cancer'</span><span class="p">,</span> <span class="s">'Non-Cancer'</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'Cancer'</span><span class="p">,</span> <span class="s">'Non-Cancer'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Confusion Matrix of KNN'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/confusion_matrix_breast_cancer.png" alt="confusion matrix" /></p>
+
+<h2 id="classification-report">Classification Report</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96        67
+           1       1.00      0.89      0.94        47
+
+    accuracy                           0.96       114
+   macro avg       0.97      0.95      0.95       114
+weighted avg       0.96      0.96      0.96       114
+</code></pre></div></div>
+
+<p>Metriklerden de anlaşılacağı üzere 0.96 accuracy (kesinlik) değerine ve 0.95 f1 scoruna sahip kabul edilebilir ölçüde bir model oluşturduk.</p>
+
+<p>Yani modelimiz oldukça başarılı bir şekilde kanserli ve kansersiz hücreleri ayırt edebiliyor.</p>
+
+<h1 id="example-patient">Example Patient</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">example_patient</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">700.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span>
+                    <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span>
+                    <span class="mf">0.004</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">,</span> <span class="mf">800.0</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">]]</span>
+
+<span class="n">example_patient_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sc</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">example_patient</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">example_patient_pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Example patient has benign tumor'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Example patient has malignant tumor'</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Example patient has malignant tumor
+</code></pre></div></div>
+
+<p>Örnek hastanın değerleri verildiğinde, modelimiz bu hastanın kanserli olduğunu tahmin etti.</p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/machine-learning/2024-09-07-k-nn/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-08-31-decision-trees/" class="flip-title"><span>Decision Trees</span></a>      <time class="faded fine" datetime="2024-08-31T00:00:00+03:00">31 Aug 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-08-31-decision-trees/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

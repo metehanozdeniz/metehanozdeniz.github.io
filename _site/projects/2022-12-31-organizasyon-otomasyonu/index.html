@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>C ile Organizasyon Otomasyonu | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="C ile Organizasyon Otomasyonu" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="C Programlama dili ile struct veri tipi ve dinamik bellek tahsis fonksiyonları kullanarak bir otomasyon projesi yaptım." />
+<meta property="og:description" content="C Programlama dili ile struct veri tipi ve dinamik bellek tahsis fonksiyonları kullanarak bir otomasyon projesi yaptım." />
+<link rel="canonical" href="http://localhost:4000/projects/2022-12-31-organizasyon-otomasyonu/" />
+<meta property="og:url" content="http://localhost:4000/projects/2022-12-31-organizasyon-otomasyonu/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/projects/dynamic-memory-allocation.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-12-31T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/projects/dynamic-memory-allocation.jpg" />
+<meta property="twitter:title" content="C ile Organizasyon Otomasyonu" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2023-08-01T00:00:00+03:00","datePublished":"2022-12-31T00:00:00+03:00","description":"C Programlama dili ile struct veri tipi ve dinamik bellek tahsis fonksiyonları kullanarak bir otomasyon projesi yaptım.","headline":"C ile Organizasyon Otomasyonu","image":"http://localhost:4000/assets/img/projects/dynamic-memory-allocation.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/2022-12-31-organizasyon-otomasyonu/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/projects/2022-12-31-organizasyon-otomasyonu/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="C,Organizasyon Otomasyonu,Dinamik Bellek Tahsis,dynamic memory allocation in c,organization automation">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/projects/2022-12-31-organizasyon-otomasyonu/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/projects/">projects</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2022-12-31-organizasyon-otomasyonu</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-projects-organizasyon-otomasyonu" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        C ile Organizasyon Otomasyonu
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2022-12-31T00:00:00+03:00">31 Dec 2022</time> Categorized under <a href="/projects/" class="flip-title">My Projects</a> tagged <span>C</span>
+           
+          <span class="clap-count" data-url="http://localhost:4000/projects/2022-12-31-organizasyon-otomasyonu/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 01 Aug 2023">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2023-08-01T00:00:00+03:00">01-08-2023</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/projects/dynamic-memory-allocation.jpg"
+  
+  alt="C ile Organizasyon Otomasyonu"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      C Programlama dili ile struct veri tipi ve dinamik bellek tahsis fonksiyonları kullanarak bir otomasyon projesi yaptım.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Bir organizasyon şirketi yurt dışında geziye giden kafileye organizasyon hizmeti sağlamaktadır. Müşterilerin farklı seçim alternatifleri bulunmaktadır.</p>
+
+<ul>
+  <li>Müşteriler 75 TL’ye kahvaltı, 100 TL’ye akşam yemeği veya hiç ödemeyerek yemek hizmeti almayabilirler.</li>
+  <li>Otel hizmet almak zorunlu değildir. Fakat otel hizmeti almak isteyenler için iki otel seçeneği mevcuttur. Müşteriler 2 yıldızlı otelde 200 TL’ye ve 3 yıldızlı otelde 300 TL’ye konaklayabilirler.</li>
+  <li>Müşterilerin yurt dışına çıkışı için iki farklı vasıta seçeneği sunulmuş olup, otobüs ile gidenler 150 TL’ye, uçak ile gidenler ise 250 TL’ye gidebilirler.</li>
+</ul>
+
+<p>Bu verilerin saklanması için iç içe struct veri tipi kullanıldı. _ musteri_bilgileri _ adında bir struct tanımlandı. Struct yapısında müşteri numarası, müşterinin adı, müşterinin soyadı, kahvaltı hizmeti, akşam yemeği hizmeti, otel hizmeti ve otelde konaklayacaksa kaç yıldızlı otelde kalıp kalmayacağı tanımlandı. Ayrıca bu struct yapısının içinde tekrar _ tasit _ isminde bir struct tanımlanarak müşterinin yurt dışına hangi vasıta ile gideceği bilgisi tutuldu. Bu iç içe struct yapısının boş görünmemesi için başlangıçta dinamik bellek fonksiyonları kullanılarak _ ornek_veriler _ isminde bir fonksiyon ile örnek verilerle dolduruldu.</p>
+
+<p>Bu iç içe struct yapısı için _ ekleme, silme, güncelleme ve listeleme _ işlemleri dinamik bellek tahsis fonksiyonları kullanılarak ayrı ayrı fonksiyonlarda yapıldı.</p>
+
+<p>Müşterilerin aldığı hizmetler için ödemesi gereken tutarın hesaplama işlemi, _ fatura_hesapla _ isimli bir fonksiyonda yapıldı.</p>
+
+<p>Müşterilerin hangi vasıta ile yurt dışına gideceğinin listelemesini yapan _ vasita_listele _ isimli fonksiyon oluşturuldu.</p>
+
+<p>Bu yapılan işlemler için aktif olarak kullanılabilir bir menü hazırlandı. Menünün daha anlaşılabilir görünmesi için ilgili menü seçenekleri renklendirildi.</p>
+
+<p class="note">Proje GCC derleyici ile hazırlanmış olup çalışması için sadece GCC derleyicisine gereksinim duymaktadır. Kullanılan GCC versiyonu 6.3.0 dır.</p>
+
+<p><a href="https://github.com/metehanozdeniz/organizasyon-otomasyonu/archive/refs/heads/main.zip">Download</a>   <a href="https://github.com/metehanozdeniz/organizasyon-otomasyonu">GitHub</a></p>
+
+<h1 id="code-">Code :</h1>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// file: "main.c"</span>
+<span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="c1">//Renk kodları tanımlamaları</span>
+<span class="cp">#define KIRMIZI "\e[0;31m"
+#define CYN "\e[0;36m"
+#define MAGENTA "\e[0;35m"
+#define KALIN_MAVI "\e[1;34m"
+#define YESIL "\e[0;32m"
+#define RENK_SIFIRLA "\e[0m"
+</span>
+<span class="k">struct</span> <span class="n">musteri_bilgileri</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">musteri_numarasi</span><span class="p">;</span> <span class="c1">// Her müsteriye ait identity</span>
+    <span class="kt">char</span> <span class="n">isim</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="n">soyisim</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">kahvalti_varmi</span><span class="p">;</span>    <span class="c1">// 0=hayir 1=evet</span>
+    <span class="kt">int</span> <span class="n">aksamyemegi_varmi</span><span class="p">;</span> <span class="c1">// 0=hayir 1=evet</span>
+    <span class="kt">int</span> <span class="n">hotel</span><span class="p">;</span>             <span class="c1">// 1=otel yok 2=2 yildizli 3=3 yildizli</span>
+    <span class="k">struct</span> <span class="n">tasit</span> <span class="c1">//Müşterinin yurt dışına hangi vasıta ile gideceğini tutan struct yapısı</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">ucak</span><span class="p">;</span> <span class="c1">//ucak ile gidiyorsa 1 gitmiyorsa 0</span>
+        <span class="kt">int</span> <span class="n">otobus</span><span class="p">;</span> <span class="c1">//otosbus ile gidiyorsa 1 gitmiyorsa 0</span>
+    <span class="p">}</span><span class="n">vasita</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">ptr_musteri_listesi</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">toplam_musteri_sayisi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Dinamik bellek fonksiyonlarında bellekte ayrılan boyutu kontrol edebilmek için bu değişkeni kullandım</span>
+
+<span class="cp">#pragma region "Fonksiyonlar"
+</span><span class="kt">void</span> <span class="nf">ornek_veriler</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// Dinamik bellek tahsisi(Örnek veriler için)</span>
+    <span class="n">ptr_musteri_listesi</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Bellek tahsisi basarisiz.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// Müşteri bilgilerinin doldurulması (Örnek Veriler)</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="s">"Metehan"</span><span class="p">);</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">,</span> <span class="s">"Ozdenz"</span><span class="p">);</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="s">"Mucahit"</span><span class="p">);</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">,</span> <span class="s">"Duman"</span><span class="p">);</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="s">"Serkan"</span><span class="p">);</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">,</span> <span class="s">"Altnok"</span><span class="p">);</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="s">"Ridvan"</span><span class="p">);</span>
+        <span class="n">strcpy</span><span class="p">((</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">,</span> <span class="s">"Kunt"</span><span class="p">);</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">ptr_musteri_listesi</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="n">toplam_musteri_sayisi</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">musteriler</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">bilgiler</span><span class="p">,</span> <span class="kt">int</span> <span class="n">musteri_sayisi</span><span class="p">)</span> <span class="c1">//Müşteri listeleme fonksiyonu</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri Listesi :</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">musteri_sayisi</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri No : %d</span><span class="se">\t</span><span class="s"> Ad : %s</span><span class="se">\t</span><span class="s"> Soyad : %s</span><span class="se">\t</span><span class="s"> Otel: %d</span><span class="se">\t</span><span class="s"> Kahvalti: %d</span><span class="se">\t</span><span class="s"> Aksam Yemegi: %d</span><span class="se">\t</span><span class="s"> Otobus: %d</span><span class="se">\t</span><span class="s"> Ucak : %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span><span class="p">,</span> <span class="p">(</span><span class="n">bilgiler</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">musteri_ekle</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">mus</span><span class="p">,</span> <span class="kt">int</span> <span class="n">musteri_sayisi</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Yeniden bellek tahsisi</span>
+    <span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+    <span class="n">ptr</span> <span class="o">=</span> <span class="n">mus</span><span class="p">;</span>
+    <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="p">)</span><span class="n">realloc</span><span class="p">(</span><span class="n">mus</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri_sayisi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Bellek tahsisi basarisiz.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri numarasini girin :"</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musterinin ismini girin :"</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musterinin soyismini girin : "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri otelde kaliyor mu?( kalmiyorsa 1, 2 yildizli ise 2, 3 yildizli ise 3 girin) : "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri kahvalti aldi mi? (evet -&gt;1, hayir -&gt;0) : "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri aksam yemegi aldi mi? (evet -&gt;1, hayir -&gt;0) : "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri ucakla mi gidecek? (Ucakla gidcekse 1 gitemeyecekse 0) :"</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri otobusle mi gidecek? (Otobusle gidcekse 1 gitemeyecekse 0) :"</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">musteri_sayisi</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span><span class="p">);</span>
+
+    <span class="n">toplam_musteri_sayisi</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">musteriler</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri eklendi....</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">ptr_musteri_listesi</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">musteri_sil</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">musteri</span><span class="p">,</span> <span class="kt">int</span> <span class="n">musteri_sayisi</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">musteri_numarasi</span><span class="p">,</span> <span class="n">konum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Silinecek musterinin numarasini girin: "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">musteri_numarasi</span><span class="p">);</span>
+
+    <span class="c1">// Müşterinin konumunun bulunması</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">musteri_sayisi</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span> <span class="o">==</span> <span class="n">musteri_numarasi</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">konum</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">konum</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri bulunamadi.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Silinecek musteri: %d, %s, %s</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">);</span>
+        <span class="c1">// Müşteri silinir. Yani silinecek kişiden sonraki müşteriler, bellekte bir öncekinin yerine yazılır.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">konum</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">musteri_sayisi</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="o">*</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// Dinamik bellek boyutunun azaltılması</span>
+        <span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">ptrmusteri</span><span class="p">;</span>
+        <span class="n">ptrmusteri</span> <span class="o">=</span> <span class="n">musteri</span><span class="p">;</span>
+        <span class="n">ptrmusteri</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="p">)</span><span class="n">realloc</span><span class="p">(</span><span class="n">musteri</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri_sayisi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span><span class="p">));</span>
+        <span class="n">toplam_musteri_sayisi</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">ptr_musteri_listesi</span> <span class="o">=</span> <span class="n">ptrmusteri</span><span class="p">;</span>
+        <span class="n">musteriler</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span><span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Musteri silindi....</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">musteri_guncelle</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">musteri</span><span class="p">,</span> <span class="kt">int</span> <span class="n">musteri_sayisi</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">musteri_numarasi</span><span class="p">,</span> <span class="n">konum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Guncellemek istediginiz musterinin numarasini girin: "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">musteri_numarasi</span><span class="p">);</span>
+
+    <span class="c1">// Müşterinin konumunun bulunması</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">musteri_sayisi</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span> <span class="o">==</span> <span class="n">musteri_numarasi</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">konum</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">konum</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Musteri bulunamadi.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Guncellenecek musteri: %d, %s, %s, Otel : %d, Kahvalti : %d, Aksam Yemegi : %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span><span class="o">+</span><span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span><span class="p">,(</span><span class="n">musteri</span><span class="o">+</span><span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span><span class="o">+</span><span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Yeni isim : "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Yeni soyisim : "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri otelde kalacak mi? (kalmiyorsa 1, 2 yildizli ise 2, 3 yildizli ise 3 girin) :"</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri kahvalti aldi mi? (evet -&gt;1, hayir -&gt;0) : "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri aksam yemegi aldi mi? (evet -&gt;1, hayir -&gt;0) : "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri otobusle mi gidecek? (evet -&gt;1, hayir -&gt;0) : "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Musteri ucakla mi gidecek? (evet -&gt;1, hayir -&gt;0) : "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span><span class="p">);</span>
+
+        <span class="n">musteriler</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span> <span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">YESIL</span><span class="s">"Musteri basariyla gunclendi...</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">fatura_hesapla</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">musteri</span><span class="p">,</span> <span class="kt">int</span> <span class="n">musteri_sayisi</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">musteri_numarasi</span><span class="p">,</span><span class="n">toplam_fatura</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">konum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Faturasini hesaplamak istediginiz musterinin numarasini girin: "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">musteri_numarasi</span><span class="p">);</span>
+
+    <span class="c1">// Müşterinin konumunun bulunması</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">musteri_sayisi</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">musteri_numarasi</span> <span class="o">==</span> <span class="n">musteri_numarasi</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">konum</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">konum</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Musteri bulunamadi.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">toplam_fatura</span><span class="o">+=</span><span class="mi">200</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">hotel</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">toplam_fatura</span><span class="o">+=</span><span class="mi">300</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">kahvalti_varmi</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">toplam_fatura</span><span class="o">+=</span><span class="mi">75</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">aksamyemegi_varmi</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">toplam_fatura</span><span class="o">+=</span><span class="mi">100</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">toplam_fatura</span><span class="o">+=</span><span class="mi">150</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">toplam_fatura</span> <span class="o">+=</span><span class="mi">250</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="n">printf</span><span class="p">(</span><span class="n">YESIL</span><span class="s">"%s %s"</span><span class="n">RENK_SIFIRLA</span> <span class="n">KIRMIZI</span><span class="s">" isimli musterinin toplam fatura tutari : %d TL</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">,(</span><span class="n">musteri</span><span class="o">+</span><span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span><span class="o">+</span><span class="n">konum</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span> <span class="p">,</span><span class="n">toplam_fatura</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">vasita_listele</span><span class="p">(</span><span class="k">struct</span> <span class="n">musteri_bilgileri</span> <span class="o">*</span><span class="n">musteri</span><span class="p">,</span> <span class="kt">int</span> <span class="n">musteri_sayisi</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="n">YESIL</span><span class="s">"Otobus ile gidenler Listesi :</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">musteri_sayisi</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">otobus</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%s %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="n">YESIL</span><span class="s">"Ucak ile gidenler listesi : </span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">musteri_sayisi</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">musteri</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">vasita</span><span class="p">.</span><span class="n">ucak</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%s %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isim</span><span class="p">,</span> <span class="p">(</span><span class="n">musteri</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">soyisim</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma endregion
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">system</span><span class="p">(</span><span class="s">"cls"</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="n">MAGENTA</span><span class="s">"             _    _                      _     _ _       _     </span><span class="se">\n</span><span class="s">            | |  | |                    | |   | (_)     (_)    </span><span class="se">\n</span><span class="s">            | |__| | ___  ___  __ _  ___| | __| |_ _ __  _ ____</span><span class="se">\n</span><span class="s">            |  __  |/ _ </span><span class="se">\\</span><span class="s">/ __|/ _` |/ _ </span><span class="se">\\</span><span class="s"> |/ _` | | '_ </span><span class="se">\\</span><span class="s">| |_  /</span><span class="se">\n</span><span class="s">            | |  | | (_) </span><span class="se">\\</span><span class="s">__ </span><span class="se">\\</span><span class="s"> (_| |  __/ | (_| | | | | | |/ / </span><span class="se">\n</span><span class="s">            |_|  |_|</span><span class="se">\\</span><span class="s">___/|___/</span><span class="se">\\</span><span class="s">__, |</span><span class="se">\\</span><span class="s">___|_|</span><span class="se">\\</span><span class="s">__,_|_|_| |_|_/___|</span><span class="se">\n</span><span class="s">                              __ / |                           </span><span class="se">\n</span><span class="s">                              |___/   "</span><span class="n">RENK_SIFIRLA</span> <span class="n">KALIN_MAVI</span><span class="s">"https://m3t3h4n.github.io</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="n">ornek_veriler</span><span class="p">();</span> <span class="c1">//Struct yapısının içi boş görünmesin diye örnek veriler ekledim.</span>
+    
+    <span class="kt">int</span> <span class="n">secim</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">CYN</span><span class="s">"[1] Musteri Listele</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[2] Musteri Ekle</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[3] Musteri Sil</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[4] Musteri Guncelle</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[5] Fatura Hesapla</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[6] Vasita Listele</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"[7] Cikis Yap</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Lutfen bir secenek girin: "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">secim</span><span class="p">);</span>
+
+        <span class="k">switch</span> <span class="p">(</span><span class="n">secim</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">musteriler</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span><span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">musteri_ekle</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span> <span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">musteri_sil</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span> <span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">musteri_guncelle</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span> <span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">5</span><span class="p">:</span>
+                <span class="n">fatura_hesapla</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span> <span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="n">vasita_listele</span><span class="p">(</span><span class="n">ptr_musteri_listesi</span><span class="p">,</span> <span class="n">toplam_musteri_sayisi</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Cikis Yapildi...</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+                <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="nl">default:</span>
+                <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Gecersiz secenek!</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/projects/2022-12-31-organizasyon-otomasyonu/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

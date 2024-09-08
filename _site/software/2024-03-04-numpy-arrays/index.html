@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>NumPy Arrays | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="NumPy Arrays" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="Bu yazımda NumPy Dizilerini inceliyoruz." />
+<meta property="og:description" content="Bu yazımda NumPy Dizilerini inceliyoruz." />
+<link rel="canonical" href="http://localhost:4000/software/2024-03-04-numpy-arrays/" />
+<meta property="og:url" content="http://localhost:4000/software/2024-03-04-numpy-arrays/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/software/numpy.webp" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-03-04T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/software/numpy.webp" />
+<meta property="twitter:title" content="NumPy Arrays" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-03-03T00:00:00+03:00","datePublished":"2024-03-04T00:00:00+03:00","description":"Bu yazımda NumPy Dizilerini inceliyoruz.","headline":"NumPy Arrays","image":"http://localhost:4000/assets/img/software/numpy.webp","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/software/2024-03-04-numpy-arrays/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/software/2024-03-04-numpy-arrays/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Python,Data Science,Data Analysis,NumPy,NumPy Arrays">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/software/2024-03-04-numpy-arrays/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/software/">software</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-03-04-numpy-arrays</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-software-numpy-arrays" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        NumPy Arrays
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-03-04T00:00:00+03:00">04 Mar 2024</time> Categorized under <a href="/software/" class="flip-title">Software</a> tagged <span>Python</span>, <span>Data science</span>, <span>Data analysis</span>, <span>Numpy</span>
+           
+          <span class="clap-count" data-url="http://localhost:4000/software/2024-03-04-numpy-arrays/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 03 Mar 2024">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-03-03T00:00:00+03:00">03-03-2024</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/software/numpy.webp"
+  
+  alt="NumPy Arrays"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Bu yazımda NumPy Dizilerini inceliyoruz.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>NumPy, tek boyutlu dizilerden başlayarak çok boyutlu dizilere kadar geniş bir yelpazede dizileri destekler.</p>
+
+<p>NumPy dizileri, Python listelerinden daha hızlı ve daha verimli bir şekilde işlenir. Bu diziler, aynı türden (genellikle sayısal) elemanlar içerir ve boyutları sabittir.</p>
+
+<p>NumPy dizilerine giriş yapmadan önce <code class="language-plaintext highlighter-rouge">numpy</code> kütüphanesini ekleyelim.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div></div>
+
+<h1 id="numpy-array-oluşturma">NumPy Array Oluşturma</h1>
+
+<p><img src="/assets/img/software/numpy_array_module.webp" alt="Full-width image" class="lead" width="800" height="150" loading="lazy" /></p>
+
+<p>NumPy da array oluşturmak için <code class="language-plaintext highlighter-rouge">array()</code> fonksiyonunu kullanırız.</p>
+
+<p><code class="language-plaintext highlighter-rouge">array()</code> fonksiyonu içine bir <strong>liste</strong> yada <strong>tuple</strong> alır ve bu liste yada tuple’ı NumPy dizisine dönüştürür.</p>
+
+<p>Tek boyutlu bir NumPy dizisi oluşturalım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1 2 3 4 5]
+</code></pre></div></div>
+
+<p>İki boyutlu bir NumPy dizisi oluşturalım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1 2 3]
+ [4 5 6]]
+</code></pre></div></div>
+
+<p>Üç boyutlu bir NumPy dizisi oluşturalım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">matrixListesi</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">matrixListesi</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+</code></pre></div></div>
+
+<h1 id="arange">arange</h1>
+
+<p><img src="/assets/img/software/np.arange.webp" alt="Full-width image" class="lead" width="800" height="100" loading="lazy" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">arange()</code> fonksiyonu, belirli bir aralıktaki sayıları içeren bir dizi oluşturmak için kullanılır.
+Oluşturulan bu diziyi <strong>numpy.ndarray</strong> veri tipinde geri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0 1 2 3 4 5 6 7 8 9]
+</code></pre></div></div>
+
+<p>Eğer istersek bir stepsize değeride verebiliriz.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 0'dan 10'a kadar 2'şer artan bir dizi oluşturur.
+</span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0 2 4 6 8]
+</code></pre></div></div>
+
+<h2 id="zeros">zeros</h2>
+
+<p><code class="language-plaintext highlighter-rouge">zeros()</code> fonksiyonu, içine aldığı parametre kadar <strong>sıfırlardan</strong> oluşan bir dizi oluşturur. Oluşan bu diziyi <strong>numpy.ndarray</strong> veri tipinde geri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0. 0. 0. 0. 0.]
+</code></pre></div></div>
+
+<p>İstersek matrix şeklinde çok boyutlu olarak da oluşturabiliriz.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+</code></pre></div></div>
+
+<h2 id="ones">ones</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ones()</code> fonksiyonu, içine aldığı parametre kadar <strong>birlerden</strong> oluşan bir dizi oluşturur. <code class="language-plaintext highlighter-rouge">zeros()</code> ile kullanımı aynıdır. Dilersek bunda da çok boyutlu bir matrix şeklinde oluşturabiliriz.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1. 1. 1. 1. 1.]
+</code></pre></div></div>
+
+<h1 id="linspace">linspace</h1>
+
+<p><img src="/assets/img/software/numpy_linspace.webp" alt="Full-width image" class="lead" width="800" height="150" loading="lazy" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">linspace()</code> fonksiyonu başlangıç ve bitiş değerleri arasında eşit aralıklarla belirtilen sayıda eleman içeren bir dizi oluşturur. Oluşan bu diziyi <strong>numpy.ndarray</strong> veri tipinde geri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#0 ile 10 arasında 20 adet sayı üretir ve bu sayıların arasındaki farklar eşit olur.
+</span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ 0.          0.52631579  1.05263158  1.57894737  2.10526316  2.63157895
+  3.15789474  3.68421053  4.21052632  4.73684211  5.26315789  5.78947368
+  6.31578947  6.84210526  7.36842105  7.89473684  8.42105263  8.94736842
+  9.47368421 10.        ]
+</code></pre></div></div>
+
+<h1 id="eye">eye</h1>
+
+<p><code class="language-plaintext highlighter-rouge">eye()</code> fonksiyonu ile birim matris oluşturulur ve <strong>numpy.ndarray</strong> veri tipinde geri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 3x3'lük birim matris oluşturur.
+</span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]]
+</code></pre></div></div>
+
+<h1 id="random">random</h1>
+
+<p><img src="/assets/img/software/numpy_random.webp" alt="Full-width image" class="lead" width="800" height="150" loading="lazy" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Bu modül random fonksiyonunu daha açıklayıcı bir şekilde kullanmak ve görselleştirmek için eklenmiştir.
+# matplotlib modülü için ayrı bir bölüm oluşturulacaktır.
+</span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</code></pre></div></div>
+
+<h2 id="rand">rand</h2>
+
+<p><code class="language-plaintext highlighter-rouge">random.rand</code> fonksiyonu 0 ile 1 arasında yarı açık aralıkta <strong>[0.0, 1.0)</strong>  aldığı parametre kadar rastgele sayılar üretir ve bu sayıları <strong>numpy.ndarray</strong> veritipinde geri döndürür.
+Bu üretilen rastgele sayılar <strong>düzgün dağılıma</strong> sahip olur.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">duzgun_dagilim</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">duzgun_dagilim</span><span class="p">)</span>
+
+<span class="n">pdf</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">patches</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">duzgun_dagilim</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'rand: düzgün dağılım'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0.77579866 0.84455141 0.46788593 0.99109672 0.65992829 0.62707084
+ 0.47456743 0.5425032  0.44449771 0.73976107 0.4897272  0.78820953
+ 0.91183784 0.47451638 0.70560843 0.50194818 0.76850847 0.54574648
+ ...
+ 0.57782342 0.30487575 0.8094421  0.25995016 0.03612558 0.92562029
+ 0.56278298 0.32444382 0.48555378 0.00850049]
+</code></pre></div></div>
+
+<p class="figcaption"><img src="/assets/img/software/duzgun_dagilim_output.png" alt="Full-width image" class="lead" loading="lazy" />
+matplotlib output</p>
+
+<h2 id="randn">randn</h2>
+<p><img src="/assets/img/software/numpy_randn.webp" alt="Full-width image" class="lead" width="800" height="150" loading="lazy" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">random.randn</code> fonksiyonu 0 ile 1 arasında aldığı argüman değeri kadar rastgele sayılar oluşturur.
+Oluşan bu rastgele sayılar <strong>standart normal dağılıma</strong> sahip olur.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">normal_dagilim</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">normal_dagilim</span><span class="p">)</span>
+
+<span class="n">pdf</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">patches</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">normal_dagilim</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'randn: normal dağılım'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ 9.59068260e-01  1.83699230e-01 -1.54856530e+00 -5.84017694e-01
+  1.13925103e+00  1.37592729e+00  6.13220180e-01 -6.50900489e-02
+  1.45157276e+00  1.11531011e+00 -4.28057906e-01 -8.84610866e-01
+ -8.43905081e-01 -8.37270301e-01  1.99786062e+00 -1.16864809e+00
+ -3.89113802e-01  5.72274539e-01  1.26108808e-01 -2.22543856e+00
+  7.15577403e-01  8.34596730e-02  6.10824774e-01  1.43124166e+00
+  ...
+  -4.30282619e-01  4.72681203e-01 -1.95738820e+00  5.04030998e-01
+  1.59918012e+00  6.62418308e-01 -9.86402745e-01 -1.91581532e+00]
+</code></pre></div></div>
+
+<p class="figcaption"><img src="/assets/img/software/normal_dagilim_output.png" alt="Full-width image" class="lead" loading="lazy" />
+matplotlib output</p>
+
+<h2 id="randint">randint</h2>
+
+<p><code class="language-plaintext highlighter-rouge">randint</code> fonksiyonu, belirtilen aralıkta rastgele integer veri tipinde bir sayı üretir.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>52
+</code></pre></div></div>
+
+<p>Eğer randint fonksiyonuna 3. bir argüman girilirse, bu sefer girilen argüman kadar int veri tipinde rastgele sayı üretip, üretilen bu sayıları diziye atar. Bu diziyi ndarray veri tipinde geri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#1 ile 100 arasında rastgele 20 adet sayı üretir.
+</span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ 3 31 28 55 45 49 27 24 67 22 97 45 73 59 36 30 59 10 42 55]
+</code></pre></div></div>
+
+<h1 id="reshape">reshape</h1>
+
+<p><img src="/assets/img/software/numpy_reshape.webp" alt="Full-width image" class="lead" width="800" height="150" loading="lazy" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">reshape</code> fonksiyonunu daha iyi anlamak için numpy dizisini yeniden oluşturalım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 0 dan 30 a kadar bir dizi oluşturur.
+</span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28 29]
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">reshape</code> fonksiyonu numpy dizisini yeniden şekillendirir.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 30 adet sayıyı 5x6'lık bir matrise dönüştürür.
+</span><span class="n">matris</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">matris</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[ 0  1  2  3  4  5]
+ [ 6  7  8  9 10 11]
+ [12 13 14 15 16 17]
+ [18 19 20 21 22 23]
+ [24 25 26 27 28 29]]
+</code></pre></div></div>
+
+<blockquote>
+  <p>Burada dikkat edilmesi gereken nokta, reshape fonksiyonuna ilgili parametreleri verirken, dizinin elaman sayısının istenilen formata uygun olması gerektiğidir. <code class="language-plaintext highlighter-rouge">(5x6=30)</code></p>
+</blockquote>
+
+<h1 id="shape">shape</h1>
+
+<p>numpy dizisi ile oluşturulan matrisin boyutlarını verir. <strong>(nxm)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">matris</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(5, 6)
+</code></pre></div></div>
+
+<h1 id="max">max</h1>
+
+<p><img src="/assets/img/software/numpy_max.webp" alt="Full-width image" class="lead" width="800" height="150" loading="lazy" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">max</code> fonksiyonunu daha iyi anlayabilmek için random bir numpy dizisi oluşturalım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 0 dan 100 e kadar 20 adet rastgele sayı üretir.
+</span><span class="n">randomArr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">randomArr</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[85 35 89 81 46 98  3 61 17  7 23 90 41 33 88 35 34 63 94  4]
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">max</code> fonksiyonu, dizideki en büyük değeri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">maxValue</span> <span class="o">=</span> <span class="n">randomArr</span><span class="p">.</span><span class="nb">max</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">maxValue</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>98
+</code></pre></div></div>
+
+<h2 id="argmax">argmax</h2>
+
+<p><code class="language-plaintext highlighter-rouge">argmax</code> fonksiyonu dizideki en büyük değerin index numarasını geri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">maxValueIndex</span> <span class="o">=</span> <span class="n">randomArr</span><span class="p">.</span><span class="n">argmax</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">maxValueIndex</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5
+</code></pre></div></div>
+
+<h1 id="min">min</h1>
+
+<p><code class="language-plaintext highlighter-rouge">min</code> fonksiyonu, dizideki en küçük değeri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">minValue</span> <span class="o">=</span> <span class="n">randomArr</span><span class="p">.</span><span class="nb">min</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">minValue</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+</code></pre></div></div>
+
+<h2 id="argmin">argmin</h2>
+
+<p><code class="language-plaintext highlighter-rouge">argmin</code> fonksiyonu dizideki en küçük değerin index numarasını geri döndürür.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">minValueIndex</span> <span class="o">=</span> <span class="n">randomArr</span><span class="p">.</span><span class="n">argmin</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">minValueIndex</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6
+</code></pre></div></div>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/software/2024-03-04-numpy-arrays/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

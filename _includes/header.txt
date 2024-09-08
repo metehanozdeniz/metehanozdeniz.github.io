@@ -5,5 +5,5 @@
  * \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
  *  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
  *
- * Powered by Metehan Özdeniz <https://metehanozdeniz.github.io/>
+ * Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
  */

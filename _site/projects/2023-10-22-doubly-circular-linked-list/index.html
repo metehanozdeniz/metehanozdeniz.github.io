@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Çift Yönlü Bağlı Liste (Doubly Circular Linked List) | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Çift Yönlü Bağlı Liste (Doubly Circular Linked List)" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="C programlama dili ile, çift yönlü dairesel bağlı liste yapısı kullanılarak örnek uygulama" />
+<meta property="og:description" content="C programlama dili ile, çift yönlü dairesel bağlı liste yapısı kullanılarak örnek uygulama" />
+<link rel="canonical" href="http://localhost:4000/projects/2023-10-22-doubly-circular-linked-list/" />
+<meta property="og:url" content="http://localhost:4000/projects/2023-10-22-doubly-circular-linked-list/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/projects/doubly-circular-linked-list.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-10-22T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/projects/doubly-circular-linked-list.png" />
+<meta property="twitter:title" content="Çift Yönlü Bağlı Liste (Doubly Circular Linked List)" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2023-10-22T00:00:00+03:00","datePublished":"2023-10-22T00:00:00+03:00","description":"C programlama dili ile, çift yönlü dairesel bağlı liste yapısı kullanılarak örnek uygulama","headline":"Çift Yönlü Bağlı Liste (Doubly Circular Linked List)","image":"http://localhost:4000/assets/img/projects/doubly-circular-linked-list.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/2023-10-22-doubly-circular-linked-list/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/projects/2023-10-22-doubly-circular-linked-list/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="C,Doubly Circular Linked List,Data Structures,Çift Yönlü Dairesel Bağlı Liste,Veri Yapıları">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/projects/2023-10-22-doubly-circular-linked-list/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/projects/">projects</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2023-10-22-doubly-circular-linked-list</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-projects-doubly-circular-linked-list" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Çift Yönlü Bağlı Liste (Doubly Circular Linked List)
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2023-10-22T00:00:00+03:00">22 Oct 2023</time> Categorized under <a href="/projects/" class="flip-title">My Projects</a> tagged <span>C</span>, <span>Doubly circular linked list</span>, <span>Data structures</span>
+           
+          <span class="clap-count" data-url="http://localhost:4000/projects/2023-10-22-doubly-circular-linked-list/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/projects/doubly-circular-linked-list.png"
+  
+  alt="Çift Yönlü Bağlı Liste (Doubly Circular Linked List)"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      C programlama dili ile, çift yönlü dairesel bağlı liste yapısı kullanılarak örnek uygulama
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Bu örnekte <strong>çift yönlü dairesel bağlı liste</strong> yapısı kullanılmıştır.</p>
+
+<p>sunucu, yük ve max. kapasite bilgileri içeren struct yapısı, çift yönlü dairesel bağlı listede tutularak aşağıdaki üç fonksiyon yazılmıştır.</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">üretici</code></strong>: Fonksiyon ile yük üretilmektedir ve yükü en az sunucudan başlamak üzere üretilen yükü sunuculara dağıtılmaktadır. Her yük dağılımından sonra sunucular boş kapasite miktarına göre yeniden sıralanmaktadır. (veriler değil, adresleri değişmektedir)</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">tüketici</code></strong>: Belirtilen yük yükü en fazla olan sunucudan başlanmak üzere silinmektedir. Bir sunucudaki yük yetersiz geldiğinde yükü en fazla olan sıradaki sunucudan devam edilmektedir.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">listele</code></strong>: Sunucuların id, max kapasite ve yük bilgileri bağlı listede bulunduğu sırayla listelenmektedir.</li>
+</ul>
+
+<h1 id="code-">Code :</h1>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// file: "main.c"</span>
+<span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;conio.h&gt; //getch fonksiyonunu kullanabilmek için dahil ettim
+</span>
+<span class="c1">//Renk kodları tanımlamaları</span>
+<span class="cp">#define KIRMIZI "\e[0;31m"
+#define CYN "\e[0;36m"
+#define YESIL "\e[0;32m"
+#define RENK_SIFIRLA "\e[0m"
+</span>
+<span class="c1">// Sunucu bilgilerini tutan struct yapısı</span>
+<span class="k">struct</span> <span class="n">sunucu</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">yuk</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">max_kapasite</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">prev</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// Çift yönlü dairesel bağlı listeyi oluşturan ilk ve son pointer'lar</span>
+<span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">bas</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">son</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+<span class="c1">// konsol menüsünde seçim yaptıktan sonra, programın akışının devam edebilmesi için kullanıcının klavyede herhangi bir tuşa bastıktan sonra, klavyede bastığı tuşu kaydetmek için bir değişken.</span>
+<span class="kt">char</span> <span class="n">ch</span><span class="p">;</span> 
+
+<span class="c1">// Listenin boş olup olmadığını kontrol eden yardımcı fonksiyon</span>
+<span class="kt">int</span> <span class="nf">bos_mu</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">son</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bas</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">son</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer liste boş ise</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 1 değerini döndürür</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span> <span class="c1">// Eğer liste boş değil ise</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 0 değerini döndürür</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Çift yönlü dairesel bağlı listeye yeni bir sunucu ekleyen fonksiyon</span>
+<span class="kt">void</span> <span class="nf">ekle</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">bas</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">son</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="kt">float</span> <span class="n">yuk</span><span class="p">,</span> <span class="kt">float</span> <span class="n">max_kapasite</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">yeni</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span><span class="p">));</span> <span class="c1">// Yeni bir sunucu için bellekten yer ayırır</span>
+
+    <span class="c1">// Eğer bellekten yer ayırma başarısız olursa fonksiyondan çıkar</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">yeni</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Bellek hatasi.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Yeni sunucunun verilerini parametre olarak alınan değerlere atar</span>
+    <span class="n">yeni</span><span class="o">-&gt;</span><span class="n">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+    <span class="n">yeni</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">=</span> <span class="n">yuk</span><span class="p">;</span>
+    <span class="n">yeni</span><span class="o">-&gt;</span><span class="n">max_kapasite</span> <span class="o">=</span> <span class="n">max_kapasite</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">bos_mu</span><span class="p">(</span><span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="o">*</span><span class="n">son</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// Eğer liste boş ise</span>
+        <span class="n">yeni</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">yeni</span><span class="p">;</span> <span class="c1">// Yeni sunucunun prev pointer'ı kendisini işaret eder</span>
+        <span class="n">yeni</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">yeni</span><span class="p">;</span> <span class="c1">// Yeni sunucunun next pointer'ı kendisini işaret eder</span>
+        <span class="o">*</span><span class="n">bas</span> <span class="o">=</span> <span class="n">yeni</span><span class="p">;</span> <span class="c1">// Liste başını yeni sunucuya atar</span>
+        <span class="o">*</span><span class="n">son</span> <span class="o">=</span> <span class="n">yeni</span><span class="p">;</span> <span class="c1">// Liste sonunu yeni sunucuya atar</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span> <span class="c1">// Eğer liste boş değil ise</span>
+        <span class="n">yeni</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="o">*</span><span class="n">son</span><span class="p">;</span> <span class="c1">// Yeni sunucunun prev pointer'ı liste sonunu işaret eder</span>
+        <span class="n">yeni</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="o">*</span><span class="n">bas</span><span class="p">;</span> <span class="c1">// Yeni sunucunun next pointer'ı liste başını işaret eder</span>
+        <span class="p">(</span><span class="o">*</span><span class="n">son</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">yeni</span><span class="p">;</span> <span class="c1">// Liste sonunun next pointer'ı yeni sunucuyu işaret eder</span>
+        <span class="p">(</span><span class="o">*</span><span class="n">bas</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">yeni</span><span class="p">;</span> <span class="c1">// Liste başının prev pointer'ı yeni sunucuyu işaret eder</span>
+        <span class="o">*</span><span class="n">son</span> <span class="o">=</span> <span class="n">yeni</span><span class="p">;</span> <span class="c1">// Liste sonunu yeni sunucuya atar</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Kullanıcıdan sunucu bilgilerini alıp listeye ekleyen fonksiyon</span>
+<span class="kt">void</span> <span class="nf">sunucu_ekle</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">bas</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">son</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// Toplam sunucu sayısını tutan değişken. Bu değişken sayesinde kullanıcıdan alınacak olan 'eklenecek sunucu sayısına göre' bir döngü oluştararak sunucu ekleme işlemini gerçekleştireceğim</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">yuk</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">max_kapasite</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">hata</span><span class="p">;</span> <span class="c1">// Hata kontrolü için kullanılan değişken. Bu sayede kullanıcıdan alınacak olan sunucu id'sinin daha önce başka bir sunucuya atanmış olup olmadığını kontrol edeceğim</span>
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">gecici</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Toplam kac tane sunucu eklenecek? : "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+
+    <span class="c1">// Kullanıcıyı doğru değer (pozitif) girmeye zorluyorum.</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Sunucu sayisi pozitif olmali.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Toplam kac tane sunucu eklenecek? : "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Kullanıcıdan alınan sunucu sayısı kadar dön ve her bir sunucunun bilgilerini kullanıcıdan al</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%d. sunucunun id numarasini giriniz: "</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">id</span><span class="p">);</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">id</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"id numarasi pozitif olmali.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%d. sunucunun id numarasini giriniz: "</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">id</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">hata</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">gecici</span> <span class="o">=</span> <span class="o">*</span><span class="n">bas</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">bos_mu</span><span class="p">(</span><span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="o">*</span><span class="n">son</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// Eğer liste boş değilse</span>
+            <span class="k">do</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">gecici</span><span class="o">-&gt;</span><span class="n">id</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Listenin üzerinde gezerek kullanıcının girdiği id değerini listedeki id değerleri ile karşılaştırıyorum</span>
+                    <span class="n">hata</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="n">gecici</span> <span class="o">=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// Eğer kullanıcının girdiği id değeri, gecici pointerinin gösterdiği id değeri ile aynı değilse, sonraki sonraki pointera geç</span>
+            <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">gecici</span> <span class="o">!=</span> <span class="o">*</span><span class="n">bas</span><span class="p">);</span> <span class="c1">// Tekrar listenin başına gelene kadar, döngü içinde id değerinin aynı olup olmadığını kontrol et.</span>
+            <span class="c1">// Burada do while döngüsü kullanmamın sebebi, bağlı listenin "İLK" değerinin id bilgisini, kullanıcının girdiği id bilgisi ile karşılaştırabilmek ve gecici değişkeninde bir sonraki pointera ilerleyebilmek.</span>
+            <span class="c1">// Yani döngünün koşulu sağlanmasa bile döngü içindeki kodların en az bir defa çalıştırılmasına ihtiyacım var.</span>
+            <span class="c1">// Eğer do while yerine sadece while kullansaydım, bağlı listenin ilk değerini bile kontrol edemeden döngüye giremeyecektim.</span>
+            <span class="c1">// Ama do while kullandığım için bağlı listenin ilk elemanına hiç bir şarta bağlı olmadan ulaşabildim.</span>
+        <span class="p">}</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">hata</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer hata değişkeni 1 ise (id değeri başka bir sunucu için kullanılıyorsa) kullanıcıyı uygun id değerini girene kadar zorluyorum</span>
+            <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Bu id numarasi zaten kullanilmis.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%d. sunucunun id numarasini giriniz: "</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">id</span><span class="p">);</span>
+
+            <span class="k">while</span> <span class="p">(</span><span class="n">id</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"id numarasi pozitif olmali.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">"%d. sunucunun id numarasini giriniz: "</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">id</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="n">hata</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">gecici</span> <span class="o">=</span> <span class="o">*</span><span class="n">bas</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">bos_mu</span><span class="p">(</span><span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="o">*</span><span class="n">son</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">do</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">gecici</span><span class="o">-&gt;</span><span class="n">id</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer geçici pointer'ın gösterdiği sunucunun id'si kullanıcının girdiği id ile aynıysa döngüden çık ve kullanıcıdan tekrar id değeri iste</span>
+                        <span class="n">hata</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="p">}</span>
+
+                    <span class="n">gecici</span> <span class="o">=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">gecici</span> <span class="o">!=</span> <span class="o">*</span><span class="n">bas</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%d. sunucunun maksimum kapasitesini giriniz: "</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">max_kapasite</span><span class="p">);</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">max_kapasite</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Maksimum kapasite pozitif olmali.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%d. sunucunun maksimum kapasitesini giriniz: "</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">"%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">max_kapasite</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">yuk</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">ekle</span><span class="p">(</span><span class="n">bas</span><span class="p">,</span> <span class="n">son</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">yuk</span><span class="p">,</span> <span class="n">max_kapasite</span><span class="p">);</span> <span class="c1">// Uygun değerleri kullanıcıdan aldıktan sonra listenin sonuna sunucuyu ekliyorum.</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">YESIL</span><span class="s">"%d. sunucu basariyla eklendi.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">sirala</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">bas</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">son</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bos_mu</span><span class="p">(</span><span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="o">*</span><span class="n">son</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// Eğer liste boş ise sıralama işlemi yapmadan fonksiyondan çık</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Liste bos.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">gecici1</span> <span class="o">=</span> <span class="o">*</span><span class="n">bas</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">gecici2</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">temp</span><span class="p">;</span>
+
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">gecici2</span> <span class="o">=</span> <span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">gecici2</span> <span class="o">!=</span> <span class="o">*</span><span class="n">bas</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">max_kapasite</span> <span class="o">-</span> <span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">&gt;</span> <span class="n">gecici2</span><span class="o">-&gt;</span><span class="n">max_kapasite</span> <span class="o">-</span> <span class="n">gecici2</span><span class="o">-&gt;</span><span class="n">yuk</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer geçici1'in boş kapasite değeri geçici2'nin boş kapasite değerinden küçükse</span>
+            <span class="c1">// Burada boş kapasiteye göre sıralama yapmamamın sebebi UZEM deki ödev tanımında yüklere göre, sınıfta anlatılana göre ise maksimum kapasiteye göre olduğu için bende böyle bir yaklaşım tercih ettim</span>
+                <span class="c1">// geçici1 ve geçici2'nin adreslerini değiştir</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span>
+                <span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">gecici2</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span>
+                <span class="n">gecici2</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+                <span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">gecici2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+                <span class="n">gecici2</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">bas</span> <span class="o">==</span> <span class="n">gecici1</span><span class="p">)</span>
+                    <span class="o">*</span><span class="n">bas</span> <span class="o">=</span> <span class="n">gecici2</span><span class="p">;</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">bas</span> <span class="o">==</span> <span class="n">gecici2</span><span class="p">)</span>
+                    <span class="o">*</span><span class="n">bas</span> <span class="o">=</span> <span class="n">gecici1</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">son</span> <span class="o">==</span> <span class="n">gecici1</span><span class="p">)</span>
+                    <span class="o">*</span><span class="n">son</span> <span class="o">=</span> <span class="n">gecici2</span><span class="p">;</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">son</span> <span class="o">==</span> <span class="n">gecici2</span><span class="p">)</span>
+                    <span class="o">*</span><span class="n">son</span> <span class="o">=</span> <span class="n">gecici1</span><span class="p">;</span>
+
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">gecici1</span><span class="p">;</span>
+                <span class="n">gecici1</span> <span class="o">=</span> <span class="n">gecici2</span><span class="p">;</span>
+                <span class="n">gecici2</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">gecici2</span> <span class="o">=</span> <span class="n">gecici2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// Adresler değiştikten sonra gecici2 yi ilerlet</span>
+        <span class="p">}</span>
+        <span class="n">gecici1</span> <span class="o">=</span> <span class="n">gecici1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// Ve geçici biri ilerlet. Bu sayede gecici1 ve gecici2 hep yan yana</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">gecici1</span> <span class="o">!=</span> <span class="o">*</span><span class="n">son</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Kullanıcıdan yük miktarı alıp sunuculara dağıtan fonksiyon</span>
+<span class="kt">void</span> <span class="nf">uretici</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">bas</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">son</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bos_mu</span><span class="p">(</span><span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="o">*</span><span class="n">son</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// Eğer liste boş ise fonksiyondan çık</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Liste bos.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">float</span> <span class="n">yuk</span><span class="p">;</span>
+    <span class="n">sirala</span><span class="p">(</span><span class="n">bas</span><span class="p">,</span> <span class="n">son</span><span class="p">);</span> <span class="c1">// ilk başta çift yönlü dairesel bağlı listenin sıralanması gerekiyor.</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Uretilecek yuk miktarini giriniz: "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">yuk</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">yuk</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Yuk miktari negatif olamaz.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Uretilecek yuk miktarini giriniz: "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">yuk</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">gecici</span> <span class="o">=</span> <span class="o">*</span><span class="n">bas</span><span class="p">;</span>
+
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">gecici</span><span class="o">-&gt;</span><span class="n">max_kapasite</span> <span class="o">-</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">&gt;=</span> <span class="n">yuk</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer geçici sunucunun boş kapasitesi yeterliyse</span>
+            <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">+=</span> <span class="n">yuk</span><span class="p">;</span> <span class="c1">// Yuk miktarını hepsini sunucuya ekleyip</span>
+            <span class="n">yuk</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Yuk miktarını sıfırlıyorum</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span> <span class="c1">// Eğer geçici sunucunun boş kapasitesi yetersizse</span>
+            <span class="n">yuk</span> <span class="o">-=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">max_kapasite</span> <span class="o">-</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span><span class="p">;</span> <span class="c1">// Yuk miktarından, sunucunun alabileceği maksimum yük miktarını çıkarıp</span>
+            <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">max_kapasite</span><span class="p">;</span> <span class="c1">// sunucunun yükünü maksimum seviyeye çıkarıyorum.</span>
+        <span class="p">}</span>
+
+        <span class="n">sirala</span><span class="p">(</span><span class="n">bas</span><span class="p">,</span> <span class="n">son</span><span class="p">);</span> <span class="c1">// Bu yük dağıtma işleminden sonra listeyi tekrar sıralıyorum</span>
+        <span class="n">gecici</span> <span class="o">=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">yuk</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">gecici</span> <span class="o">!=</span> <span class="p">(</span><span class="o">*</span><span class="n">son</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> <span class="c1">// Yuk miktarı bitene kadar veya gecici pointerı tekrar en başa geldiği zaman döngü bitecek. </span>
+    <span class="c1">// Gecici pointerinin listenin başına tekrar gelip gelmemesini kontrol etmemin sebebi, eğer üretilecek yük miktarı, bütün sunucuların boş kapasitelerinin toplamından büyük ise, sunucuların hepsi dolduktan sonra artık yük ekleyemeyecektir ve yük miktarı hep sıfırdan büyük olacağı için sonsuz döngüye girecekti</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">yuk</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer hala dağıtılacak yük varsa</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Tum sunucular dolu. "</span><span class="n">KIRMIZI</span><span class="s">"Kalan yuk: %.2f</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">,</span> <span class="n">yuk</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">tuketici</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">bas</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">**</span><span class="n">son</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bos_mu</span><span class="p">(</span><span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="o">*</span><span class="n">son</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// Eğer liste boş ise</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Liste bos.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span> <span class="c1">// Hata mesajı verir</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+        <span class="k">return</span><span class="p">;</span> <span class="c1">// Fonksiyondan çıkar</span>
+    <span class="p">}</span>
+
+    <span class="kt">float</span> <span class="n">yuk</span><span class="p">;</span>
+    <span class="n">sirala</span><span class="p">(</span><span class="n">bas</span><span class="p">,</span> <span class="n">son</span><span class="p">);</span> <span class="c1">// ilk başta çift yönlü dairesel bağlı listenin sıralanması gerekiyor.</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Tuketilecek yuk miktarini giriniz: "</span><span class="p">);</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">yuk</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">yuk</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Yuk miktari negatif olamaz.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Tuketilecek yuk miktarini giriniz: "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">yuk</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">gecici</span> <span class="o">=</span> <span class="o">*</span><span class="n">son</span><span class="p">;</span> <span class="c1">// yükleri silmeye listenin en sonundan başladım. çünkü yükü en fazla olan sunucu hep en sonda olacak.</span>
+
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">&gt;=</span> <span class="n">yuk</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer geçici sunucunun yükü yeterliyse</span>
+            <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">-=</span> <span class="n">yuk</span><span class="p">;</span> <span class="c1">// Yuk miktarını sunucudan çıkarır</span>
+            <span class="n">yuk</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Yuk miktarını sıfırlar</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span> <span class="c1">// Eğer geçici sunucunun yükü yetersizse</span>
+            <span class="n">yuk</span> <span class="o">-=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span><span class="p">;</span> <span class="c1">// Yuk miktarından, sunucunun mevcut yük miktarını çıkarır</span>
+            <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Sunucunun yükünü sıfırlar</span>
+        <span class="p">}</span>
+
+        <span class="n">sirala</span><span class="p">(</span><span class="n">bas</span><span class="p">,</span> <span class="n">son</span><span class="p">);</span> <span class="c1">// Ödev tanımında, ilgili yükler silindikten sonra yeniden sıralanması istenmemiş. Ama yinede sıralanması gerekiyor. Çünkü yükü en fazla olandan az olana doğru silebilmem için, listenin azalan sıralı bir halde olması gerekiyor.</span>
+        <span class="n">gecici</span> <span class="o">=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span> <span class="c1">// Geçici pointer'ını listenin sonuna getirir</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">yuk</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">gecici</span> <span class="o">!=</span> <span class="o">*</span><span class="n">son</span><span class="p">);</span> <span class="c1">// Yuk miktarı bitene kadar devam eder veya gecici pointerı listenin son elemanının pointerına eşit olana kadar döngü devam edecek</span>
+    <span class="c1">// Bu fonksiyon yük tüketimini listenin en sonundan başlayarak yaptığı için tekrar en sona gelip gelmediğini kontrol ediyorum.</span>
+    <span class="c1">// Bu döngüde gecici pointerinin tekrar listenin sonuna gelip gelmediğini kontrol etmemin sebebi, eğer tüketilecek yük miktarı sunuculardaki toplam yük miktarından fazla olsaydı yük hep sıfırdan büyük olacağı için döngü sonsuz döngüye girecekti. Bu sayede ikinci bir şart ekleyerek bu sorunu kontrol altına almış oldum</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">yuk</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Eğer hala silinecek yük varsa</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Tum sunucular bos. "</span><span class="n">KIRMIZI</span><span class="s">"Kalan yuk: %.2f</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">,</span> <span class="n">yuk</span><span class="p">);</span> <span class="c1">// Hata mesajı verir</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Listenin içeriğini ekrana yazdıran fonksiyon</span>
+<span class="kt">void</span> <span class="nf">listele</span><span class="p">(</span><span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">bas</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">son</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bos_mu</span><span class="p">(</span><span class="n">bas</span><span class="p">,</span> <span class="n">son</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// Eğer liste boş ise</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"Liste bos.</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span> <span class="c1">// Eğer liste boş değil ise</span>
+        <span class="k">struct</span> <span class="n">sunucu</span> <span class="o">*</span><span class="n">gecici</span> <span class="o">=</span> <span class="n">bas</span><span class="p">;</span> <span class="c1">// Liste başını gösteren geçiçi bir pointer</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Listedeki sunucular:</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+        <span class="k">do</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"id: %d</span><span class="se">\t</span><span class="s">"</span><span class="n">CYN</span><span class="s">"yuk: %.2f</span><span class="se">\t</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="s">""</span><span class="n">YESIL</span><span class="s">"max_kapasite: %.2f</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">,</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">,</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">yuk</span><span class="p">,</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">max_kapasite</span><span class="p">);</span>
+            <span class="n">gecici</span> <span class="o">=</span> <span class="n">gecici</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// Geçici pointer'ı bir sonraki sunucuya kaydır</span>
+        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">gecici</span> <span class="o">!=</span> <span class="n">bas</span><span class="p">);</span> <span class="c1">// Geçici pointer tekrar liste başına gelene kadar döngü devam eder</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Devam etmek icin bir tusa basin.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">ch</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">secim</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">system</span><span class="p">(</span><span class="s">"cls"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">CYN</span><span class="s">"</span><span class="se">\n</span><span class="s">[1] Sunucu Listele</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[2] Sunucu Ekle</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[3] Uretici</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"[4] Tuketici</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">KIRMIZI</span><span class="s">"[5] Cikis Yap</span><span class="se">\n</span><span class="s">"</span><span class="n">RENK_SIFIRLA</span><span class="p">);</span>
+
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Lutfen bir secenek girin: "</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">secim</span><span class="p">);</span>
+
+        <span class="k">switch</span> <span class="p">(</span><span class="n">secim</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">listele</span><span class="p">(</span><span class="n">bas</span><span class="p">,</span> <span class="n">son</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">sunucu_ekle</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bas</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">son</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">uretici</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bas</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">son</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">tuketici</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bas</span><span class="p">,</span><span class="o">&amp;</span><span class="n">son</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nl">default:</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"Geçersiz seçenek..."</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/projects/2023-10-22-doubly-circular-linked-list/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

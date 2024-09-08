@@ -1,21 +1,11 @@
-# Folders to ignore
-.vscode
 node_modules
 vendor
 .bundle
 .sass-cache
 .jekyll-metadata
 .jekyll-cache
+.ruby-lsp
 *.gem
-_zip
-_zip
-/stats.json
-
-# Ignore docs files
-_gh_pages
-_site
-_drafts
-.ruby-version
 
 #<removed/js>
 #<removed/css>

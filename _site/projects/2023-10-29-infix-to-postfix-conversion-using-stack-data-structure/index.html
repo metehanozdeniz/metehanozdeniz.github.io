@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="Stack (Yığın) Kullanarak Infix-Postfix Dönüşümü" />
+<meta property="og:description" content="Stack (Yığın) Kullanarak Infix-Postfix Dönüşümü" />
+<link rel="canonical" href="http://localhost:4000/projects/2023-10-29-infix-to-postfix-conversion-using-stack-data-structure/" />
+<meta property="og:url" content="http://localhost:4000/projects/2023-10-29-infix-to-postfix-conversion-using-stack-data-structure/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/projects/infix-to-postfix-using-stack-data-structure.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-10-29T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/projects/infix-to-postfix-using-stack-data-structure.jpg" />
+<meta property="twitter:title" content="Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2023-10-29T00:00:00+03:00","datePublished":"2023-10-29T00:00:00+03:00","description":"Stack (Yığın) Kullanarak Infix-Postfix Dönüşümü","headline":"Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü","image":"http://localhost:4000/assets/img/projects/infix-to-postfix-using-stack-data-structure.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/2023-10-29-infix-to-postfix-conversion-using-stack-data-structure/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/projects/2023-10-29-infix-to-postfix-conversion-using-stack-data-structure/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="C,Stack Data Structure,Data Structures,Yığın,Veri Yapıları,infix,postfix">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/projects/2023-10-29-infix-to-postfix-conversion-using-stack-data-structure/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/projects/">projects</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2023-10-29-infix-to-postfix-conversion-using-stack-data-structure</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-projects-infix-to-postfix-conversion-using-stack-data-structure" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2023-10-29T00:00:00+03:00">29 Oct 2023</time> Categorized under <a href="/projects/" class="flip-title">My Projects</a> tagged <span>C</span>, <span>Stack</span>, <span>Data structures</span>
+           
+          <span class="clap-count" data-url="http://localhost:4000/projects/2023-10-29-infix-to-postfix-conversion-using-stack-data-structure/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/projects/infix-to-postfix-using-stack-data-structure.jpg"
+  
+  alt="Stack (Yığın) Yapısı Kullanılarak Infix-Postfix Dönüşümü"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Stack (Yığın) Kullanarak Infix-Postfix Dönüşümü
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Bu örnekte <strong>Stack Yapısı</strong> kullanılarak infix bir ifade postfix ifadeye dönüştürülmüştür. Ardından elde edilen postfix ifade yine stack yapısı kullanılarak ilgili hesaplamalar yapılmıştır. Yapılan her adım ekrana yazdırılmıştır. Ayrıca ilgili infix ifade bir txt dosyasından <strong>(infix.txt)</strong> okunarak alınmıştır.</p>
+
+<h1 id="code-">Code :</h1>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// file: "main.c"</span>
+<span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt; // ifadenin sayı olup olmadığını kontrol etmek için bu kütüphaneyi dahil ettim
+#include &lt;math.h&gt; // Üs alma işlemi için bu kütüphaneyi dahil ettim
+</span>
+<span class="c1">// Stack yapısını temsil eden struct veri tipi</span>
+<span class="k">struct</span> <span class="n">stack</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">eleman</span><span class="p">;</span> <span class="c1">// Stack elemanının verisi</span>
+    <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> <span class="c1">// Stack elemanının bir sonraki elemanına işaret eden pointer</span>
+<span class="p">};</span>
+
+<span class="c1">// Stack yapısına yeni bir eleman ekleyen fonksiyon</span>
+<span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="k">struct</span> <span class="n">stack</span> <span class="o">**</span><span class="n">ust</span><span class="p">,</span> <span class="kt">char</span> <span class="n">eleman</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Yeni bir stack elemanı için bellekten yer ayırma</span>
+    <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">yeni_liste</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">stack</span><span class="p">));</span>
+    <span class="c1">// Yeni elemanın verisini ve bir sonraki elemanını belirleme</span>
+    <span class="n">yeni_liste</span><span class="o">-&gt;</span><span class="n">eleman</span> <span class="o">=</span> <span class="n">eleman</span><span class="p">;</span>
+    <span class="n">yeni_liste</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="o">*</span><span class="n">ust</span><span class="p">;</span>
+    <span class="c1">// Stack'in en üstündeki elemanı yeni eleman olarak güncelleme</span>
+    <span class="o">*</span><span class="n">ust</span> <span class="o">=</span> <span class="n">yeni_liste</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Stack yapısından en üstteki elemanı silip geri döndüren fonksiyon</span>
+<span class="kt">char</span> <span class="nf">pop</span><span class="p">(</span><span class="k">struct</span> <span class="n">stack</span> <span class="o">**</span><span class="n">ust</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Stack boş ise -1 döndürme</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">ust</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Stack'in en üstündeki elemanın verisini ve bir sonraki elemanını saklama</span>
+    <span class="kt">char</span> <span class="n">eleman</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">ust</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">eleman</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">next</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">ust</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="c1">// Stack'in en üstündeki elemanı bellekten silme</span>
+    <span class="n">free</span><span class="p">(</span><span class="o">*</span><span class="n">ust</span><span class="p">);</span>
+    <span class="c1">// Stack'in en üstündeki elemanı bir sonraki eleman olarak güncelleme</span>
+    <span class="o">*</span><span class="n">ust</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+    <span class="c1">// Silinen elemanın verisini geri döndürme</span>
+    <span class="k">return</span> <span class="n">eleman</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Stack yapısının en üstündeki elemanın verisini geri döndüren fonksiyon</span>
+<span class="kt">char</span> <span class="nf">en_ust_eleman</span><span class="p">(</span><span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">ust</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Stack boş ise -1 döndürme</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ust</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Stack'in en üstündeki elemanın verisini geri döndürme</span>
+    <span class="k">return</span> <span class="n">ust</span><span class="o">-&gt;</span><span class="n">eleman</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Stack yapısının boş olup olmadığını kontrol eden fonksiyon</span>
+<span class="kt">int</span> <span class="nf">bos_mu</span><span class="p">(</span><span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">ust</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Stack boş ise 1, değilse 0 döndürme</span>
+    <span class="k">return</span> <span class="n">ust</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Bir karakterin operatör olup olmadığını kontrol eden fonksiyon</span>
+<span class="kt">int</span> <span class="nf">operator_mu</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Karakter +, -, *, / veya ^ ise 1, değilse 0 döndürme</span>
+    <span class="k">return</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">'+'</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">'-'</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">'*'</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">'/'</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">'^'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// İki operatörün önceliklerini karşılaştıran fonksiyon</span>
+<span class="kt">int</span> <span class="nf">oncelik_karsilastir</span><span class="p">(</span><span class="kt">char</span> <span class="n">op1</span><span class="p">,</span> <span class="kt">char</span> <span class="n">op2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Operatörlerin öncelik sıralarını belirleyen diziler</span>
+    <span class="kt">char</span> <span class="n">operatorler</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"+-*/^"</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">oncelikler</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+    
+    <span class="c1">// Operatörlerin dizideki indislerini bulma</span>
+    <span class="kt">int</span> <span class="n">index1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">index2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">op1</span> <span class="o">==</span> <span class="n">operatorler</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">index1</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">op2</span> <span class="o">==</span> <span class="n">operatorler</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">index2</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// Operatörlerin önceliklerini karşılaştırma ve sonucu döndürme</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">index1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">index2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Geçersiz operatörler için 0 döndürme</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">oncelikler</span><span class="p">[</span><span class="n">index1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">oncelikler</span><span class="p">[</span><span class="n">index2</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// op1'in önceliği op2'den büyükse 1 döndürme</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">oncelikler</span><span class="p">[</span><span class="n">index1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">oncelikler</span><span class="p">[</span><span class="n">index2</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// op1'in önceliği op2'den küçükse -1 döndürme</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// op1'in önceliği op2'ye eşitse 0 döndürme</span>
+<span class="p">}</span>
+
+<span class="c1">// Bir infix ifadeyi postfixe çeviren fonksiyon</span>
+<span class="kt">char</span> <span class="o">*</span><span class="nf">infixden_postfixe</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">infix</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Postfix ifadeyi saklamak için bellekten yer ayırma</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">postfix</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">infix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// Postfix ifadeyi oluşturmak için kullanılacak stack yapısı</span>
+    <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">stack</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="c1">// Postfix ifadeyi oluşturmak için kullanılacak indis</span>
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">counter_infix</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// Infix ifadeyi soldan sağa doğru gezme</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">infix</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">infix</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        
+        <span class="c1">// Karakter bir sayı veya harf ise postfix ifadeye ekleme</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">||</span> <span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">postfix</span><span class="p">[</span><span class="n">index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Karakter bir açma parantezi ise stack'e ekleme</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">'('</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Karakter bir operatör ise stack'teki öncelikli operatörleri postfix ifadeye ekleme ve son olarak kendisini stack'e ekleme</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">operator_mu</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">bos_mu</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">en_ust_eleman</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="sc">'('</span> <span class="o">&amp;&amp;</span> <span class="n">oncelik_karsilastir</span><span class="p">(</span><span class="n">en_ust_eleman</span><span class="p">(</span><span class="n">stack</span><span class="p">),</span> <span class="n">c</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">postfix</span><span class="p">[</span><span class="n">index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Karakter bir kapama parantezi ise stack'teki açma parantezine kadar olan operatörleri postfix ifadeye ekleme ve açma parantezini silme</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">')'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">bos_mu</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">en_ust_eleman</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">!=</span> <span class="sc">'('</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">postfix</span><span class="p">[</span><span class="n">index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">);</span> <span class="c1">// Açma parantezini silme</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">counter_stack</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        
+        <span class="c1">// Ekrana adım adım işlem sonuçlarını yazdırma</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Infix: "</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">counter_infix</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">infix</span><span class="p">);</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">infix</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">counter_infix</span><span class="o">++</span><span class="p">;</span>
+
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%*s| Stack : "</span><span class="p">,</span><span class="mi">20</span> <span class="o">-</span> <span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">infix</span><span class="p">)</span> <span class="o">-</span> <span class="n">counter_infix</span><span class="p">),</span><span class="s">""</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="n">stack</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">eleman</span><span class="p">);</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">counter_stack</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%*s| Postfix: "</span><span class="p">,</span><span class="mi">20</span> <span class="o">-</span> <span class="n">counter_stack</span><span class="p">,</span><span class="s">""</span><span class="p">);</span>
+
+        <span class="c1">// Burada, postfix ifadenin her bir karakterini kontrol ederek ekrana yazdırıyorum. Çünkü en başta postfix için bellekten yer ayırdığım için, postfix ifadeyi doğrudan ekrana yazdırırken postfix ifadenin devamında bellekte kalan verilerde string ifadeye dönüşttürülüp ekrana yazılıyor. </span>
+        <span class="c1">// Bu sayede postfix ifade ekrana daha temiz ve okunabilir bir şekilde yazılıyor.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">postfix</span><span class="p">);</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">isalnum</span><span class="p">(</span><span class="n">postfix</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">||</span> <span class="n">operator_mu</span><span class="p">(</span><span class="n">postfix</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+            <span class="p">{</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">postfix</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// Stack'te kalan operatörleri postfix ifadeye ekleme</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">bos_mu</span><span class="p">(</span><span class="n">stack</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">postfix</span><span class="p">[</span><span class="n">index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// Postfix ifadenin sonuna null karakteri ekleme ve geri döndürme</span>
+    <span class="n">postfix</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+
+    <span class="c1">// Ekrana adım adım işlem sonuçlarını yazdırma (son durum)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Infix: %-20s| Stack: "</span><span class="p">,</span><span class="s">""</span><span class="p">);</span>
+    <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="n">stack</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">eleman</span><span class="p">);</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%*s | Postfix: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="s">""</span><span class="p">,</span> <span class="n">postfix</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">postfix</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Bir postfix ifadenin sonucunu hesaplayan fonksiyon</span>
+<span class="kt">int</span> <span class="nf">postfix_hesapla</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">postfix</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Hesaplama işlemleri için kullanılacak stack yapısı</span>
+    <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">stack</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">counter_postfix</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="c1">// Postfix ifadeyi soldan sağa doğru gezme</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">postfix</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">postfix</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        
+        <span class="c1">// Karakter bir sayı ise stack'e ekleme</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">c</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">);</span> <span class="c1">// Karakteri sayıya çevirip ekleme</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Karakter bir operatör ise stack'ten iki sayı çıkarıp işlemi yapma ve sonucu stack'e ekleme</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">operator_mu</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">);</span> <span class="c1">// Stack'ten ilk sayıyı çıkarma</span>
+            <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">);</span> <span class="c1">// Stack'ten ikinci sayıyı çıkarma</span>
+            
+            <span class="c1">// Operatöre göre işlemi yapma ve sonucu stack'e ekleme</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="sc">'+'</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="sc">'-'</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="sc">'*'</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">x</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="sc">'/'</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">y</span> <span class="o">/</span> <span class="n">x</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="sc">'^'</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">,</span> <span class="n">pow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">));</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Ekrana adım adım işlem sonuçlarını yazdırma</span>
+        <span class="kt">int</span> <span class="n">stack_counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Infix: %*s| Stack: "</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="s">""</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="n">stack</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="n">stack</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">eleman</span><span class="p">);</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">stack_counter</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%*s | Postfix: "</span><span class="p">,</span><span class="mi">20</span> <span class="o">-</span> <span class="n">stack_counter</span><span class="p">,</span><span class="s">""</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">counter_postfix</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">postfix</span><span class="p">);</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">postfix</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">counter_postfix</span><span class="o">++</span><span class="p">;</span>
+        
+    <span class="p">}</span>
+    
+    <span class="c1">// Stack'te kalan tek sayının sonuç olduğunu varsayma ve geri döndürme</span>
+    <span class="k">return</span> <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stack</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">dosya</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">infix</span><span class="p">[</span><span class="mi">200</span><span class="p">];</span> <span class="c1">// Dosyadan okunan infix ifadenin saklanacağı karakter dizisi</span>
+    <span class="n">dosya</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"infix.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span> <span class="c1">// infix.txt adlı dosyayı okuma modunda açıyoruz</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">dosya</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Dosya bulunamadi!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">fscanf</span><span class="p">(</span><span class="n">dosya</span><span class="p">,</span> <span class="s">"%s"</span><span class="p">,</span> <span class="n">infix</span><span class="p">);</span> <span class="c1">// Dosyadan verinin okunması ve infix karakter dizisinin içine atılması</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Infix: %s"</span><span class="p">,</span> <span class="n">infix</span><span class="p">);</span>
+    
+    <span class="c1">// Infix ifadeyi postfixe çevirme</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">postfix</span> <span class="o">=</span> <span class="n">infixden_postfixe</span><span class="p">(</span><span class="n">infix</span><span class="p">);</span>
+    
+    <span class="c1">// Postfix ifadeyi hesaplama</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">postfix_hesapla</span><span class="p">(</span><span class="n">postfix</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"\e[0;32m</span><span class="se">\n</span><span class="s">Sonuc: %d\e[0m"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    
+     <span class="n">free</span><span class="p">(</span><span class="n">postfix</span><span class="p">);</span>
+
+     <span class="n">fclose</span><span class="p">(</span><span class="n">dosya</span><span class="p">);</span>
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<pre><code class="language-txt">3+4*2/(1-5)^2
+</code></pre>
+<p class="figcaption">Örnek <strong>infix.txt</strong> dosyası</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">// file: "OUTPUT"
+Infix: 3+4*2/(1-5)^2
+Infix: +4*2/(1-5)^2        | Stack :                     | Postfix: 3
+Infix: 4*2/(1-5)^2         | Stack : +                   | Postfix: 3
+Infix: *2/(1-5)^2          | Stack : +                   | Postfix: 34
+Infix: 2/(1-5)^2           | Stack : *+                  | Postfix: 34
+Infix: /(1-5)^2            | Stack : *+                  | Postfix: 342
+Infix: (1-5)^2             | Stack : /+                  | Postfix: 342*
+Infix: 1-5)^2              | Stack : (/+                 | Postfix: 342*
+Infix: -5)^2               | Stack : (/+                 | Postfix: 342*1
+Infix: 5)^2                | Stack : -(/+                | Postfix: 342*1
+Infix: )^2                 | Stack : -(/+                | Postfix: 342*15
+Infix: ^2                  | Stack : /+                  | Postfix: 342*15-
+Infix: 2                   | Stack : ^/+                 | Postfix: 342*15-
+Infix:                     | Stack : ^/+                 | Postfix: 342*15-2
+Infix:                     | Stack:                      | Postfix: 342*15-2^/+
+Infix:                     | Stack: 3                    | Postfix: 42*15-2^/+
+Infix:                     | Stack: 43                   | Postfix: 2*15-2^/+
+Infix:                     | Stack: 243                  | Postfix: *15-2^/+
+Infix:                     | Stack: 83                   | Postfix: 15-2^/+
+Infix:                     | Stack: 183                  | Postfix: 5-2^/+
+Infix:                     | Stack: 5183                 | Postfix: -2^/+
+Infix:                     | Stack: -483                 | Postfix: 2^/+
+Infix:                     | Stack: 2-483                | Postfix: ^/+
+Infix:                     | Stack: 1683                 | Postfix: /+
+Infix:                     | Stack: 03                   | Postfix: +
+Infix:                     | Stack: 3                    | Postfix:
+Sonuc: 3
+</span></code></pre></div></div>
+<p class="figcaption"><strong>Output</strong></p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/projects/2023-10-29-infix-to-postfix-conversion-using-stack-data-structure/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

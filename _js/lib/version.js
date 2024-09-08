@@ -1,1 +1,1 @@
-console.log('Powered by Metehan Özdeniz <https://metehanozdeniz.github.io/>');
+console.log('Powered by Metehan Özdeniz <https://metehanozdeniz.com/>');

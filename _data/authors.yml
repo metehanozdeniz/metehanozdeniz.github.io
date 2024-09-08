@@ -3,12 +3,12 @@
 # Change `author1` to your shortname.
 author1:
   name:              Metehan Özdeniz
-  email:             metehanozdeniz@gmail.com
+  email:             contact@metehanozdeniz.com
 
   # Used at the bottom of each page and at the top of the `about` layout
   # Markdown enabled, can use multiple paragraphs (enabled by `|`)
   about:             |
-    Computer Engineer Candidate - Software Developer - AI Researcher
+    Computer Engineer Candidate - AI & Software Developer
 
   # This photo will be used in the about section
   picture:
@@ -59,7 +59,7 @@ author1:
     # delicious:       <username>
     # stumbleupon:     <username>
     # paypal:          <username>
-    # download:        <url>
+    download:        /resume.pdf
     # keybase          <username>
 
 # Another author (optional)

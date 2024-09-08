@@ -2,9 +2,9 @@
 layout: about
 Title: About Me
 image: /assets/img/Per_aspera_ad_astra.jpg
-hide_description: true
+hide_description: false
 description: >
-  My name is Metehan Özdeniz.
+  Someone who manipulates the system behind reality.
 ---
 
 # About Me
@@ -13,8 +13,6 @@ description: >
 
 ## Who am I
 
-Someone who manipulates the system behind reality.
-{:.lead}
 
 ![Screenshot](../assets/img/Per_aspera_ad_astra.jpg){:.lead width="1920" height="1080" loading="lazy"}
 

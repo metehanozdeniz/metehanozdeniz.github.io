@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Decision Trees | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Decision Trees" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="Karar ağaçları (Decision Trees), makine öğrenmesinde yaygın olarak kullanılan bir denetimli öğrenme algoritmasıdır. Hem sınıflandırma hem de regresyon problemlerinde kullanılabilirler." />
+<meta property="og:description" content="Karar ağaçları (Decision Trees), makine öğrenmesinde yaygın olarak kullanılan bir denetimli öğrenme algoritmasıdır. Hem sınıflandırma hem de regresyon problemlerinde kullanılabilirler." />
+<link rel="canonical" href="http://localhost:4000/machine-learning/2024-08-31-decision-trees/" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/2024-08-31-decision-trees/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/machine-learning/decision_trees.gif" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-08-31T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/machine-learning/decision_trees.gif" />
+<meta property="twitter:title" content="Decision Trees" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-09-01T00:00:00+03:00","datePublished":"2024-08-31T00:00:00+03:00","description":"Karar ağaçları (Decision Trees), makine öğrenmesinde yaygın olarak kullanılan bir denetimli öğrenme algoritmasıdır. Hem sınıflandırma hem de regresyon problemlerinde kullanılabilirler.","headline":"Decision Trees","image":"http://localhost:4000/assets/img/machine-learning/decision_trees.gif","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/2024-08-31-decision-trees/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/machine-learning/2024-08-31-decision-trees/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Artificial Intelligence,Machine Learning,Data Science,Data Analysis,Decision Trees,Yapay Zeka,Makine Öğrenmesi,Karar Ağaçları,Veri Bilimi,Veri Analizi">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/machine-learning/2024-08-31-decision-trees/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/machine-learning/">machine-learning</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-08-31-decision-trees</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-machine-learning-decision-trees" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Decision Trees
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-08-31T00:00:00+03:00">31 Aug 2024</time> Categorized under <a href="/machine-learning/" class="flip-title">Machine Learning</a> tagged <a href="/tag-prediction/" class="flip-title">Prediction</a>
+           
+          <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-08-31-decision-trees/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 01 Sep 2024">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-09-01T00:00:00+03:00">01-09-2024</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/machine-learning/decision_trees.gif"
+  
+  alt="Decision Trees"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Karar ağaçları (Decision Trees), makine öğrenmesinde yaygın olarak kullanılan bir denetimli öğrenme algoritmasıdır. Hem sınıflandırma hem de regresyon problemlerinde kullanılabilirler.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <ul id="markdown-toc">
+  <li><a href="#1-temel-kavramlar" id="markdown-toc-1-temel-kavramlar">1. Temel Kavramlar</a></li>
+  <li><a href="#2-çalışma-prensibi" id="markdown-toc-2-çalışma-prensibi">2. Çalışma Prensibi</a>    <ul>
+      <li><a href="#1-veri-kümelerinin-bölümlenmesi" id="markdown-toc-1-veri-kümelerinin-bölümlenmesi">1. Veri Kümelerinin Bölümlenmesi</a></li>
+      <li><a href="#2-bölme-kriterleri" id="markdown-toc-2-bölme-kriterleri">2. Bölme Kriterleri</a>        <ul>
+          <li><a href="#sınıflandırma-için-kullanılan-ölçütler" id="markdown-toc-sınıflandırma-için-kullanılan-ölçütler">Sınıflandırma için kullanılan ölçütler:</a>            <ul>
+              <li><a href="#gini-katsayısı-" id="markdown-toc-gini-katsayısı-">Gini Katsayısı :</a></li>
+              <li><a href="#bilgi-kazancı-information-gain" id="markdown-toc-bilgi-kazancı-information-gain">Bilgi Kazancı (Information Gain):</a></li>
+            </ul>
+          </li>
+          <li><a href="#regresyon-için-kullanılan-ölçütler-" id="markdown-toc-regresyon-için-kullanılan-ölçütler-">Regresyon için kullanılan ölçütler :</a>            <ul>
+              <li><a href="#1-ortalama-kare-hatası-mean-squared-error-mse" id="markdown-toc-1-ortalama-kare-hatası-mean-squared-error-mse">1. Ortalama Kare Hatası (Mean Squared Error, MSE):</a></li>
+              <li><a href="#2-ortalama-mutlak-hata-mean-absolute-error-mae" id="markdown-toc-2-ortalama-mutlak-hata-mean-absolute-error-mae">2. Ortalama Mutlak Hata (Mean Absolute Error, MAE)</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#3-ağacın-büyümesi" id="markdown-toc-3-ağacın-büyümesi">3. Ağacın Büyümesi</a></li>
+      <li><a href="#4-tahmin" id="markdown-toc-4-tahmin">4. Tahmin</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-karar-ağaçlarının-i̇yileştirilmesi" id="markdown-toc-3-karar-ağaçlarının-i̇yileştirilmesi">3. Karar Ağaçlarının İyileştirilmesi</a>    <ul>
+      <li><a href="#1-budama-pruning" id="markdown-toc-1-budama-pruning">1. Budama (Pruning):</a></li>
+      <li><a href="#2-çanta-yöntemi-bagging-ve-rastgele-ormanlar-random-forests" id="markdown-toc-2-çanta-yöntemi-bagging-ve-rastgele-ormanlar-random-forests">2. Çanta Yöntemi (Bagging) ve Rastgele Ormanlar (Random Forests):</a></li>
+      <li><a href="#3-öznitelik-seçimi" id="markdown-toc-3-öznitelik-seçimi">3. Öznitelik Seçimi:</a></li>
+    </ul>
+  </li>
+  <li><a href="#dataset" id="markdown-toc-dataset">Dataset</a></li>
+  <li><a href="#import-the-necessary-modules-and-libraries" id="markdown-toc-import-the-necessary-modules-and-libraries">Import the necessary modules and libraries</a></li>
+  <li><a href="#data-preprocessing" id="markdown-toc-data-preprocessing">Data Preprocessing</a>    <ul>
+      <li><a href="#read-data" id="markdown-toc-read-data">Read Data</a></li>
+      <li><a href="#graphical-analysis-of-data" id="markdown-toc-graphical-analysis-of-data">Graphical Analysis of Data</a></li>
+      <li><a href="#split-data" id="markdown-toc-split-data">Split Data</a></li>
+    </ul>
+  </li>
+  <li><a href="#creating-the-model" id="markdown-toc-creating-the-model">Creating the Model</a>    <ul>
+      <li><a href="#parameters" id="markdown-toc-parameters">Parameters</a>        <ul>
+          <li><a href="#1-criterionsquared_error-" id="markdown-toc-1-criterionsquared_error-">1. <code class="language-plaintext highlighter-rouge">criterion='squared_error'</code> :</a></li>
+          <li><a href="#2-splitterbest-" id="markdown-toc-2-splitterbest-">2. <code class="language-plaintext highlighter-rouge">splitter='best'</code> :</a></li>
+          <li><a href="#3-max_depthnone-" id="markdown-toc-3-max_depthnone-">3. <code class="language-plaintext highlighter-rouge">max_depth=None</code> :</a></li>
+          <li><a href="#4-min_samples_split2-" id="markdown-toc-4-min_samples_split2-">4. <code class="language-plaintext highlighter-rouge">min_samples_split=2</code> :</a></li>
+          <li><a href="#5-min_samples_leaf1-" id="markdown-toc-5-min_samples_leaf1-">5. <code class="language-plaintext highlighter-rouge">min_samples_leaf=1</code> :</a></li>
+          <li><a href="#6-min_weight_fraction_leaf00-" id="markdown-toc-6-min_weight_fraction_leaf00-">6. <code class="language-plaintext highlighter-rouge">min_weight_fraction_leaf=0.0</code> :</a></li>
+          <li><a href="#7-max_featuresnone-" id="markdown-toc-7-max_featuresnone-">7. <code class="language-plaintext highlighter-rouge">max_features=None</code> :</a></li>
+          <li><a href="#8-random_statenone-" id="markdown-toc-8-random_statenone-">8. <code class="language-plaintext highlighter-rouge">random_state=None</code> :</a></li>
+          <li><a href="#9-max_leaf_nodesnone-" id="markdown-toc-9-max_leaf_nodesnone-">9. <code class="language-plaintext highlighter-rouge">max_leaf_nodes=None</code> :</a></li>
+          <li><a href="#10-min_impurity_decrease00-" id="markdown-toc-10-min_impurity_decrease00-">10. <code class="language-plaintext highlighter-rouge">min_impurity_decrease=0.0</code> :</a></li>
+          <li><a href="#11-ccp_alpha00-" id="markdown-toc-11-ccp_alpha00-">11. <code class="language-plaintext highlighter-rouge">ccp_alpha=0.0</code> :</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#fit-regression-model" id="markdown-toc-fit-regression-model">Fit regression model</a></li>
+  <li><a href="#predict" id="markdown-toc-predict">Predict</a></li>
+  <li><a href="#plot-the-results" id="markdown-toc-plot-the-results">Plot the results</a></li>
+  <li><a href="#creating-the-new-model" id="markdown-toc-creating-the-new-model">Creating the new model</a></li>
+  <li><a href="#fit-regression-model-1" id="markdown-toc-fit-regression-model-1">Fit regression model</a></li>
+  <li><a href="#predict-1" id="markdown-toc-predict-1">Predict</a></li>
+  <li><a href="#plot-the-results-1" id="markdown-toc-plot-the-results-1">Plot the results</a></li>
+  <li><a href="#evaluation" id="markdown-toc-evaluation">Evaluation</a>    <ul>
+      <li><a href="#avantajlar" id="markdown-toc-avantajlar">Avantajlar</a>        <ul>
+          <li><a href="#1-tam-uyum-sağlama" id="markdown-toc-1-tam-uyum-sağlama">1. Tam Uyum Sağlama:</a></li>
+          <li><a href="#2-tüm-verileri-kullanma" id="markdown-toc-2-tüm-verileri-kullanma">2. Tüm Verileri Kullanma:</a></li>
+        </ul>
+      </li>
+      <li><a href="#dezavantajlar" id="markdown-toc-dezavantajlar">Dezavantajlar</a>        <ul>
+          <li><a href="#1-aşırı-öğrenme-overfitting" id="markdown-toc-1-aşırı-öğrenme-overfitting">1. Aşırı Öğrenme (Overfitting):</a></li>
+          <li><a href="#2-karmaşık-modeller" id="markdown-toc-2-karmaşık-modeller">2. Karmaşık Modeller:</a></li>
+          <li><a href="#3-genelleme-kapasitesinin-azalması" id="markdown-toc-3-genelleme-kapasitesinin-azalması">3. Genelleme Kapasitesinin Azalması:</a></li>
+        </ul>
+      </li>
+      <li><a href="#uygulama-sebepleri" id="markdown-toc-uygulama-sebepleri">Uygulama Sebepleri</a></li>
+    </ul>
+  </li>
+</ul>
+<p>Karar ağaçları, veriyi dallara ayırarak kararlar verir. Ağaç yapısı, kök düğümden (root) başlayarak, her düğümde bir özelliğin (feature) değeri üzerinden bir karar alır ve bu karara göre dallanarak ilerler. Son düğümler (yaprak düğümler) ise sınıflandırma veya regresyon sonuçlarını temsil eder.</p>
+
+<h1 id="1-temel-kavramlar">1. Temel Kavramlar</h1>
+<ul>
+  <li><strong>Kök Düğüm (Root Node):</strong> Karar ağacının en üstünde bulunan ve en önemli özellikten ayrılma işlemini başlatan düğümdür. Bu düğüm, tüm veri kümesini temsil eder ve veriyi dallara ayıran ilk soruyu içerir.</li>
+  <li><strong>Dallanma (Branching):</strong> Düğümler arasındaki bağlantılardır ve bir özelliğe (örneğin, X &gt; 5) dayalı olarak bir veriyi belirli bir yola yönlendirir. Her düğümde belirli bir özellik üzerinden veri iki veya daha fazla alt gruba ayrılır. Bu süreç, ağacın alt dallarını oluşturur.</li>
+  <li><strong>Yaprak Düğüm (Leaf Node):</strong> Karar ağacının sonuna ulaşmış olan düğümlerdir. Bu düğümler, nihai sınıflandırmayı veya tahmini temsil eder. Bu düğümler, sınıflandırma probleminde bir sınıf etiketini, regresyon probleminde ise bir sayısal değeri temsil eder.</li>
+  <li><strong>Derinlik (Depth):</strong> Ağacın kök düğümden en derindeki yaprak düğüme kadar olan yolun uzunluğu, ağacın derinliğini ifade eder.</li>
+</ul>
+
+<h1 id="2-çalışma-prensibi">2. Çalışma Prensibi</h1>
+<h2 id="1-veri-kümelerinin-bölümlenmesi">1. Veri Kümelerinin Bölümlenmesi</h2>
+<ul>
+  <li>Karar ağacı, veri kümesini, her bir özellik için en iyi bölmeyi arar. Bu bölme, her bir özelliğin belirli bir eşik değerine göre (örneğin, <code class="language-plaintext highlighter-rouge">X &gt; 5</code>) veriyi ikiye ayırmasıyla oluşur.</li>
+</ul>
+
+<h2 id="2-bölme-kriterleri">2. Bölme Kriterleri</h2>
+<ul>
+  <li>Karar ağacının en iyi bölmeyi bulmak için kullandığı ölçütler vardır. Bu ölçütler, veri kümesini en saf hale getiren bölmeyi seçmek amacıyla kullanılır.</li>
+</ul>
+
+<h3 id="sınıflandırma-için-kullanılan-ölçütler">Sınıflandırma için kullanılan ölçütler:</h3>
+<h4 id="gini-katsayısı-">Gini Katsayısı :</h4>
+<p>Bir veri kümesinin saflığını ölçer. Düşük Gini, daha saf bir küme demektir. Bir veri kümesindeki sınıf dağılımı ne kadar homojense, Gini katsayısı o kadar düşük olur.</p>
+
+\[Gini(D) = 1 - \sum_{i=1}^{C}{p_i^2}\]
+
+<ul>
+  <li>\(D\) : Veri kümesi</li>
+  <li>\(C\) : Sınıf sayısı</li>
+  <li>\(p_i\) : \(i\)-inci sınıfa ait olma olasılığı</li>
+</ul>
+
+<p><strong>Örnek:</strong> Eğer bir veri kümesinde iki sınıf varsa ve her iki sınıfın da olasılığı 0.5 ise:</p>
+
+\[Gini(D) = 1 - (0.5^2 + 0.5^2) = 1 - (0.25 + 0.25) = 1 - 0.5 = 0.5\]
+
+<h4 id="bilgi-kazancı-information-gain">Bilgi Kazancı (Information Gain):</h4>
+<p>Bilgi kazancı, entropi kavramına dayanır ve bir bölme işleminden önce ve sonra veri kümesindeki düzensizliğin (entropi) ne kadar azaldığını ölçer.</p>
+
+<ul>
+  <li><strong>Entropi:</strong> Entropi, bir veri kümesinin düzensizliğini ölçer. Entropi ne kadar yüksekse, veri kümesi o kadar karışıktır.</li>
+</ul>
+
+\[Entropy(D) = - \sum_{i=1}^{C}{p_i * log_2(p_i)}\]
+
+<ul>
+  <li>\(D\) : Veri kümesi</li>
+  <li>\(C\) : Sınıf sayısı</li>
+  <li>
+    <p>\(p_i\) : \(i\)-inci sınıfa ait olma olasılığı</p>
+  </li>
+  <li><strong>Bilgi Kazancı (Information Gain):</strong> Bir özelliğin (feature) bölme işleminden sonra veri kümesindeki entropiyi ne kadar azalttığını ölçer.</li>
+</ul>
+
+\[Information Gain(D,A) = Entropy(D) - \sum_{v \in values(A)}{\frac{|D_v|}{|D|} * Entropy(D_v)}\]
+
+<ul>
+  <li>\(A\) : Bölme yapılan özellik</li>
+  <li>\(values(A)\) : Özellik \(A\)‘nın alabileceği tüm değerler</li>
+  <li>\(\lvert D \rvert\) : Veri kümesinin boyutu</li>
+  <li>\(\lvert D_v \rvert\) : \(v\) değerine sahip alt veri kümesinin boyutu</li>
+</ul>
+
+<p><strong>Örnek :</strong> Eğer bir veri kümesi için başlangıç entropisi 0.94 ve bölme işleminden sonra iki alt veri kümesi oluşuyorsa (her biri entropisi 0.5 olan), bilgi kazancı şu şekilde hesaplanır:</p>
+
+\[Information Gain(D,A) = 0.94 - (\frac{1}{2} * 0.5 + \frac{1}{2} * 0.5) = 0.94 - 0.5 = 0.44\]
+
+<h3 id="regresyon-için-kullanılan-ölçütler-">Regresyon için kullanılan ölçütler :</h3>
+<h4 id="1-ortalama-kare-hatası-mean-squared-error-mse">1. Ortalama Kare Hatası (Mean Squared Error, MSE):</h4>
+<p>Ortalama kare hatası, regresyon problemlerinde kullanılır ve tahmin edilen değerlerin gerçek değerlerden ortalama olarak ne kadar saptığını ölçer. Hedef, bu değeri en aza indirmektir.</p>
+
+\[MSE = \frac{1}{n}\sum_{i=1}^{n}{(y_i - \hat{y_i})}^2\]
+
+<ul>
+  <li>\(n\) : Veri kümesindeki örnek sayısı</li>
+  <li>\(y_i\) : Gerçek değer</li>
+  <li>\(\hat{y_i}\) : Tahmin edilen değer</li>
+</ul>
+
+<h4 id="2-ortalama-mutlak-hata-mean-absolute-error-mae">2. Ortalama Mutlak Hata (Mean Absolute Error, MAE)</h4>
+
+<p>Ortalama mutlak hata da regresyon problemlerinde kullanılır ve tahmin edilen değerlerin gerçek değerlerden ortalama olarak ne kadar saptığını ölçer, ancak bu sefer mutlak değerler üzerinden hesaplama yapılır.</p>
+
+\[MAE = \frac{1}{n}\sum_{i=1}^{n}{|y_i - \hat{y_i}|}\]
+
+<ul>
+  <li>\(n\) : Veri kümesindeki örnek sayısı</li>
+  <li>\(y_i\) : Gerçek değer</li>
+  <li>\(\hat{y_i}\) : Tahmin edilen değer</li>
+</ul>
+
+<p>Bu denklemler, karar ağacı modellerinde hangi bölmenin daha iyi olduğuna karar vermek için kullanılır ve modelin doğruluğunu artırmaya yardımcı olur.</p>
+
+<h2 id="3-ağacın-büyümesi">3. Ağacın Büyümesi</h2>
+<p>Karar ağacı, veri kümesini dallara ayırmaya devam eder ve her dalın sonunda karar düğümlerini oluşturur. Ağaç, belirli bir durdurma kriterine (örneğin, maksimum derinlik, minimum yaprak düğüm sayısı) ulaşana kadar büyür.</p>
+
+<h2 id="4-tahmin">4. Tahmin</h2>
+<p>Yeni bir veri geldiğinde, karar ağacı bu veriyi kök düğümden başlatarak dallar boyunca yönlendirir ve en sonunda yaprak düğümünde bir tahmin üretir.</p>
+
+<h1 id="3-karar-ağaçlarının-i̇yileştirilmesi">3. Karar Ağaçlarının İyileştirilmesi</h1>
+
+<h2 id="1-budama-pruning">1. Budama (Pruning):</h2>
+<p>Aşırı uyumu önlemek için ağacın bazı dallarını kesme işlemidir. Bu, genellikle daha küçük ve daha genellenebilir bir ağaç oluşturur.</p>
+
+<h2 id="2-çanta-yöntemi-bagging-ve-rastgele-ormanlar-random-forests">2. Çanta Yöntemi (Bagging) ve Rastgele Ormanlar (Random Forests):</h2>
+<p>Birden fazla karar ağacı oluşturup, bu ağaçların tahminlerini birleştirerek daha dengeli ve güçlü bir model elde edilir.</p>
+
+<h2 id="3-öznitelik-seçimi">3. Öznitelik Seçimi:</h2>
+<p>Karar ağacının aşırı uyumunu önlemek için, modelin yalnızca en etkili özellikleri kullanmasına izin verilir.</p>
+
+<p>Bu şekilde, karar ağaçları makine öğreniminde güçlü bir araç olarak yerini alır, ancak dikkatli bir şekilde ayarlandığında ve diğer yöntemlerle birleştirildiğinde en iyi sonuçları verir.</p>
+
+<p>Şimdi <a href="https://gist.githubusercontent.com/metehanozdeniz/be330879f29b0a9c49521c6ffc48aa16/raw/18b58e460944f24326df6ff639f035fca1540464/salaries.csv">salaries.csv</a> verisetimizdeki eğitim seviyesi bağımsız değişkeni (X) ile maaş bağımlı değişkenini (Y) tahmin eden bir karar ağacı modeli oluşturalım.</p>
+
+<h1 id="dataset">Dataset</h1>
+
+<p><a href="https://gist.githubusercontent.com/metehanozdeniz/be330879f29b0a9c49521c6ffc48aa16/raw/18b58e460944f24326df6ff639f035fca1540464/salaries.csv">salaries.csv</a></p>
+
+<h1 id="import-the-necessary-modules-and-libraries">Import the necessary modules and libraries</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sbn</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+</code></pre></div></div>
+
+<h1 id="data-preprocessing">Data Preprocessing</h1>
+
+<h2 id="read-data">Read Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'salaries.csv'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              unvan  Egitim Seviyesi   maas
+0             Cayci                1   2250
+1          Sekreter                2   2500
+2  Uzman Yardimcisi                3   3000
+3             Uzman                4   4000
+4  Proje Yoneticisi                5   5500
+5               Sef                6   7500
+6             Mudur                7  10000
+7          Direktor                8  15000
+8           C-level                9  25000
+9               CEO               10  50000
+</code></pre></div></div>
+
+<h2 id="graphical-analysis-of-data">Graphical Analysis of Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sbn</span><span class="p">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/support_vector_regression_seaborn_outout.png" alt="seaborn graph" /></p>
+
+<h2 id="split-data">Split Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">egitim_seviyesi_X</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">].</span><span class="n">values</span>
+<span class="n">maas_Y</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:].</span><span class="n">values</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Egitim Seviyesi: "</span><span class="p">,</span><span class="n">egitim_seviyesi_X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="s">"Maas: "</span><span class="p">,</span><span class="n">maas_Y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Egitim Seviyesi:  [1] Maas:  [2250]
+Egitim Seviyesi:  [2] Maas:  [2500]
+Egitim Seviyesi:  [3] Maas:  [3000]
+Egitim Seviyesi:  [4] Maas:  [4000]
+Egitim Seviyesi:  [5] Maas:  [5500]
+Egitim Seviyesi:  [6] Maas:  [7500]
+Egitim Seviyesi:  [7] Maas:  [10000]
+Egitim Seviyesi:  [8] Maas:  [15000]
+Egitim Seviyesi:  [9] Maas:  [25000]
+Egitim Seviyesi:  [10] Maas:  [50000]
+</code></pre></div></div>
+
+<h1 id="creating-the-model">Creating the Model</h1>
+
+<p>Şimdi <code class="language-plaintext highlighter-rouge">DecisionTreeRegressor</code> sınıfını kullanarak bir karar ağacı oluşturalım. Bu sınıfı kullanırken aldığı parametreler modelin nasıl inşa edileceğini belirler.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dtr_1</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s">'squared_error'</span><span class="p">,</span>
+                            <span class="n">splitter</span><span class="o">=</span><span class="s">'best'</span><span class="p">,</span>
+                            <span class="n">max_depth</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                            <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">min_weight_fraction_leaf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                            <span class="n">max_features</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">min_impurity_decrease</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                            <span class="n">ccp_alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="parameters">Parameters</h2>
+
+<h3 id="1-criterionsquared_error-">1. <code class="language-plaintext highlighter-rouge">criterion='squared_error'</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Bölme kalitesini değerlendirmek için kullanılan fonksiyondur. Varsayılan olarak <code class="language-plaintext highlighter-rouge">'squared_error'</code> kullanılır, bu da ortalama kare hatayı minimize etmeye çalışır.</li>
+  <li><strong>Diğer seçenekler :</strong> Diğer seçenekler: <code class="language-plaintext highlighter-rouge">friedman_mse</code>, <code class="language-plaintext highlighter-rouge">absolute_error</code>, <code class="language-plaintext highlighter-rouge">poisson</code>.</li>
+</ul>
+
+<h3 id="2-splitterbest-">2. <code class="language-plaintext highlighter-rouge">splitter='best'</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Düğümleri nasıl böleneceğini belirler. <code class="language-plaintext highlighter-rouge">best</code> seçeneği, her düğüm için en iyi bölmeyi seçer. <code class="language-plaintext highlighter-rouge">random</code> seçeneği ise bölmeyi rastgele seçer.</li>
+</ul>
+
+<h3 id="3-max_depthnone-">3. <code class="language-plaintext highlighter-rouge">max_depth=None</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Ağacın maksimum derinliğini belirler. Derinlik arttıkça model karmaşıklığı da artar, ancak aşırı öğrenme (overfitting) riski de artar. <code class="language-plaintext highlighter-rouge">None</code> değeri, ağacın yaprak düğümleri saf olana kadar büyümesine izin verir.</li>
+</ul>
+
+<h3 id="4-min_samples_split2-">4. <code class="language-plaintext highlighter-rouge">min_samples_split=2</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Bir düğümün bölünmesi için gereken minimum örnek sayısını belirler. Daha büyük bir sayı, daha az bölünmeye ve daha basit bir model elde edilmesine neden olabilir.</li>
+</ul>
+
+<h3 id="5-min_samples_leaf1-">5. <code class="language-plaintext highlighter-rouge">min_samples_leaf=1</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Yaprak düğümde bulunması gereken minimum örnek sayısını belirler. Bu parametreyi artırmak, daha az sayıda yaprak düğüm oluşturur.</li>
+</ul>
+
+<h3 id="6-min_weight_fraction_leaf00-">6. <code class="language-plaintext highlighter-rouge">min_weight_fraction_leaf=0.0</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Yaprak düğümde bulunması gereken minimum ağırlık oranını belirler. Örneğin, sınıflandırmada sınıflar arası dengesizliği kontrol etmek için kullanılabilir.</li>
+  <li><strong>Kullanımı :</strong> Float (0.0 ile 0.5 arasında).</li>
+</ul>
+
+<h3 id="7-max_featuresnone-">7. <code class="language-plaintext highlighter-rouge">max_features=None</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Her bölme için göz önünde bulundurulacak maksimum özellik sayısını belirler. <code class="language-plaintext highlighter-rouge">None</code> değeri, tüm özelliklerin kullanılacağı anlamına gelir.</li>
+  <li><strong>Diğer seçenekler :</strong> <code class="language-plaintext highlighter-rouge">'auto'</code>, <code class="language-plaintext highlighter-rouge">'sqrt'</code>, <code class="language-plaintext highlighter-rouge">'log2'</code> veya pozitif bir tam sayı.</li>
+</ul>
+
+<h3 id="8-random_statenone-">8. <code class="language-plaintext highlighter-rouge">random_state=None</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Rastgelelik unsurlarını kontrol etmek için kullanılır. Aynı random_state değeri ile tekrarlandığında aynı sonuçlar elde edilir.</li>
+  <li><strong>Kullanımı :</strong> Bir tamsayı veya <code class="language-plaintext highlighter-rouge">None</code>.</li>
+</ul>
+
+<h3 id="9-max_leaf_nodesnone-">9. <code class="language-plaintext highlighter-rouge">max_leaf_nodes=None</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Yaprak düğümlerin maksimum sayısını belirler. Bu parametre ağaç boyutunu kontrol eder ve aşırı öğrenmeyi önlemeye yardımcı olabilir.</li>
+  <li><strong>Kullanımı :</strong> Pozitif bir tamsayı veya <code class="language-plaintext highlighter-rouge">None</code>.</li>
+</ul>
+
+<h3 id="10-min_impurity_decrease00-">10. <code class="language-plaintext highlighter-rouge">min_impurity_decrease=0.0</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Bölme yapılabilmesi için gereken minimum kirlilik azalmasını belirtir. Bu değerin artırılması, daha az sayıda bölme yapılmasına yol açar.</li>
+</ul>
+
+<h3 id="11-ccp_alpha00-">11. <code class="language-plaintext highlighter-rouge">ccp_alpha=0.0</code> :</h3>
+<ul>
+  <li><strong>Açıklama :</strong> Karışıklık karmaşıklığını budama için kullanılan bir parametredir. Budama işlemi sırasında kullanılan alpha değeri büyüdükçe, daha fazla düğüm budanır.</li>
+</ul>
+
+<p>Bu parametreler, <strong>DecisionTreeRegressor</strong> modelinin esnekliğini ve performansını ayarlamak için kullanılır. Hangi parametrelerin hangi değerlerde seçileceği, genellikle veri setinin özelliklerine ve modelleme amacına bağlıdır.</p>
+
+<h1 id="fit-regression-model">Fit regression model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dtr_1</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">,</span> <span class="n">maas_Y</span><span class="p">)</span>
+</code></pre></div></div>
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked="" /><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">DecisionTreeRegressor</label><div class="sk-toggleable__content"><pre>DecisionTreeRegressor()</pre></div></div></div></div></div>
+
+<h1 id="predict">Predict</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">predict_1</span> <span class="o">=</span> <span class="n">dtr_1</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="plot-the-results">Plot the results</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">,</span> <span class="n">maas_Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Dataset'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">,</span> <span class="n">predict_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'max_depth=None'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Decision Tree Regression'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Egitim Seviyesi'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Maas'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/decision_tree_regression_plot.png" alt="decision tree regression plot" /></p>
+
+<p>Şimdi <code class="language-plaintext highlighter-rouge">max_depth=None</code> parametresinin değerini <code class="language-plaintext highlighter-rouge">max_depth=2</code> olarak değiştirerek derinliği 2 olan yeni bir karar ağacı modeli oluşturalım ve test edelim.</p>
+
+<h1 id="creating-the-new-model">Creating the new model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dtr_2</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s">'squared_error'</span><span class="p">,</span>
+                            <span class="n">splitter</span><span class="o">=</span><span class="s">'best'</span><span class="p">,</span>
+                            <span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                            <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                            <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">min_weight_fraction_leaf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                            <span class="n">max_features</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">min_impurity_decrease</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                            <span class="n">ccp_alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="fit-regression-model-1">Fit regression model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dtr_2</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">,</span> <span class="n">maas_Y</span><span class="p">)</span>
+</code></pre></div></div>
+
+<style>#sk-container-id-2 {color: black;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeRegressor(max_depth=2)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked="" /><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">DecisionTreeRegressor</label><div class="sk-toggleable__content"><pre>DecisionTreeRegressor(max_depth=2)</pre></div></div></div></div></div>
+
+<h1 id="predict-1">Predict</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">predict_2</span> <span class="o">=</span> <span class="n">dtr_2</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="plot-the-results-1">Plot the results</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">,</span> <span class="n">maas_Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Dataset'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">,</span> <span class="n">predict_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'max_depth=None'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">egitim_seviyesi_X</span><span class="p">,</span> <span class="n">predict_2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'green'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'max_depth=2'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Decision Tree Regression'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Egitim Seviyesi'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Maas'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/decision_tree_regression_plot_2.png" alt="decision tree regression plot 2" /></p>
+
+<h1 id="evaluation">Evaluation</h1>
+<p>Görüldüğü üzere <code class="language-plaintext highlighter-rouge">max_depth=None</code> değeri ağacın yaprak sayısı saf olana kadar devam etmiş ve daha doğru sonuçlar vermiştir.</p>
+
+<p><code class="language-plaintext highlighter-rouge">max_depth=None</code> olarak ayarlanmasının nedeni, karar ağacının maksimum derinliğinin sınırsız bırakılmasıdır. Bu, ağacın her yaprak düğüm saf olana (yani tek bir sınıf veya değere sahip olana) veya düğümler minimum örnek sayısına ulaşana kadar (diğer parametreler tarafından belirlenir) büyümesine izin verir.</p>
+
+<p>Bu yaklaşımın birkaç avantajı ve dezavantajı vardır:</p>
+
+<h2 id="avantajlar">Avantajlar</h2>
+
+<h3 id="1-tam-uyum-sağlama">1. Tam Uyum Sağlama:</h3>
+<p>Karar ağacı, verideki tüm örüntüleri tam olarak öğrenebilir. Bu, modelin eğitim verisi üzerinde çok iyi performans göstermesine neden olabilir, çünkü her karar düğümü, verinin mümkün olan en iyi şekilde bölünmesine izin verir.</p>
+
+<h3 id="2-tüm-verileri-kullanma">2. Tüm Verileri Kullanma:</h3>
+<p>Derinliğin sınırsız bırakılması, karar ağacının verideki en küçük varyasyonları bile yakalamasını sağlar. Bu, modelin esneklik ve duyarlılığını artırabilir.</p>
+
+<h2 id="dezavantajlar">Dezavantajlar</h2>
+
+<h3 id="1-aşırı-öğrenme-overfitting">1. Aşırı Öğrenme (Overfitting):</h3>
+<p>Ağaç çok derin olduğunda, eğitim verisine tam olarak uyum sağlar, bu da aşırı öğrenmeye neden olabilir. Aşırı öğrenme, modelin eğitim verisinde çok iyi performans gösterirken, yeni (görülmemiş) verilerde zayıf performans göstermesine yol açar.</p>
+
+<h3 id="2-karmaşık-modeller">2. Karmaşık Modeller:</h3>
+<p>Çok derin ağaçlar, çok fazla düğüm ve yaprak içerebilir, bu da modelin yorumlanabilirliğini zorlaştırır. Ayrıca, karmaşık modeller daha yavaş çalışabilir ve daha fazla hesaplama kaynağı gerektirebilir.</p>
+
+<h3 id="3-genelleme-kapasitesinin-azalması">3. Genelleme Kapasitesinin Azalması:</h3>
+<p>Çok fazla derinleşen ağaçlar, veri kümesindeki gürültüyü öğrenme riski taşır. Bu, modelin genelleme kapasitesini azaltabilir ve yeni verilerle karşılaştığında beklenmedik sonuçlar vermesine neden olabilir.</p>
+
+<h2 id="uygulama-sebepleri">Uygulama Sebepleri</h2>
+
+<ul>
+  <li><strong>Deneme Aşamasında:</strong> Modeli geliştirme aşamasında <code class="language-plaintext highlighter-rouge">max_depth=None</code> bırakmak, modelin veri üzerinde nasıl çalıştığını görmek için yararlı olabilir. Bu, modelin doğal derinliğini anlamanızı ve daha sonra bu derinliği sınırlamak için uygun bir değer seçmenize yardımcı olabilir.</li>
+  <li><strong>Küçük ve Basit Veri Setlerinde:</strong> Eğer veri seti küçük ve özellik sayısı sınırlıysa, aşırı derinlik sorunu olmadan <code class="language-plaintext highlighter-rouge">max_depth=None</code> bırakılabilir. Bu durumlarda model, doğal olarak uygun derinlikte bir ağaç oluşturabilir.</li>
+</ul>
+
+<p>Sonuç olarak, <code class="language-plaintext highlighter-rouge">max_depth=None</code> parametresi, ağaç derinliğini sınırsız bırakarak modelin veri üzerinde maksimum esneklikle çalışmasına olanak tanır, ancak aşırı öğrenme riskini artırır. Bu nedenle, uygulamada bu parametreyi dikkatli bir şekilde ayarlamak ve gerekirse çapraz doğrulama gibi tekniklerle doğru derinliği seçmek önemlidir.</p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/machine-learning/2024-08-31-decision-trees/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

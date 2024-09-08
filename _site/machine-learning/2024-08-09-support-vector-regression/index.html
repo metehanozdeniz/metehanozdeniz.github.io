@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Support Vector Regression (SVR) Example | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Support Vector Regression (SVR) Example" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="Bu yazıda da eğitim seviyesi ile maaş miktarı arasındaki ilişkiyi inceleyen bir support vector regression modelini ele alacağız." />
+<meta property="og:description" content="Bu yazıda da eğitim seviyesi ile maaş miktarı arasındaki ilişkiyi inceleyen bir support vector regression modelini ele alacağız." />
+<link rel="canonical" href="http://localhost:4000/machine-learning/2024-08-09-support-vector-regression/" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/2024-08-09-support-vector-regression/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/machine-learning/support_vector_regression_cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-08-09T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/machine-learning/support_vector_regression_cover.png" />
+<meta property="twitter:title" content="Support Vector Regression (SVR) Example" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-08-10T00:00:00+03:00","datePublished":"2024-08-09T00:00:00+03:00","description":"Bu yazıda da eğitim seviyesi ile maaş miktarı arasındaki ilişkiyi inceleyen bir support vector regression modelini ele alacağız.","headline":"Support Vector Regression (SVR) Example","image":"http://localhost:4000/assets/img/machine-learning/support_vector_regression_cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/2024-08-09-support-vector-regression/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/machine-learning/2024-08-09-support-vector-regression/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Artificial Intelligence,Machine Learning,Data Science,Data Analysis,Support Vector Regression,Yapay Zeka,Makine Öğrenmesi,Destek Vektör Regresyonu,Veri Bilimi,Veri Analizi">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/machine-learning/2024-08-09-support-vector-regression/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/machine-learning/">machine-learning</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-08-09-support-vector-regression</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-machine-learning-support-vector-regression" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Support Vector Regression (SVR) Example
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-08-09T00:00:00+03:00">09 Aug 2024</time> Categorized under <a href="/machine-learning/" class="flip-title">Machine Learning</a> tagged <a href="/tag-prediction/" class="flip-title">Prediction</a>
+           
+          <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-08-09-support-vector-regression/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 10 Aug 2024">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-08-10T00:00:00+03:00">10-08-2024</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/machine-learning/support_vector_regression_cover.png"
+  
+  alt="Support Vector Regression (SVR) Example"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Bu yazıda da eğitim seviyesi ile maaş miktarı arasındaki ilişkiyi inceleyen bir support vector regression modelini ele alacağız.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <ul id="markdown-toc">
+  <li><a href="#1-doğrusal-linear-svr" id="markdown-toc-1-doğrusal-linear-svr">1. Doğrusal (Linear) SVR</a></li>
+  <li><a href="#2-polinomal-polynomial-svr" id="markdown-toc-2-polinomal-polynomial-svr">2. Polinomal (Polynomial) SVR</a></li>
+  <li><a href="#3-radial-basis-function-rbf-svr" id="markdown-toc-3-radial-basis-function-rbf-svr">3. Radial Basis Function (RBF) SVR</a></li>
+  <li><a href="#4-sigmoid-svr" id="markdown-toc-4-sigmoid-svr">4. Sigmoid SVR</a></li>
+  <li><a href="#dataset" id="markdown-toc-dataset">Dataset</a></li>
+  <li><a href="#import-libraries" id="markdown-toc-import-libraries">Import Libraries</a></li>
+  <li><a href="#data-preprocessing" id="markdown-toc-data-preprocessing">Data Preprocessing</a>    <ul>
+      <li><a href="#read-data" id="markdown-toc-read-data">Read Data</a></li>
+      <li><a href="#graphical-analysis-of-data" id="markdown-toc-graphical-analysis-of-data">Graphical Analysis of Data</a></li>
+      <li><a href="#split-data" id="markdown-toc-split-data">Split Data</a></li>
+      <li><a href="#scaling" id="markdown-toc-scaling">Scaling</a>        <ul>
+          <li><a href="#1-svrnin-çekirdek-fonksiyonları-ile-uyum" id="markdown-toc-1-svrnin-çekirdek-fonksiyonları-ile-uyum">1. SVR’nin Çekirdek Fonksiyonları ile Uyum</a></li>
+          <li><a href="#2-optimizasyonun-daha-kolay-yapılması" id="markdown-toc-2-optimizasyonun-daha-kolay-yapılması">2. Optimizasyonun Daha Kolay Yapılması</a></li>
+          <li><a href="#3-hızlı-ve-stabil-hesaplama" id="markdown-toc-3-hızlı-ve-stabil-hesaplama">3. Hızlı ve Stabil Hesaplama</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#building-and-training-model" id="markdown-toc-building-and-training-model">Building and Training Model</a></li>
+  <li><a href="#predict" id="markdown-toc-predict">Predict</a></li>
+  <li><a href="#visualization" id="markdown-toc-visualization">Visualization</a></li>
+</ul>
+<p>Support Vector Regression (SVR), Makine Öğrenimi alanında kullanılan bir regresyon tekniğidir ve Support Vector Machines (SVM) prensiplerine dayanır.</p>
+
+<p>SVR, SVM’in sınıflandırma problemlerinde kullanıldığı gibi, sürekli bir çıktıyı tahmin etmek için kullanılır.</p>
+
+<p>SVR’in amacı, bir hiper düzlem oluşturmak ve bu düzlemden belirli bir mesafe içinde kalan veri noktalarını dikkate alarak regresyon yapmak, yani bir fonksiyonun tahminini gerçekleştirmektir.</p>
+
+<p>SVR’nin temel bileşenleri şunlardır:</p>
+<ul>
+  <li><strong>Hata Marjı (ε-tüpü):</strong> SVR, verilerin üzerinde bir “tüp” (epsilon-tube) tanımlar ve bu tüpün içinde kalan hataları görmezden gelir. Bu tüp, modelin ne kadar hassas olacağını belirler. Hedef, bu tüpün içinde mümkün olduğunca fazla veri noktası yerleştirerek bir fonksiyon elde etmektir.</li>
+  <li><strong>Destek Vektörleri:</strong> Tıpkı SVM’de olduğu gibi, SVR de yalnızca destek vektörleri olarak adlandırılan kritik veri noktalarına dayanır. Bu noktalar, tüpün sınırında veya dışında yer alır ve modelin hiper düzleminin konumunu belirler.</li>
+  <li><strong>C Parametresi:</strong> C parametresi, modelin karmaşıklığını kontrol eder. Daha büyük bir C değeri, modelin daha fazla veri noktasını tam olarak tahmin etmesini sağlar (daha az hata), ancak bu durum modelin aşırı öğrenmesine (overfitting) neden olabilir.</li>
+  <li><strong>Kernel Fonksiyonu:</strong> SVR, doğrusal olmayan verilerle çalışabilmek için kernel fonksiyonları kullanır. RBF (Radial Basis Function), polynomial ve sigmoid kernel fonksiyonları yaygın olarak kullanılır. Kernel fonksiyonu, verileri daha yüksek boyutlu bir uzaya projelendirerek, doğrusal olmayan ilişkilerin modellenmesini sağlar.</li>
+</ul>
+
+<p><img src="/assets/img/machine-learning/sphx_glr_plot_svm_regression_001.png" alt="support vector regression" /></p>
+
+<p>Support Vector Regression (SVR), genellikle kullanılan çekirdek (kernel) fonksiyonlarına göre sınıflandırılır. Çekirdek fonksiyonları, verileri daha yüksek boyutlu bir uzaya projelendirerek doğrusal olmayan ilişkilerin modellenmesini sağlar.</p>
+
+<h2 id="1-doğrusal-linear-svr">1. Doğrusal (Linear) SVR</h2>
+<ul>
+  <li><strong>Açıklama :</strong> Doğrusal çekirdek fonksiyonu kullanır ve verilerin doğrusal bir şekilde ayrılabileceği varsayımıyla çalışır. Veriler arasındaki ilişki doğrusal olduğunda tercih edilir.</li>
+  <li><strong>Çekirdek Fonksiyonu :</strong> \(K(x_i, x_j) = x_i * x_j\)</li>
+  <li><strong>Uygulama Alanı :</strong> Yüksek boyutlu ama doğrusal ayrılabilir veri setlerinde kullanılır.</li>
+</ul>
+
+<h2 id="2-polinomal-polynomial-svr">2. Polinomal (Polynomial) SVR</h2>
+<ul>
+  <li><strong>Açıklama :</strong> Veriler arasındaki doğrusal olmayan ilişkileri modellemek için polinomal bir çekirdek fonksiyonu kullanır. Polinomal derecesi, modelin karmaşıklığını kontrol eder.</li>
+  <li><strong>Çekirdek Fonksiyonu :</strong> \(K(x_i, x_j) = (x_i * x_j + c) ^ d\)</li>
+</ul>
+
+<p>Burada \(c\) bir sabit ve \(d\) polinomun derecesidir.</p>
+<ul>
+  <li><strong>Uygulama Alanı :</strong> Doğrusal olmayan ilişkilerin var olduğu veri setlerinde kullanılır, özellikle daha karmaşık ilişkileri modellemek için.</li>
+</ul>
+
+<h2 id="3-radial-basis-function-rbf-svr">3. Radial Basis Function (RBF) SVR</h2>
+<ul>
+  <li><strong>Açıklama :</strong> En yaygın kullanılan çekirdek fonksiyonlarından biridir. RBF çekirdeği, verileri sonsuz boyutlu bir uzaya projelendirerek çok karmaşık doğrusal olmayan ilişkileri modelleyebilir.</li>
+  <li><strong>Çekirdek Fonksiyonu :</strong> \(K(x_i, x_j) = exp(-γ \| x_i - x_j \| ^ 2)\)</li>
+</ul>
+
+<p>Burada <code class="language-plaintext highlighter-rouge">γ</code> parametresi, kernelin genişliğini kontrol eder.</p>
+
+<h2 id="4-sigmoid-svr">4. Sigmoid SVR</h2>
+<ul>
+  <li><strong>Açıklama :</strong> Sinir ağlarındaki aktivasyon fonksiyonuna benzer bir çekirdek fonksiyonu kullanır. Bu çekirdek fonksiyonu doğrusal olmayan ilişkileri modellemek için uygundur, ancak genellikle belirli uygulamalarda kullanılır.</li>
+  <li><strong>Çekirdek Fonksiyonu :</strong> \(K(x_i, x_j) = tanh(ax_i * x_j + c)\)</li>
+</ul>
+
+<p>Burada a ve c çekirdek parametreleridir.</p>
+<ul>
+  <li><strong>Uygulama Alanı :</strong> Özellikle belirli biyolojik veya sinirsel veri modellemelerinde kullanılabilir.</li>
+</ul>
+
+<h1 id="dataset">Dataset</h1>
+<ul>
+  <li><a href="https://gist.githubusercontent.com/metehanozdeniz/be330879f29b0a9c49521c6ffc48aa16/raw/18b58e460944f24326df6ff639f035fca1540464/salaries.csv">salaries.csv</a></li>
+</ul>
+
+<h1 id="import-libraries">Import Libraries</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sbn</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+</code></pre></div></div>
+
+<h1 id="data-preprocessing">Data Preprocessing</h1>
+
+<h2 id="read-data">Read Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'salaries.csv'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              unvan  Egitim Seviyesi   maas
+0             Cayci                1   2250
+1          Sekreter                2   2500
+2  Uzman Yardimcisi                3   3000
+3             Uzman                4   4000
+4  Proje Yoneticisi                5   5500
+5               Sef                6   7500
+6             Mudur                7  10000
+7          Direktor                8  15000
+8           C-level                9  25000
+9               CEO               10  50000
+</code></pre></div></div>
+
+<h2 id="graphical-analysis-of-data">Graphical Analysis of Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sbn</span><span class="p">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/support_vector_regression_seaborn_outout.png" alt="seaborn graph" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">describe</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       Egitim Seviyesi          maas
+count         10.00000     10.000000
+mean           5.50000  12475.000000
+std            3.02765  14968.694183
+min            1.00000   2250.000000
+25%            3.25000   3250.000000
+50%            5.50000   6500.000000
+75%            7.75000  13750.000000
+max           10.00000  50000.000000
+</code></pre></div></div>
+
+<h2 id="split-data">Split Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">egitim_seviyesi</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">].</span><span class="n">values</span>
+<span class="n">maas</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:].</span><span class="n">values</span>
+</code></pre></div></div>
+
+<h2 id="scaling">Scaling</h2>
+
+<p>Support Vector Regression (SVR) ile çalışırken scaling (ölçeklendirme) işlemi yapılması gereklidir. Bunun başlıca nedenleri:</p>
+
+<h3 id="1-svrnin-çekirdek-fonksiyonları-ile-uyum">1. SVR’nin Çekirdek Fonksiyonları ile Uyum</h3>
+<ul>
+  <li>Çoğu SVR modeli, RBF (Radial Basis Function) ve polynomial gibi çekirdek fonksiyonları kullanır. Bu çekirdek fonksiyonları, özellikler arasındaki mesafelere dayalı olarak çalışır. Eğer özellikler farklı ölçeklerdeyse (örneğin biri 0-1 arasında, diğeri 1-1000 arasında), bu durum SVR’nin performansını olumsuz etkileyebilir çünkü daha büyük ölçekli özellikler modelde daha fazla ağırlık kazanır.</li>
+</ul>
+
+<h3 id="2-optimizasyonun-daha-kolay-yapılması">2. Optimizasyonun Daha Kolay Yapılması</h3>
+<ul>
+  <li>SVR, optimizasyon sürecinde \(C\) (regülarizasyon parametresi) ve \(γ\) (gamma) gibi hiperparametreleri kullanır. Özelliklerin ölçeklenmesi bu hiperparametrelerin daha etkili bir şekilde ayarlanmasını sağlar ve optimizasyon sürecini daha kararlı hale getirir.</li>
+</ul>
+
+<h3 id="3-hızlı-ve-stabil-hesaplama">3. Hızlı ve Stabil Hesaplama</h3>
+<ul>
+  <li>Özellikler ölçeklenmediğinde, SVR’nin hesaplama süresi uzayabilir ve modelin çözümünde kararsızlıklar meydana gelebilir. Özelliklerin ölçeklenmesi hesaplamaların daha hızlı ve stabil olmasını sağlar.</li>
+</ul>
+
+<p>Özetle, SVR ile çalışırken, özelliklerin ölçeklendirilmesi kritik bir adımdır ve genellikle model performansını optimize etmek için gereklidir. Bu nedenle, SVR’yi uygulamadan önce mutlaka veriler ölçeklendirilmelidir.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc1</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">egitim_seviyesi_scale</span> <span class="o">=</span> <span class="n">sc1</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">egitim_seviyesi</span><span class="p">)</span>
+
+<span class="n">sc2</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">maas_scale</span> <span class="o">=</span> <span class="n">sc2</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">maas</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="building-and-training-model">Building and Training Model</h1>
+
+<p>Şimdi <code class="language-plaintext highlighter-rouge">RBF</code> kernel fonksiyonu ile bir <code class="language-plaintext highlighter-rouge">SVR</code> objesi oluşturalım. Kernel fonksiyonu olarak;</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">linear</code></li>
+  <li><code class="language-plaintext highlighter-rouge">poly</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sigmoid</code></li>
+  <li><code class="language-plaintext highlighter-rouge">precomputed</code></li>
+</ul>
+
+<p>fonksiyonlarından birini de seçebilirdik. Hangi çekirdek fonksiyonunun kullanılacağı, verilerin doğasına ve modelin doğrusal olmayan ilişkileri ne kadar iyi yakalayabileceğine bağlı olarak seçilmelidir.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">svr_reg</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s">'rbf'</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s">'scale'</span><span class="p">,</span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="c1"># degree, gamma, C ve epsilon parametrelerine tanımlı olan değerler default değerlerdir. Bu parametreler verilmezsede olur.
+</span>
+<span class="n">svr_reg</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">egitim_seviyesi_scale</span><span class="p">,</span> <span class="n">maas_scale</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="predict">Predict</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">maas_predict</span> <span class="o">=</span> <span class="n">svr_reg</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">egitim_seviyesi_scale</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maas_scale</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Gerçek Maaş: '</span><span class="p">,</span> <span class="n">maas_scale</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s">'</span><span class="se">\t</span><span class="s">Tahmin Maaş: '</span><span class="p">,</span> <span class="n">maas_predict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Gerçek Maaş:  [-0.72004253] 	Tahmin Maaş:  -0.6198571722381288
+Gerçek Maaş:  [-0.70243757] 	Tahmin Maaş:  -0.6290330048896189
+Gerçek Maaş:  [-0.66722767] 	Tahmin Maaş:  -0.5673565753924996
+Gerçek Maaş:  [-0.59680786] 	Tahmin Maaş:  -0.4966225171862582
+Gerçek Maaş:  [-0.49117815] 	Tahmin Maaş:  -0.446305638990747
+Gerçek Maaş:  [-0.35033854] 	Tahmin Maaş:  -0.36590426720699826
+Gerçek Maaş:  [-0.17428902] 	Tahmin Maaş:  -0.14129747801052855
+Gerçek Maaş:  [0.17781001] 	Tahmin Maaş:  0.2851025834244593
+Gerçek Maaş:  [0.88200808] 	Tahmin Maaş:  0.7816373730639689
+Gerçek Maaş:  [2.64250325] 	Tahmin Maaş:  1.0850064515089588
+</code></pre></div></div>
+
+<p>Görüldüğü üzere oluşturmuş olduğumuz <strong>SVR</strong> modeli makul seviyede tahminler yaptı.</p>
+
+<p class="note">Buradaki tahmin sonuçları scale edilmiş bir verisetinin sonuçları olduğu için bu sonuçlar olması gereken ölçekte değiller. Eğer elde edilen bu tahmin sonuçlarını olması gereken ölçeğe geri getirmek istiyorsak, tahmin edilen değerlerin ters ölçeklenmesi gerekir.</p>
+
+<h1 id="visualization">Visualization</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">egitim_seviyesi_scale</span><span class="p">,</span> <span class="n">maas_scale</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">egitim_seviyesi_scale</span><span class="p">,</span> <span class="n">maas_predict</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">'SVR'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Eğitim Seviyesi'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Maaş'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/svr_matplotlib_outout.png" alt="SVR matplotlib graph" /></p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/machine-learning/2024-08-09-support-vector-regression/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Sentiment analysis by text classification using Deep Learning and CNN | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Sentiment analysis by text classification using Deep Learning and CNN" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="Derin öğrenme ile Cnn modeli kullanarak metin sınıflandırması ve duygu analizi" />
+<meta property="og:description" content="Derin öğrenme ile Cnn modeli kullanarak metin sınıflandırması ve duygu analizi" />
+<link rel="canonical" href="http://localhost:4000/projects/2024-04-30-text-classification-and-sentiment-analysis-using-cnn/" />
+<meta property="og:url" content="http://localhost:4000/projects/2024-04-30-text-classification-and-sentiment-analysis-using-cnn/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/projects/emotions.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-04-30T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/projects/emotions.jpg" />
+<meta property="twitter:title" content="Sentiment analysis by text classification using Deep Learning and CNN" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-05-12T00:00:00+03:00","datePublished":"2024-04-30T00:00:00+03:00","description":"Derin öğrenme ile Cnn modeli kullanarak metin sınıflandırması ve duygu analizi","headline":"Sentiment analysis by text classification using Deep Learning and CNN","image":"http://localhost:4000/assets/img/projects/emotions.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/2024-04-30-text-classification-and-sentiment-analysis-using-cnn/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/projects/2024-04-30-text-classification-and-sentiment-analysis-using-cnn/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Artificial Intelligence,Deep Learning,Convolutional Neural Network,Emotion Analysis,Data Science,Data Analysis,Text Classification,CNN,Yapay Zeka,Metin sınıflandırma,Derin öğrenme">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/projects/2024-04-30-text-classification-and-sentiment-analysis-using-cnn/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-08T16:49:16+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/projects/">projects</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-04-30-text-classification-and-sentiment-analysis-using-cnn</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-projects-text-classification-and-sentiment-analysis-using-cnn" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Sentiment analysis by text classification using Deep Learning and CNN
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-04-30T00:00:00+03:00">30 Apr 2024</time> Categorized under <a href="/projects/" class="flip-title">My Projects</a> tagged <span>Artificial intelligence</span>, <span>Deep learning</span>, <span>Text classification</span>, <span>Cnn</span>
+           
+          <span class="clap-count" data-url="http://localhost:4000/projects/2024-04-30-text-classification-and-sentiment-analysis-using-cnn/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 12 May 2024">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-05-12T00:00:00+03:00">12-05-2024</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/projects/emotions.jpg"
+  
+  alt="Sentiment analysis by text classification using Deep Learning and CNN"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Derin öğrenme ile Cnn modeli kullanarak metin sınıflandırması ve duygu analizi
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <ul id="markdown-toc">
+  <li><a href="#source-code" id="markdown-toc-source-code">Source Code</a></li>
+  <li><a href="#dataset" id="markdown-toc-dataset">Dataset</a></li>
+  <li><a href="#import-libraries" id="markdown-toc-import-libraries">Import Libraries</a></li>
+  <li><a href="#read-and-preprocessing-data" id="markdown-toc-read-and-preprocessing-data">Read and Preprocessing Data</a>    <ul>
+      <li><a href="#read-data" id="markdown-toc-read-data">Read Data</a></li>
+      <li><a href="#split-data" id="markdown-toc-split-data">Split Data</a></li>
+      <li><a href="#encoding" id="markdown-toc-encoding">Encoding</a></li>
+      <li><a href="#text-preprocessing" id="markdown-toc-text-preprocessing">Text Preprocessing</a></li>
+    </ul>
+  </li>
+  <li><a href="#building-deep-learning-model" id="markdown-toc-building-deep-learning-model">Building Deep Learning Model</a>    <ul>
+      <li><a href="#model-architecture" id="markdown-toc-model-architecture">Model Architecture</a></li>
+      <li><a href="#compile-model" id="markdown-toc-compile-model">Compile Model</a></li>
+      <li><a href="#training-the-model" id="markdown-toc-training-the-model">Training The Model</a></li>
+    </ul>
+  </li>
+  <li><a href="#evaluation-and-visullize-results" id="markdown-toc-evaluation-and-visullize-results">Evaluation and Visullize Results</a>    <ul>
+      <li><a href="#visullize-results" id="markdown-toc-visullize-results">Visullize Results</a></li>
+      <li><a href="#classification-report" id="markdown-toc-classification-report">Classification Report</a></li>
+    </ul>
+  </li>
+  <li><a href="#save-model" id="markdown-toc-save-model">Save Model</a></li>
+  <li><a href="#prediction-function" id="markdown-toc-prediction-function">Prediction Function</a></li>
+  <li><a href="#prediction" id="markdown-toc-prediction">Prediction</a></li>
+</ul>
+<p>Bu yapay zeka projesinde, <strong>CNN</strong> modelini kullanarak sosyal medya mesajları gibi metinlerde yer alan duyguları 
+tespit etmek hedeflenmiştir.</p>
+
+<h1 id="source-code">Source Code</h1>
+<p class="lead"><a href="https://github.com/metehanozdeniz/emotion-analysis" target="_blank">GitHub</a></p>
+
+<h1 id="dataset">Dataset</h1>
+<ul>
+  <li><a href="https://gist.githubusercontent.com/metehanozdeniz/6ab60d22c0a6a0bd97e80ff6db0c8d19/raw/d1ba4d35bd5652cf422a0bc5d894abbf6ca9288a/train.txt">train.txt</a></li>
+  <li><a href="https://gist.githubusercontent.com/metehanozdeniz/6ab60d22c0a6a0bd97e80ff6db0c8d19/raw/d1ba4d35bd5652cf422a0bc5d894abbf6ca9288a/test.txt">test.txt</a></li>
+  <li><a href="https://gist.githubusercontent.com/metehanozdeniz/6ab60d22c0a6a0bd97e80ff6db0c8d19/raw/d1ba4d35bd5652cf422a0bc5d894abbf6ca9288a/val.txt">val.txt</a></li>
+</ul>
+
+<h1 id="import-libraries">Import Libraries</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.preprocessing.text</span> <span class="kn">import</span> <span class="n">Tokenizer</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.metrics</span> <span class="kn">import</span> <span class="n">Precision</span><span class="p">,</span> <span class="n">Recall</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Input</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.preprocessing.sequence</span> <span class="kn">import</span> <span class="n">pad_sequences</span>
+<span class="kn">from</span> <span class="nn">keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">ZeroPadding1D</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+</code></pre></div></div>
+
+<h1 id="read-and-preprocessing-data">Read and Preprocessing Data</h1>
+
+<h2 id="read-data">Read Data</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"dataset/train.txt"</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">';'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s">'sentence'</span><span class="p">,</span><span class="s">'label'</span><span class="p">])</span>
+<span class="n">val_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"dataset/val.txt"</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">';'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s">'sentence'</span><span class="p">,</span><span class="s">'label'</span><span class="p">])</span>
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"dataset/test.txt"</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">';'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s">'sentence'</span><span class="p">,</span><span class="s">'label'</span><span class="p">])</span>
+
+<span class="n">train_df</span><span class="p">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th style="text-align: left">sentence</th>
+      <th style="text-align: center">label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td style="text-align: left">aşağılanmış hissetmedim</td>
+      <td style="text-align: center">üzgün</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td style="text-align: left">Sadece önemseyen ve uyanık birinin yanında old…</td>
+      <td style="text-align: center">üzgün</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td style="text-align: left">paylaşım yapmak için bir dakika ayırıyorum açg…</td>
+      <td style="text-align: center">öfke</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td style="text-align: left">Şömineyle ilgili nostaljik hisler yaşıyorum on…</td>
+      <td style="text-align: center">sevgi</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td style="text-align: left">huysuz hissediyorum</td>
+      <td style="text-align: center">öfke</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td style="text-align: left">son zamanlarda kendimi biraz yük altında hisse…</td>
+      <td style="text-align: center">üzgün</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td style="text-align: left">Tavsiye edilen miktarın miligramını veya katın…</td>
+      <td style="text-align: center">şaşkın</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td style="text-align: left">Hayat konusunda bir ergen kadar kafam karışık …</td>
+      <td style="text-align: center">korku</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td style="text-align: left">Yıllardır Petronas’la birlikteyim Petronas’ın …</td>
+      <td style="text-align: center">mutlu</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td style="text-align: left">aşağılanmış hissetmedimben de romantik hissediyorum</td>
+      <td style="text-align: center">sevgi</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1"># etiketlerin sayısı
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>label
+mutlu     5361
+üzgün     4665
+öfke      2160
+korku     1937
+sevgi     1304
+şaşkın     573
+Name: count, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">label_counts</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">light_colors</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">husl_palette</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_counts</span><span class="p">))</span> <span class="c1"># renk paleti olşuturulması
+</span><span class="n">sns</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">"whitegrid"</span><span class="p">)</span> <span class="c1"># arka plan rengi
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">pie</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">label_counts</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s">'%1.1f%%'</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">light_colors</span><span class="p">)</span> <span class="c1"># pasta grafiği oluşturulması
+</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Eğitim Veri Seti Etiket Dağılımı'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/train_dataset_pie_graph.png" alt="graph" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">label_counts</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">light_colors</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">husl_palette</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_counts</span><span class="p">))</span> <span class="c1"># renk paleti olşuturulması
+</span><span class="n">sns</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">"whitegrid"</span><span class="p">)</span> <span class="c1"># arka plan rengi
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">pie</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">label_counts</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s">'%1.1f%%'</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">light_colors</span><span class="p">)</span> <span class="c1"># pasta grafiği oluşturulması
+</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Test Veri Seti Etiket Dağılımı'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/test_dataset_pie_graph.png" alt="graph" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">label_counts</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">light_colors</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">husl_palette</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_counts</span><span class="p">))</span> <span class="c1"># renk paleti olşuturulması
+</span><span class="n">sns</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">"whitegrid"</span><span class="p">)</span> <span class="c1"># arka plan rengi
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">pie</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">label_counts</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s">'%1.1f%%'</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">light_colors</span><span class="p">)</span> <span class="c1"># pasta grafiği oluşturulması
+</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Doğrulama Veri Seti Etiket Dağılımı'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/validation_dataset_pie_graph.png" alt="graph" /></p>
+
+<p>Eğitim veri setindeki veriler dengesiz olduğu için ve veri setini daha dengeli hale getirmeliyim.
+Bunun için veri setindeki en az etiket sayısına sahip 2 etiket olan <strong>sevgi</strong> ve <strong>şaşkın</strong> etiketlerine sahip verileri çıkartacağım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="o">~</span><span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">'sevgi'</span><span class="p">)]</span> <span class="c1"># sevgi etiketine sahp verilerin çıkartılması
+</span><span class="n">train_df</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="o">~</span><span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">'şaşkın'</span><span class="p">)]</span> <span class="c1"># şaşkın etiketine sahip verilerin çıkartlılması
+</span></code></pre></div></div>
+
+<p>Şimdi geriye kalan <strong>mutlu</strong>, <strong>üzgün</strong>, <strong>öfke</strong> ve <strong>korku</strong> etiketleri hala dengesiz bir şekilde dağılmış durumda.
+Bu etikerlerin dağılımını olabildiğince birbirine yaklaştırıyorum.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mutlu</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'mutlu'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2200</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># mutlu etiketine sahip rastgele 2200 veri
+</span><span class="n">uzgun</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'üzgün'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2200</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># üzgün etiketine sahip rastgele 2200 veri
+</span><span class="n">korku</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'korku'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1937</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ofke</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'öfke'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2160</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">new_train_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mutlu</span><span class="p">,</span> <span class="n">uzgun</span><span class="p">,</span> <span class="n">korku</span><span class="p">,</span> <span class="n">ofke</span><span class="p">])</span> <span class="c1"># rastgele seçilen bu verilerin birleştirilmesi
+</span>
+<span class="n">train_df</span> <span class="o">=</span> <span class="n">new_train_df</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">).</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># birleştirilen verileri karıştırarak train_df yi yeniden oluşturuyorum
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1"># etiketlerin sayısı
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>label
+mutlu    2200
+üzgün    2200
+öfke     2160
+korku    1937
+Name: count, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">label_counts</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">light_colors</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">husl_palette</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_counts</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">"whitegrid"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">pie</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">label_counts</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s">'%1.1f%%'</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">light_colors</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Eğitim Veri Seti Etiket Dağılımı'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/train_dataset_pie_graph_edited.png" alt="graph" /></p>
+
+<p>Artık eğitim veri seti daha dengeli hale geldi.
+Bu işlemlerin aynısını <strong>test_df</strong> ve <strong>val_df</strong> dataframeleri içinde yapacağım.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">val_df</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">value_counts</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>label
+mutlu     704
+üzgün     550
+öfke      275
+korku     212
+sevgi     178
+şaşkın     81
+Name: count, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># sevgi ve şaşkın etiketlerinin çıkartılması
+</span><span class="n">val_df</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="o">~</span><span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">'sevgi'</span><span class="p">)]</span>
+<span class="n">val_df</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="o">~</span><span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">'şaşkın'</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mutlu</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'mutlu'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">uzgun</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'üzgün'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">korku</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'korku'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">212</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ofke</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'öfke'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">275</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">df_sampled</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mutlu</span><span class="p">,</span> <span class="n">uzgun</span><span class="p">,</span> <span class="n">korku</span><span class="p">,</span> <span class="n">ofke</span><span class="p">])</span>
+
+<span class="n">val_df</span> <span class="o">=</span> <span class="n">df_sampled</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">).</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">label_counts</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">light_colors</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">husl_palette</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_counts</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">"whitegrid"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">pie</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">label_counts</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s">'%1.1f%%'</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">light_colors</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Doğrulama Veri Seti Etiket Dağılımı'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/validation_data_pie_graph_edited.png" alt="graph" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_df</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">value_counts</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>label
+mutlu     698
+üzgün     582
+öfke      274
+korku     224
+sevgi     155
+şaşkın     67
+Name: count, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># sevgi ve şaşkın etiketlerinin çıkartılması
+</span><span class="n">test_df</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="o">~</span><span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">'sevgi'</span><span class="p">)]</span>
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="o">~</span><span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">'şaşkın'</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mutlu</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'mutlu'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">uzgun</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'üzgün'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">korku</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'korku'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">224</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ofke</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'öfke'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">274</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">new_test_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mutlu</span><span class="p">,</span> <span class="n">uzgun</span><span class="p">,</span> <span class="n">korku</span><span class="p">,</span> <span class="n">ofke</span><span class="p">])</span>
+
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">new_test_df</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">20</span><span class="p">).</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">label_counts</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">light_colors</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">husl_palette</span><span class="p">(</span><span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_counts</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">"whitegrid"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">pie</span><span class="p">(</span><span class="n">label_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">label_counts</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s">'%1.1f%%'</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">light_colors</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Test Veri Seti Etiket Dağılımı'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/test_dataset_pie_graph_edited.png" alt="graph" /></p>
+
+<h2 id="split-data">Split Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_text</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="s">'sentence'</span><span class="p">]</span>
+<span class="n">train_label</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span>
+
+<span class="n">val_text</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="s">'sentence'</span><span class="p">]</span>
+<span class="n">val_label</span> <span class="o">=</span> <span class="n">val_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span>
+
+<span class="n">test_text</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="s">'sentence'</span><span class="p">]</span>
+<span class="n">test_label</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="encoding">Encoding</h2>
+
+<p>Şimdi bu etiketleri sayısal değerlere dönüştürüyorum.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span> <span class="c1"># etiketlerin sayısal değerlere dönüştürülmesi
+</span><span class="n">tr_label</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train_label</span><span class="p">)</span>
+<span class="n">val_label</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">val_label</span><span class="p">)</span>
+<span class="n">ts_label</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="text-preprocessing">Text Preprocessing</h2>
+
+<p>Şimdi de cümleleri <strong>Tokenizer</strong> modülü ile sayısal değerlere dönüştürerek model tarafından kullanılabilir hale getiriyorum.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">Tokenizer</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span> <span class="c1"># metinlerin sayısal değerlere dönüştürülmesi
+</span><span class="n">tokenizer</span><span class="p">.</span><span class="n">fit_on_texts</span><span class="p">(</span><span class="n">train_text</span><span class="p">)</span>
+
+<span class="n">sequences</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">.</span><span class="n">texts_to_sequences</span><span class="p">(</span><span class="n">train_text</span><span class="p">)</span>
+<span class="n">tr_x</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># metinlerin boyutlarının eşitlenmesi
+</span><span class="n">tr_y</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">tr_label</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># etiketlerin kategorik hale getirilmesi
+</span>
+<span class="n">sequences</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">.</span><span class="n">texts_to_sequences</span><span class="p">(</span><span class="n">val_text</span><span class="p">)</span>
+<span class="n">val_x</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">val_y</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">val_label</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">sequences</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">.</span><span class="n">texts_to_sequences</span><span class="p">(</span><span class="n">test_text</span><span class="p">)</span>
+<span class="n">ts_x</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">ts_y</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">ts_label</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="building-deep-learning-model">Building Deep Learning Model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">max_words</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">max_len</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">embedding_dim</span> <span class="o">=</span> <span class="mi">32</span>
+</code></pre></div></div>
+
+<h2 id="model-architecture">Model Architecture</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Branch 1
+</span><span class="n">inputs1</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">max_len</span><span class="p">,))</span>  <span class="c1"># inputs1 için giriş katmanı tanımlanması
+</span>
+<span class="n">branch1</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">max_words</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)(</span><span class="n">inputs1</span><span class="p">)</span> <span class="c1"># Embedding katmanı
+</span><span class="n">branch1</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">'same'</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span><span class="p">)(</span><span class="n">branch1</span><span class="p">)</span> <span class="c1"># Conv1D katmanı (64 filtre, 3 kernel boyutu)
+</span><span class="n">branch1</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">branch1</span><span class="p">)</span> <span class="c1"># BatchNormalization katmanı. Katman çıktılarını normalize eder.
+</span><span class="n">branch1</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">ReLU</span><span class="p">()(</span><span class="n">branch1</span><span class="p">)</span> <span class="c1"># ReLU katmanı
+</span><span class="n">branch1</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">branch1</span><span class="p">)</span> <span class="c1"># Dropout katmanı. Aşırı uyum (overfitting) önlemek için
+</span><span class="n">branch1</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">()(</span><span class="n">branch1</span><span class="p">)</span> <span class="c1"># GlobalMaxPooling1D katmanı (en büyük değeri alır)
+</span>
+<span class="c1"># Branch 2
+</span><span class="n">inputs2</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">max_len</span><span class="p">,))</span>  <span class="c1"># inputs2 için giriş katmanı tanımlanması
+</span>
+<span class="n">branch2</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">max_words</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)(</span><span class="n">inputs2</span><span class="p">)</span>
+<span class="n">branch2</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">'same'</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span><span class="p">)(</span><span class="n">branch2</span><span class="p">)</span>
+<span class="n">branch2</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">branch2</span><span class="p">)</span>
+<span class="n">branch2</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">ReLU</span><span class="p">()(</span><span class="n">branch2</span><span class="p">)</span>
+<span class="n">branch2</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">branch2</span><span class="p">)</span>
+<span class="n">branch2</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">()(</span><span class="n">branch2</span><span class="p">)</span>
+
+<span class="n">concatenated</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Concatenate</span><span class="p">()([</span><span class="n">branch1</span><span class="p">,</span> <span class="n">branch2</span><span class="p">])</span> <span class="c1"># Branch1 ve Branch2'nin birleştirilmesi
+</span>
+<span class="c1">#Birleştirilen katmanların dense katmanı tarafından gizli katmana bağlanması
+</span><span class="n">hid_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span><span class="p">)(</span><span class="n">concatenated</span><span class="p">)</span> <span class="c1"># Gizli katman
+</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)(</span><span class="n">hid_layer</span><span class="p">)</span> <span class="c1"># Dropout katmanı. Overfitting önlemek için
+</span><span class="n">output_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="p">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'softmax'</span><span class="p">)(</span><span class="n">dropout</span><span class="p">)</span> <span class="c1"># Çıkış katmanı
+</span>
+<span class="c1"># Define the model with separate inputs
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">inputs1</span><span class="p">,</span> <span class="n">inputs2</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="n">output_layer</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="compile-model">Compile Model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s">'adamax'</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s">'categorical_crossentropy'</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s">'accuracy'</span><span class="p">,</span> <span class="n">Precision</span><span class="p">(),</span> <span class="n">Recall</span><span class="p">()])</span>
+
+<span class="n">model</span><span class="p">.</span><span class="n">summary</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Model: "functional"
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)        ┃ Output Shape      ┃    Param # ┃ Connected to      ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩
+│ input_layer_2       │ (None, 50)        │          0 │ -                 │
+│ (InputLayer)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ input_layer_3       │ (None, 50)        │          0 │ -                 │
+│ (InputLayer)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ embedding_2         │ (None, 50, 32)    │    320,000 │ input_layer_2[0]… │
+│ (Embedding)         │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ embedding_3         │ (None, 50, 32)    │    320,000 │ input_layer_3[0]… │
+│ (Embedding)         │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv1d_2 (Conv1D)   │ (None, 50, 64)    │      6,208 │ embedding_2[0][0] │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv1d_3 (Conv1D)   │ (None, 50, 64)    │      6,208 │ embedding_3[0][0] │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ batch_normalizatio… │ (None, 50, 64)    │        256 │ conv1d_2[0][0]    │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ batch_normalizatio… │ (None, 50, 64)    │        256 │ conv1d_3[0][0]    │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ re_lu_2 (ReLU)      │ (None, 50, 64)    │          0 │ batch_normalizat… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ re_lu_3 (ReLU)      │ (None, 50, 64)    │          0 │ batch_normalizat… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dropout_3 (Dropout) │ (None, 50, 64)    │          0 │ re_lu_2[0][0]     │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dropout_4 (Dropout) │ (None, 50, 64)    │          0 │ re_lu_3[0][0]     │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ global_max_pooling… │ (None, 64)        │          0 │ dropout_3[0][0]   │
+│ (GlobalMaxPooling1… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ global_max_pooling… │ (None, 64)        │          0 │ dropout_4[0][0]   │
+│ (GlobalMaxPooling1… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ concatenate_1       │ (None, 128)       │          0 │ global_max_pooli… │
+│ (Concatenate)       │                   │            │ global_max_pooli… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dense_2 (Dense)     │ (None, 128)       │     16,512 │ concatenate_1[0]… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dropout_5 (Dropout) │ (None, 128)       │          0 │ dense_2[0][0]     │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ dense_3 (Dense)     │ (None, 4)         │        516 │ dropout_5[0][0]   │
+└─────────────────────┴───────────────────┴────────────┴───────────────────┘
+</code></pre></div></div>
+
+<h2 id="training-the-model">Training The Model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">([</span><span class="n">tr_x</span><span class="p">,</span> <span class="n">tr_x</span><span class="p">],</span> <span class="n">tr_y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">([</span><span class="n">val_x</span><span class="p">,</span> <span class="n">val_x</span><span class="p">],</span> <span class="n">val_y</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch 1/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 14s 38ms/step - accuracy: 0.2675 - loss: 1.5784 - precision_1: 0.2685 - recall_1: 0.0702 - val_accuracy: 0.2644 - val_loss: 1.3848 - val_precision_1: 0.0000e+00 - val_recall_1: 0.0000e+00
+Epoch 2/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 2s 9ms/step - accuracy: 0.3341 - loss: 1.3538 - precision_1: 0.5342 - recall_1: 0.0124 - val_accuracy: 0.3556 - val_loss: 1.3767 - val_precision_1: 0.0000e+00 - val_recall_1: 0.0000e+00
+Epoch 3/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 5ms/step - accuracy: 0.3941 - loss: 1.2952 - precision_1: 0.6062 - recall_1: 0.0445 - val_accuracy: 0.4590 - val_loss: 1.3262 - val_precision_1: 0.0000e+00 - val_recall_1: 0.0000e+00
+Epoch 4/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 6ms/step - accuracy: 0.5009 - loss: 1.1432 - precision_1: 0.7271 - recall_1: 0.2051 - val_accuracy: 0.5370 - val_loss: 1.1861 - val_precision_1: 0.9302 - val_recall_1: 0.0811
+Epoch 5/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 5ms/step - accuracy: 0.5728 - loss: 1.0054 - precision_1: 0.7464 - recall_1: 0.3528 - val_accuracy: 0.5998 - val_loss: 1.0297 - val_precision_1: 0.8799 - val_recall_1: 0.2523
+Epoch 6/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 6ms/step - accuracy: 0.6539 - loss: 0.8436 - precision_1: 0.7765 - recall_1: 0.5050 - val_accuracy: 0.6353 - val_loss: 0.9254 - val_precision_1: 0.8305 - val_recall_1: 0.3972
+Epoch 7/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 7ms/step - accuracy: 0.7281 - loss: 0.7166 - precision_1: 0.8066 - recall_1: 0.6189 - val_accuracy: 0.6657 - val_loss: 0.8461 - val_precision_1: 0.8419 - val_recall_1: 0.4965
+Epoch 8/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 6ms/step - accuracy: 0.7787 - loss: 0.5958 - precision_1: 0.8340 - recall_1: 0.6916 - val_accuracy: 0.6991 - val_loss: 0.7823 - val_precision_1: 0.8294 - val_recall_1: 0.5714
+Epoch 9/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 7ms/step - accuracy: 0.8125 - loss: 0.5114 - precision_1: 0.8518 - recall_1: 0.7635 - val_accuracy: 0.7143 - val_loss: 0.7323 - val_precision_1: 0.8171 - val_recall_1: 0.6109
+Epoch 10/10
+170/170 ━━━━━━━━━━━━━━━━━━━━ 1s 5ms/step - accuracy: 0.8342 - loss: 0.4520 - precision_1: 0.8707 - recall_1: 0.7920 - val_accuracy: 0.7285 - val_loss: 0.7097 - val_precision_1: 0.8307 - val_recall_1: 0.6363
+</code></pre></div></div>
+
+<h1 id="evaluation-and-visullize-results">Evaluation and Visullize Results</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">percision</span><span class="p">,</span> <span class="n">recall</span><span class="p">)</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">evaluate</span><span class="p">([</span><span class="n">tr_x</span><span class="p">,</span> <span class="n">tr_x</span><span class="p">],</span> <span class="n">tr_y</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Loss: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">, Accuracy: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">, Precision: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">percision</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">, Recall: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>266/266 ━━━━━━━━━━━━━━━━━━━━ 1s 4ms/step - accuracy: 0.9416 - loss: 0.2891 - precision_1: 0.9652 - recall_1: 0.8972
+Loss: 0.3, Accuracy: 0.93, Precision: 0.96, Recall: 0.89
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">percision</span><span class="p">,</span> <span class="n">recall</span><span class="p">)</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">evaluate</span><span class="p">([</span><span class="n">ts_x</span><span class="p">,</span> <span class="n">ts_x</span><span class="p">],</span> <span class="n">ts_y</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Loss: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">, Accuracy: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">, Precision: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">percision</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">, Recall: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>16/32 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - accuracy: 0.6958 - loss: 0.7529 - precision_1: 0.7563 - recall_1: 0.5804 
+32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - accuracy: 0.7036 - loss: 0.7366 - precision_1: 0.7747 - recall_1: 0.5994
+Loss: 0.74, Accuracy: 0.7, Precision: 0.79, Recall: 0.62
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dict_keys(['accuracy', 'loss', 'precision_1', 'recall_1', 'val_accuracy', 'val_loss', 'val_precision_1', 'val_recall_1'])
+</code></pre></div></div>
+
+<h2 id="visullize-results">Visullize Results</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tr_acc</span> <span class="o">=</span> <span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'accuracy'</span><span class="p">]</span>
+<span class="n">tr_loss</span> <span class="o">=</span> <span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'loss'</span><span class="p">]</span>
+<span class="n">val_acc</span> <span class="o">=</span> <span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'val_accuracy'</span><span class="p">]</span>
+<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'val_loss'</span><span class="p">]</span>
+
+<span class="n">index_loss</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+<span class="n">val_lowest</span> <span class="o">=</span> <span class="n">val_loss</span><span class="p">[</span><span class="n">index_loss</span><span class="p">]</span>
+<span class="n">index_acc</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">val_acc</span><span class="p">)</span>
+<span class="n">acc_highest</span> <span class="o">=</span> <span class="n">val_acc</span><span class="p">[</span><span class="n">index_acc</span><span class="p">]</span>
+
+
+<span class="n">Epochs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tr_acc</span><span class="p">))]</span>
+<span class="n">loss_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'Best epoch = </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">index_loss</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s">'</span>
+<span class="n">acc_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'Best epoch = </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">index_acc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s">'</span>
+
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'fivethirtyeight'</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Epochs</span><span class="p">,</span> <span class="n">tr_loss</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Training loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Epochs</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s">'g'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Validation loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">index_loss</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">val_lowest</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">loss_label</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Training and Validation Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Epochs'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Epochs</span><span class="p">,</span> <span class="n">tr_acc</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Training Accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Epochs</span><span class="p">,</span> <span class="n">val_acc</span><span class="p">,</span> <span class="s">'g'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Validation Accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">index_acc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">acc_highest</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">acc_label</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Training and Validation Accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Epochs'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="p">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'Model Training Metrics Over Epochs'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/model_training_metrics.png" alt="graph" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_true</span><span class="o">=</span><span class="p">[]</span> <span class="c1"># gerçek etiketlerin tutulacağı liste
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_y</span><span class="p">)):</span> <span class="c1"># gerçek etiketlerin alınması
+</span>    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ts_y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> 
+    <span class="n">y_true</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+<span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">([</span><span class="n">ts_x</span><span class="p">,</span> <span class="n">ts_x</span><span class="p">])</span> <span class="c1"># tahminlerin alınması
+</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># tahminlerin en yüksek değerli indexlerinin alınması
+</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ts_y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># gerçek etiketlerin en yüksek değerli indexlerinin alınması
+</span><span class="n">y_pred</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>32/32 ━━━━━━━━━━━━━━━━━━━━ 1s 10ms/step
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([2, 0, 3, 3, 1, 2, 0, 0, 2, 1, 2, 3, 3, 1, 3, 3, 3, 3, 2, 3, 3, 1,
+       1, 3, 0, 1, 2, 1, 3, 0, 3, 0, 3, 2, 3, 1, 3, 3, 2, 0, 0, 2, 2, 3,
+       0, 0, 1, 2, 3, 0, 3, 1, 1, 1, 0, 3, 1, 1, 3, 1, 3, 3, 0, 2, 1, 3,
+       2, 3, 1, 0, 2, 1, 3, 2, 2, 0, 0, 2, 1, 1, 3, 0, 3, 3, 0, 1, 2, 1,
+       1, 3, 1, 1, 3, 0, 3, 0, 3, 3, 2, 1, 3, 0, 2, 0, 2, 3, 2, 1, 3, 2,
+       3, 2, 3, 1, 3, 2, 3, 0, 1, 1, 3, 3, 3, 0, 3, 0, 3, 2, 1, 1, 3, 2,
+       2, 3, 1, 3, 3, 2, 1, 2, 1, 3, 0, 1, 2, 2, 2, 1, 0, 0, 1, 2, 1, 1,
+       2, 2, 3, 0, 2, 3, 1, 3, 0, 0, 2, 3, 2, 1, 2, 2, 1, 2, 0, 3, 1, 0,
+       1, 0, 3, 1, 3, 1, 3, 0, 3, 1, 1, 1, 0, 1, 2, 2, 1, 3, 3, 3, 1, 2,
+       2, 1, 0, 2, 0, 1, 1, 2, 3, 3, 2, 3, 3, 0, 0, 2, 2, 3, 3, 3, 1, 3,
+       1, 3, 3, 0, 0, 2, 0, 1, 2, 2, 2, 2, 0, 0, 3, 3, 2, 0, 1, 3, 1, 0,
+       0, 1, 1, 3, 1, 2, 2, 2, 0, 3, 1, 0, 3, 2, 3, 3, 0, 3, 1, 2, 1, 2,
+       3, 2, 1, 2, 2, 0, 1, 1, 3, 3, 3, 3, 1, 3, 0, 3, 2, 0, 3, 0, 1, 0,
+       3, 3, 0, 0, 3, 2, 1, 0, 3, 3, 2, 1, 3, 3, 1, 3, 2, 1, 2, 1, 2, 3,
+       3, 3, 2, 3, 3, 3, 0, 0, 3, 0, 2, 1, 2, 3, 1, 3, 0, 3, 1, 3, 1, 2,
+       1, 3, 3, 0, 3, 0, 3, 1, 3, 0, 1, 1, 3, 3, 3, 3, 0, 1, 3, 2, 2, 2,
+       1, 1, 2, 3, 0, 2, 2, 1, 3, 3, 3, 3, 0, 3, 0, 0, 1, 2, 3, 3, 1, 2,
+       2, 0, 1, 2, 2, 2, 1, 3, 1, 1, 2, 3, 2, 0, 2, 1, 3, 0, 2, 3, 0, 3,
+       0, 0, 2, 0, 3, 3, 2, 3, 2, 3, 3, 2, 1, 0, 2, 3, 1, 3, 2, 3, 1, 0,
+       0, 2, 2, 0, 3, 0, 3, 3, 0, 3, 3, 2, 0, 2, 2, 1, 3, 3, 0, 1, 3, 0,
+       2, 2, 2, 1, 2, 3, 1, 2, 1, 0, 3, 2, 1, 0, 3, 1, 0, 2, 3, 2, 0, 1,
+       1, 2, 0, 0, 1, 1, 3, 1, 2, 0, 3, 0, 3, 3, 3, 1, 3, 1, 1, 2, 1, 3,
+       0, 3, 0, 0, 2, 2, 0, 0, 3, 0, 2, 0, 2, 1, 2, 0, 1, 1, 3, 1, 3, 2,
+       1, 0, 2, 1, 3, 3, 3, 1, 2, 1, 1, 3, 2, 1, 3, 1, 1, 2, 2, 3, 3, 3,
+       1, 0, 2, 3, 1, 0, 3, 3, 0, 2, 3, 0, 0, 2, 3, 0, 3, 0, 2, 0, 3, 1,
+...
+       3, 2, 1, 2, 1, 3, 1, 1, 3, 3, 0, 3, 2, 0, 3, 3, 2, 0, 3, 2, 0, 0,
+       0, 2, 0, 2, 1, 2, 3, 2, 2, 2, 3, 0, 0, 3, 3, 2, 3, 0, 1, 0, 2, 2,
+       2, 3, 0, 3, 3, 2, 0, 2, 2, 2, 1, 3, 2, 2, 3, 3, 3, 2, 3, 3, 3, 1,
+       2, 1, 3, 2, 0, 1, 1, 2, 2, 2, 3, 3, 3, 0, 2, 3, 3, 3, 1, 2, 2, 2,
+       3, 3, 1, 2, 3, 2, 3, 3])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">emotions</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s">'öfke'</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s">'korku'</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s">'mutlu'</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="s">'üzgün'</span><span class="p">}</span>
+<span class="n">emotions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">emotions</span><span class="p">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">.</span><span class="n">ravel</span><span class="p">())</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'d'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'Purples'</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">emotions</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">emotions</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/confusion_matrix.png" alt="graph" /></p>
+
+<h2 id="classification-report">Classification Report</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clr</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">clr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              precision    recall  f1-score   support
+
+           0       0.79      0.69      0.74       224
+           1       0.78      0.76      0.77       250
+           2       0.72      0.64      0.67       274
+           3       0.58      0.74      0.65       250
+
+    accuracy                           0.70       998
+   macro avg       0.72      0.70      0.71       998
+weighted avg       0.72      0.70      0.71       998
+</code></pre></div></div>
+
+<h1 id="save-model">Save Model</h1>
+
+<p>Eğitilmiş olan tokenizatörün ve modelin kaydedilmesi</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'tokenizer.pkl'</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">tokenizer_file</span><span class="p">:</span> <span class="c1"># tokenizer nesnesinin kaydedilmesi
+</span>    <span class="n">pickle</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">,</span> <span class="n">tokenizer_file</span><span class="p">)</span>
+
+<span class="n">model</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">'emotions_detect_model.h5'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="prediction-function">Prediction Function</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># modülleri tekrardan import etmemin sebebi, modeli tekrar eğitmeden kaydedilen modeli kullanmak için
+</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.preprocessing.sequence</span> <span class="kn">import</span> <span class="n">pad_sequences</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">load_model</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">model_path</span><span class="p">,</span> <span class="n">token_path</span><span class="p">):</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
+    
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">token_path</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">pickle</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    
+    <span class="n">sequences</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">.</span><span class="n">texts_to_sequences</span><span class="p">([</span><span class="n">text</span><span class="p">])</span> <span class="c1"># Tahmin edilecek metni önceden eğitilen tokenizer ile sayısal değerlere dönüştürülmesi
+</span>    <span class="n">x_new</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># Metinlerin boyutlarının eşitlenmesi
+</span>    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">([</span><span class="n">x_new</span><span class="p">,</span> <span class="n">x_new</span><span class="p">])</span> <span class="c1"># Tahmin işlemi
+</span>    
+    <span class="n">emotions</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s">'üzgün'</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s">'mutlu'</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s">'korku'</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="s">'öfke'</span><span class="p">}</span>
+
+    <span class="c1"># Tahmin sonuçlarının görselleştirilmesi
+</span>    <span class="n">label</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">emotions</span><span class="p">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">label</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">probs</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Tahmin'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Duygular'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span> <span class="s">'%.2f'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">emotions</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">)]</span> <span class="c1"># En yüksek değerli indexin alınması ve duygunun döndürülmesi
+</span></code></pre></div></div>
+
+<h1 id="prediction">Prediction</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">txt</span> <span class="o">=</span> <span class="s">'Projeyi bitirdiğim için kendimi harika hissediyorum'</span>
+<span class="n">predict</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="s">'emotions_detect_model.h5'</span><span class="p">,</span> <span class="s">'tokenizer.pkl'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 330ms/step
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'mutlu'
+</code></pre></div></div>
+
+<p><img src="/assets/img/projects/prediction_result.png" alt="graph" /></p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/projects/2024-04-30-text-classification-and-sentiment-analysis-using-cnn/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>
