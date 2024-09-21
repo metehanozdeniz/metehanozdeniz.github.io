@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Support Vector Machine (SVM) | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Support Vector Machine (SVM)" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="Support Vector Machine (SVM) algoritması, makine öğrenmesinde hem sınıflandırma hem de regresyon problemlerinde yaygın olarak kullanılan, özellikle küçük ve orta boyutlu veri setlerinde etkili olan güçlü bir algoritmadır." />
+<meta property="og:description" content="Support Vector Machine (SVM) algoritması, makine öğrenmesinde hem sınıflandırma hem de regresyon problemlerinde yaygın olarak kullanılan, özellikle küçük ve orta boyutlu veri setlerinde etkili olan güçlü bir algoritmadır." />
+<link rel="canonical" href="http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/machine-learning/support_vector_machine.gif" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-09-21T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/machine-learning/support_vector_machine.gif" />
+<meta property="twitter:title" content="Support Vector Machine (SVM)" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-09-22T00:00:00+03:00","datePublished":"2024-09-21T00:00:00+03:00","description":"Support Vector Machine (SVM) algoritması, makine öğrenmesinde hem sınıflandırma hem de regresyon problemlerinde yaygın olarak kullanılan, özellikle küçük ve orta boyutlu veri setlerinde etkili olan güçlü bir algoritmadır.","headline":"Support Vector Machine (SVM)","image":"http://localhost:4000/assets/img/machine-learning/support_vector_machine.gif","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Artificial Intelligence,Machine Learning,Data Science,Data Analysis,Support Vector Machine,SVM,Yapay Zeka,Makine Öğrenmesi,Destek Vektör Makinesi,Veri Bilimi,Veri Analizi">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-21T13:04:26+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/machine-learning/">machine-learning</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-09-21-support-vector-machine</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-machine-learning-support-vector-machine" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Support Vector Machine (SVM)
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-09-21T00:00:00+03:00">21 Sep 2024</time> Categorized under <a href="/machine-learning/" class="flip-title">Machine Learning</a> tagged <a href="/tag-classification/" class="flip-title">Classification</a>
+           
+          <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 22 Sep 2024">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-09-22T00:00:00+03:00">22-09-2024</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/machine-learning/support_vector_machine.gif"
+  
+  alt="Support Vector Machine (SVM)"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Support Vector Machine (SVM) algoritması, makine öğrenmesinde hem sınıflandırma hem de regresyon problemlerinde yaygın olarak kullanılan, özellikle küçük ve orta boyutlu veri setlerinde etkili olan güçlü bir algoritmadır.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>SVM, genellikle doğrusal olarak ayrılabilir verilerde kullanılsa da, doğrusal olmayan verilerde de çalışabilmek için kernel yöntemleriyle genişletilebilir.</p>
+
+<h1 id="support-vector-machine-algoritmasının-temel-kavramları">Support Vector Machine Algoritmasının Temel Kavramları</h1>
+
+<p><img src="/assets/img/machine-learning/support_vector_machine_2.gif" alt="Support Vector Machine" /></p>
+
+<h2 id="1-hyperplane-hiperdüzlem">1. Hyperplane (Hiperdüzlem)</h2>
+<p>SVM’in amacı, verileri ayıran en iyi hiperdüzlemi bulmaktır. Hiperdüzlem, veriyi sınıflara ayıran bir sınır çizgisi olarak düşünülebilir. İki boyutlu uzayda bir doğru, üç boyutlu uzayda bir düzlem ve daha yüksek boyutlarda da bir hiperdüzlem ile temsil edilir.</p>
+
+<h2 id="2-margin-marjin">2. Margin (Marjin)</h2>
+<p>Hiperdüzlemden her iki sınıfa en yakın veriler arasındaki mesafeye marjin denir. SVM, bu marjini maksimum yapmak ister. Marjini maksimize etmek, modelin doğruluk ve genelleme yeteneğini artırır.</p>
+
+<h2 id="3-support-vectors-destek-vektörleri">3. Support Vectors (Destek Vektörleri)</h2>
+<p>Sınıfları ayıran hiperdüzleme en yakın veri noktalarına support vectors denir. Hiperdüzlem, bu destek vektörlerine dayanarak belirlenir. Geri kalan veri noktaları hiperdüzlemi etkilemez.</p>
+
+<h1 id="doğrusal-olarak-ayrılabilir-veriler">Doğrusal Olarak Ayrılabilir Veriler</h1>
+<p>Doğrusal olarak ayrılabilir verilerde, SVM iki sınıfı ayırmak için en geniş marjini bulmaya çalışır. Hiperdüzlem seçimi, şu koşulları sağlar:</p>
+
+<ul>
+  <li>İki sınıfa ait veri noktalarından en uzak olanı seçilir.</li>
+  <li>Bu en uzak noktalar arasındaki marjin maksimum yapılır.</li>
+</ul>
+
+<p>Amaç, sınıfları doğru bir şekilde ayıracak ve genelleme yapacak bir hiperdüzlem bulmaktır. Bu işlem, aşağıdaki optimizasyon problemiyle çözülür:</p>
+
+\[min_{w,b}\frac{1}{2}\left|w\right|^2\]
+
+<p>Bu optimizasyon probleminde, 𝑤 hiperdüzlemi tanımlayan ağırlık vektörünü, 𝑏 ise bias terimini ifade eder. Amaç, ağırlıkları minimize ederken, hiperdüzlemin marjinini maksimum yapmaktır.</p>
+
+<h1 id="doğrusal-olarak-ayrılamayan-veriler-ve-kernel-fonksiyonları">Doğrusal Olarak Ayrılamayan Veriler ve Kernel Fonksiyonları</h1>
+
+<p>Veri seti doğrusal olarak ayrılamıyorsa, veriyi daha yüksek boyutlu bir uzaya projelendirerek doğrusal hale getirmek için kernel trick denilen yöntem kullanılır. Kernel fonksiyonları, veri noktalarının daha yüksek boyutlu bir uzaya taşınmasını sağlar. Böylece veriler doğrusal olarak ayrılabilir hale gelir.</p>
+
+<h2 id="yaygın-kernel-fonksiyonları">Yaygın Kernel Fonksiyonları</h2>
+
+<h3 id="linear-kernel">Linear Kernel</h3>
+<p>Doğrusal olarak ayrılabilen veriler için uygundur.</p>
+
+\[K(x_i, x_j) = x_{i}^{T}x_{j}\]
+
+<h3 id="polynomial-kernel">Polynomial Kernel</h3>
+<p>Doğrusal olmayan ayrımlar için uygundur. Polinom derecesine göre şekillenir.</p>
+
+\[K(x_i, x_j) = (x_{i}^{T}x_{j}+c)^d\]
+
+<h3 id="radial-basis-function-rbf-kernel">Radial Basis Function (RBF) Kernel</h3>
+<p>Genellikle en yaygın kullanılan kernel fonksiyonudur ve çok karmaşık sınırları modelleyebilir.</p>
+
+\[K(x_i, x_j) = exp(-γ\left|x_i-x_j\right|^2)\]
+
+<h3 id="sigmoid-kernel">Sigmoid Kernel</h3>
+<p>Yapay sinir ağlarındaki aktivasyon fonksiyonuna benzeyen bir kernel fonksiyonudur.</p>
+
+\[K(x_i, x_j) = tanh(αx_{i}^{T}x_j +c)\]
+
+<h1 id="scaling">Scaling</h1>
+
+<p>Support Vector Machine (SVM) ile çalışırken scaling (ölçeklendirme) işlemi yapılması gereklidir. Bunun başlıca nedenleri:</p>
+
+<h2 id="1-svrnin-çekirdek-fonksiyonları-ile-uyum">1. SVR’nin Çekirdek Fonksiyonları ile Uyum</h2>
+<p>Çoğu SVR modeli, RBF (Radial Basis Function) ve polynomial gibi çekirdek fonksiyonları kullanır. Bu çekirdek fonksiyonları, özellikler arasındaki mesafelere dayalı olarak çalışır. Eğer özellikler farklı ölçeklerdeyse (örneğin biri 0-1 arasında, diğeri 1-1000 arasında), bu durum SVR’nin performansını olumsuz etkileyebilir çünkü daha büyük ölçekli özellikler modelde daha fazla ağırlık kazanır.</p>
+
+<h2 id="2-optimizasyonun-daha-kolay-yapılması">2. Optimizasyonun Daha Kolay Yapılması</h2>
+<p>SVR, optimizasyon sürecinde C (regülarizasyon parametresi) ve γ (gamma) gibi hiperparametreleri kullanır. Özelliklerin ölçeklenmesi bu hiperparametrelerin daha etkili bir şekilde ayarlanmasını sağlar ve optimizasyon sürecini daha kararlı hale getirir.</p>
+
+<h2 id="3-hızlı-ve-stabil-hesaplama">3. Hızlı ve Stabil Hesaplama</h2>
+<p>Özellikler ölçeklenmediğinde, SVR’nin hesaplama süresi uzayabilir ve modelin çözümünde kararsızlıklar meydana gelebilir. Özelliklerin ölçeklenmesi hesaplamaların daha hızlı ve stabil olmasını sağlar.</p>
+
+<p>Özetle, SVR ile çalışırken, özelliklerin ölçeklendirilmesi kritik bir adımdır ve genellikle model performansını optimize etmek için gereklidir. Bu nedenle, SVR’yi uygulamadan önce mutlaka veriler ölçeklendirilmelidir.</p>
+
+<h1 id="sample-application">Sample Application</h1>
+
+<p>Bu örnek uygulamada ses verileri ile cinsiyet tanıma işlemini gerçekleştiren bir SVM modeli geliştirilecektir.</p>
+
+<h1 id="dataset">Dataset</h1>
+<ul>
+  <li><a href="/assets/datasets/voice.csv">voice.csv</a></li>
+</ul>
+
+<h2 id="about-the-dataset">About the Dataset</h2>
+
+<p>Bu veriseti, sesin ve konuşmanın akustik özelliklerine dayanarak bir sesi erkek veya kadın olarak tanımlamak için oluşturulmuştur. Veri seti, erkek ve kadın konuşmacılardan toplanan 3.168 kayıtlı ses örneğinden oluşur. Ses örnekleri, 0hz-280hz (insan ses aralığı) analiz edilmiş bir frekans aralığıyla seewave ve tuneR paketleri kullanılarak R’de akustik analizle önceden işlenir.</p>
+
+<h1 id="import-the-necessary-modules-and-libraries">Import the necessary modules and libraries</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="p">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">"ignore"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="description-of-dataset">Description of Dataset</h1>
+
+<h2 id="read-data">Read Data</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'voice.csv'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   meanfreq        sd    median       Q25       Q75       IQR       skew  \
+0  0.059781  0.064241  0.032027  0.015071  0.090193  0.075122  12.863462   
+1  0.066009  0.067310  0.040229  0.019414  0.092666  0.073252  22.423285   
+2  0.077316  0.083829  0.036718  0.008701  0.131908  0.123207  30.757155   
+3  0.151228  0.072111  0.158011  0.096582  0.207955  0.111374   1.232831   
+4  0.135120  0.079146  0.124656  0.078720  0.206045  0.127325   1.101174   
+
+          kurt    sp.ent       sfm  ...  centroid   meanfun    minfun  \
+0   274.402906  0.893369  0.491918  ...  0.059781  0.084279  0.015702   
+1   634.613855  0.892193  0.513724  ...  0.066009  0.107937  0.015826   
+2  1024.927705  0.846389  0.478905  ...  0.077316  0.098706  0.015656   
+3     4.177296  0.963322  0.727232  ...  0.151228  0.088965  0.017798   
+4     4.333713  0.971955  0.783568  ...  0.135120  0.106398  0.016931   
+
+     maxfun   meandom    mindom    maxdom   dfrange   modindx  label  
+0  0.275862  0.007812  0.007812  0.007812  0.000000  0.000000   male  
+1  0.250000  0.009014  0.007812  0.054688  0.046875  0.052632   male  
+2  0.271186  0.007990  0.007812  0.015625  0.007812  0.046512   male  
+3  0.250000  0.201497  0.007812  0.562500  0.554688  0.247119   male  
+4  0.266667  0.712812  0.007812  5.484375  5.476562  0.208274   male  
+
+[5 rows x 21 columns]
+</code></pre></div></div>
+
+<h2 id="describe-the-data">Describe the data</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">describe</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          meanfreq           sd       median          Q25          Q75  \
+count  3168.000000  3168.000000  3168.000000  3168.000000  3168.000000   
+mean      0.180907     0.057126     0.185621     0.140456     0.224765   
+std       0.029918     0.016652     0.036360     0.048680     0.023639   
+min       0.039363     0.018363     0.010975     0.000229     0.042946   
+25%       0.163662     0.041954     0.169593     0.111087     0.208747   
+50%       0.184838     0.059155     0.190032     0.140286     0.225684   
+75%       0.199146     0.067020     0.210618     0.175939     0.243660   
+max       0.251124     0.115273     0.261224     0.247347     0.273469   
+
+               IQR         skew         kurt       sp.ent          sfm  \
+count  3168.000000  3168.000000  3168.000000  3168.000000  3168.000000   
+mean      0.084309     3.140168    36.568461     0.895127     0.408216   
+std       0.042783     4.240529   134.928661     0.044980     0.177521   
+min       0.014558     0.141735     2.068455     0.738651     0.036876   
+25%       0.042560     1.649569     5.669547     0.861811     0.258041   
+50%       0.094280     2.197101     8.318463     0.901767     0.396335   
+75%       0.114175     2.931694    13.648905     0.928713     0.533676   
+max       0.252225    34.725453  1309.612887     0.981997     0.842936   
+
+              mode     centroid      meanfun       minfun       maxfun  \
+count  3168.000000  3168.000000  3168.000000  3168.000000  3168.000000   
+mean      0.165282     0.180907     0.142807     0.036802     0.258842   
+std       0.077203     0.029918     0.032304     0.019220     0.030077   
+min       0.000000     0.039363     0.055565     0.009775     0.103093   
+25%       0.118016     0.163662     0.116998     0.018223     0.253968   
+50%       0.186599     0.184838     0.140519     0.046110     0.271186   
+75%       0.221104     0.199146     0.169581     0.047904     0.277457   
+max       0.280000     0.251124     0.237636     0.204082     0.279114   
+
+           meandom       mindom       maxdom      dfrange      modindx  
+count  3168.000000  3168.000000  3168.000000  3168.000000  3168.000000  
+mean      0.829211     0.052647     5.047277     4.994630     0.173752  
+std       0.525205     0.063299     3.521157     3.520039     0.119454  
+min       0.007812     0.004883     0.007812     0.000000     0.000000  
+25%       0.419828     0.007812     2.070312     2.044922     0.099766  
+50%       0.765795     0.023438     4.992188     4.945312     0.139357  
+75%       1.177166     0.070312     7.007812     6.992188     0.209183  
+max       2.957682     0.458984    21.867188    21.843750     0.932374  
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Index(['meanfreq', 'sd', 'median', 'Q25', 'Q75', 'IQR', 'skew', 'kurt',
+       'sp.ent', 'sfm', 'mode', 'centroid', 'meanfun', 'minfun', 'maxfun',
+       'meandom', 'mindom', 'maxdom', 'dfrange', 'modindx', 'label'],
+      dtype='object')
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">value_counts</span><span class="p">())</span> <span class="c1"># Count of each label
+</span></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>label
+male      1584
+female    1584
+Name: count, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">info</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 3168 entries, 0 to 3167
+Data columns (total 21 columns):
+ #   Column    Non-Null Count  Dtype  
+---  ------    --------------  -----  
+ 0   meanfreq  3168 non-null   float64
+ 1   sd        3168 non-null   float64
+ 2   median    3168 non-null   float64
+ 3   Q25       3168 non-null   float64
+ 4   Q75       3168 non-null   float64
+ 5   IQR       3168 non-null   float64
+ 6   skew      3168 non-null   float64
+ 7   kurt      3168 non-null   float64
+ 8   sp.ent    3168 non-null   float64
+ 9   sfm       3168 non-null   float64
+ 10  mode      3168 non-null   float64
+ 11  centroid  3168 non-null   float64
+ 12  meanfun   3168 non-null   float64
+ 13  minfun    3168 non-null   float64
+ 14  maxfun    3168 non-null   float64
+ 15  meandom   3168 non-null   float64
+ 16  mindom    3168 non-null   float64
+ 17  maxdom    3168 non-null   float64
+ 18  dfrange   3168 non-null   float64
+ 19  modindx   3168 non-null   float64
+ 20  label     3168 non-null   object 
+dtypes: float64(20), object(1)
+memory usage: 519.9+ KB
+None
+</code></pre></div></div>
+
+<h2 id="checking-the-correlation-between-each-feature">Checking the correlation between each feature</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'label'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'coolwarm'</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/gender_recognition_by_voice_dataset_corr.png" alt="gender recognition by voice dataset corr" /></p>
+
+<h2 id="graphical-analysis-of-data">Graphical analysis of data</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s">'meanfreq'</span><span class="p">,</span> <span class="s">'Q25'</span><span class="p">,</span> <span class="s">'Q75'</span><span class="p">,</span> <span class="s">'skew'</span><span class="p">,</span> <span class="s">'centroid'</span><span class="p">,</span> <span class="s">'label'</span><span class="p">]],</span> <span class="n">hue</span><span class="o">=</span><span class="s">'label'</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/gender_recognition_by_voice_dataset_pairplot_graph.png" alt="gender recognition by voice dataset pairplot graph" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Distribution of each feature
+</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">meanfun</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s">'pastel'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Mean Frequency Distribution'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/gender_recognition_by_voice_dataset_distribition.png" alt="gender recognition by voice dataset distribition" /></p>
+
+<h1 id="data-preprocessing">Data Preprocessing</h1>
+
+<h2 id="check-for-missing-values">Check for missing values</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meanfreq    0
+sd          0
+median      0
+Q25         0
+Q75         0
+IQR         0
+skew        0
+kurt        0
+sp.ent      0
+sfm         0
+mode        0
+centroid    0
+meanfun     0
+minfun      0
+maxfun      0
+meandom     0
+mindom      0
+maxdom      0
+dfrange     0
+modindx     0
+label       0
+dtype: int64
+</code></pre></div></div>
+
+<h2 id="seperating-features-and-labels">Seperating features and labels</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'label'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">label</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">head</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   meanfreq        sd    median       Q25       Q75       IQR       skew  \
+0  0.059781  0.064241  0.032027  0.015071  0.090193  0.075122  12.863462   
+1  0.066009  0.067310  0.040229  0.019414  0.092666  0.073252  22.423285   
+2  0.077316  0.083829  0.036718  0.008701  0.131908  0.123207  30.757155   
+3  0.151228  0.072111  0.158011  0.096582  0.207955  0.111374   1.232831   
+4  0.135120  0.079146  0.124656  0.078720  0.206045  0.127325   1.101174   
+
+          kurt    sp.ent       sfm      mode  centroid   meanfun    minfun  \
+0   274.402906  0.893369  0.491918  0.000000  0.059781  0.084279  0.015702   
+1   634.613855  0.892193  0.513724  0.000000  0.066009  0.107937  0.015826   
+2  1024.927705  0.846389  0.478905  0.000000  0.077316  0.098706  0.015656   
+3     4.177296  0.963322  0.727232  0.083878  0.151228  0.088965  0.017798   
+4     4.333713  0.971955  0.783568  0.104261  0.135120  0.106398  0.016931   
+
+     maxfun   meandom    mindom    maxdom   dfrange   modindx  
+0  0.275862  0.007812  0.007812  0.007812  0.000000  0.000000  
+1  0.250000  0.009014  0.007812  0.054688  0.046875  0.052632  
+2  0.271186  0.007990  0.007812  0.015625  0.007812  0.046512  
+3  0.250000  0.201497  0.007812  0.562500  0.554688  0.247119  
+4  0.266667  0.712812  0.007812  5.484375  5.476562  0.208274  
+</code></pre></div></div>
+
+<h2 id="encoding-the-labels">Encoding the labels</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Encode label category
+# male -&gt; 1
+# female -&gt; 0
+</span>
+<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1 1 1 ... 0 0 0]
+</code></pre></div></div>
+
+<h2 id="standardize-features">Standardize features</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="splitting-dataset-into-training-and-testing-set">Splitting dataset into training and testing set</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Şimdi linear, polynomial ve rbf kernelleri ile birer SVM modeli oluşturup bu modellerin metriklerine bakarak en uygun kerneli seçelim.</p>
+
+<h1 id="create-svm-model-with-linear-kernel-and-default-parameters">Create SVM model with linear kernel and default parameters</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">linear_svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s">'linear'</span><span class="p">)</span>
+
+<span class="n">linear_svc</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div></div>
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SVC(kernel=&#x27;linear&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked="" /><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC(kernel=&#x27;linear&#x27;)</pre></div></div></div></div></div>
+
+<h2 id="accuracy-of-linear-model">Accuracy of linear model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Accuracy of model
+</span><span class="n">linear_y_pred</span> <span class="o">=</span> <span class="n">linear_svc</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Accuracy of linear model:'</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">linear_y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Accuracy of linear model: 0.973186119873817
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">linear_y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              precision    recall  f1-score   support
+
+           0       0.98      0.96      0.97       301
+           1       0.96      0.98      0.97       333
+
+    accuracy                           0.97       634
+   macro avg       0.97      0.97      0.97       634
+weighted avg       0.97      0.97      0.97       634
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">linear_cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">linear_y_pred</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">linear_cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'BuPu'</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'d'</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'female'</span><span class="p">,</span> <span class="s">'male'</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'female'</span><span class="p">,</span> <span class="s">'male'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Confusion Matrix'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/confusion_matrix_of_linear_kernel.png" alt="confusion matrix of linear kernel" /></p>
+
+<h1 id="create-svm-model-with-polynomial-kernel-and-default-parameters">Create SVM model with polynomial kernel and default parameters</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create polynomial model with default parameters
+</span><span class="n">poly_svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s">'poly'</span><span class="p">)</span>
+
+<span class="n">poly_svc</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div></div>
+<style>#sk-container-id-2 {color: black;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SVC(kernel=&#x27;poly&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked="" /><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC(kernel=&#x27;poly&#x27;)</pre></div></div></div></div></div>
+
+<h2 id="accuracy-of-polynomial-model">Accuracy of polynomial model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## Accuracy of polynomial model
+</span><span class="n">poly_y_pred</span> <span class="o">=</span> <span class="n">poly_svc</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Accuracy of polynomial model:'</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">poly_y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Accuracy of polynomial model: 0.9589905362776026
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">poly_y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              precision    recall  f1-score   support
+
+           0       0.98      0.94      0.96       301
+           1       0.94      0.98      0.96       333
+
+    accuracy                           0.96       634
+   macro avg       0.96      0.96      0.96       634
+weighted avg       0.96      0.96      0.96       634
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">poly_cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">poly_y_pred</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">poly_cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'BuPu'</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'d'</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'female'</span><span class="p">,</span> <span class="s">'male'</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'female'</span><span class="p">,</span> <span class="s">'male'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Confusion Matrix'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/confusion_matrix_of_polynomial_kernel.png" alt="confusion matrix of polynomial kernel" /></p>
+
+<h1 id="create-svm-model-with-rbf-kernel-and-default-parameters">Create SVM model with rbf kernel and default parameters</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rbf_svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s">'rbf'</span><span class="p">)</span>
+
+<span class="n">rbf_svc</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div></div>
+<style>#sk-container-id-3 {color: black;}#sk-container-id-3 pre{padding: 0;}#sk-container-id-3 div.sk-toggleable {background-color: white;}#sk-container-id-3 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-3 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-3 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-3 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-3 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-3 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-3 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-3 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-3 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-3 div.sk-item {position: relative;z-index: 1;}#sk-container-id-3 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-3 div.sk-item::before, #sk-container-id-3 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-3 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-3 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-3 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-3 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-3 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-3 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-3 div.sk-label-container {text-align: center;}#sk-container-id-3 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-3 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SVC()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked="" /><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC()</pre></div></div></div></div></div>
+
+<h2 id="accuracy-of-rbf-model">Accuracy of rbf model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rbf_y_pred</span> <span class="o">=</span> <span class="n">rbf_svc</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Accuracy of rbf model:'</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">rbf_y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Accuracy of rbf model: 0.9842271293375394
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">rbf_y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98       301
+           1       0.99      0.98      0.98       333
+
+    accuracy                           0.98       634
+   macro avg       0.98      0.98      0.98       634
+weighted avg       0.98      0.98      0.98       634
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Confusion matrix with seaborn heatmap
+</span><span class="n">rbf_cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">rbf_y_pred</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">rbf_cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'BuPu'</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'d'</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'female'</span><span class="p">,</span> <span class="s">'male'</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'female'</span><span class="p">,</span> <span class="s">'male'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Confusion Matrix'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/confusion_matrix_of_rbf_kernel.png" alt="confision matrix of rbf kernel" /></p>
+
+<p>Metriklerden ve matrislerden de anlaşılacağı üzere <code class="language-plaintext highlighter-rouge">RBF</code> kernel fonksiyonu ile oluşturulan SVM modeli daha kabul edilebilir tahminler yaptı.</p>
+
+<p>Ancak bu modeller default hiperparametreler ile oluşturulduğu için en iyi sonucu <code class="language-plaintext highlighter-rouge">RBF</code> kernel ile oluşturulmuş modelin verdiğini her zaman söyleyemeyiz. Çünkü diğer kerneller ile de oluşturulmuş olan modellerin parametreleri (C, gamma, degree) ile oynayarak daha iyi bir sonuç elde etme ihtimali var.</p>
+
+<p>C, gamma ve degree parametreleri, modelin davranışını kontrol eden önemli hiperparametrelerdir. Bu parametreler, modelin doğruluğunu ve genelleme yeteneğini etkiler. Hangi kernel fonksiyonunun seçildiğine bağlı olarak bu parametreler farklı şekillerde kullanılır.</p>
+
+<h1 id="c-parametresi">C parametresi</h1>
+<p>C parametresi, modelin hata toleransı ve marjin genişliği arasında bir denge kurar. C değeri, modelin ne kadar hata yapmasına izin verileceğini ve marjinin ne kadar geniş olacağını kontrol eder.</p>
+
+<h2 id="küçük-c-değeri">Küçük C Değeri</h2>
+<p>Daha geniş bir marjin tercih edilir ve bazı veri noktalarının yanlış sınıflandırılmasına izin verilir. Bu, modelin genelleme yeteneğini artırabilir, ancak hatalı sınıflandırmalar meydana gelebilir.</p>
+
+<h2 id="büyük-c-değeri">Büyük C Değeri</h2>
+<p>Hatalara karşı tolerans azalır, yani model daha katı bir şekilde veriyi doğru sınıflandırmaya çalışır. Bu, daha dar bir marjine yol açabilir, ancak aşırı öğrenme (overfitting) riski taşır.</p>
+
+<h2 id="özet">Özet</h2>
+<ul>
+  <li><strong>Küçük C:</strong> Geniş marjin, daha fazla genelleme, potansiyel yanlış sınıflandırmalar.</li>
+  <li><strong>Büyük C:</strong> Dar marjin, az genelleme, daha fazla doğru sınıflandırma, aşırı öğrenme riski.</li>
+</ul>
+
+<h1 id="gamma-parametresi">gamma parametresi</h1>
+<p>Gamma parametresi, özellikle RBF (Radial Basis Function), Polynomial ve Sigmoid gibi doğrusal olmayan kernel fonksiyonlarında kullanılır. Gamma, modelin her bir eğitim örneğinin ne kadar etkili olacağını kontrol eder. Gamma değeri, modelin karar sınırlarını belirler ve yüksek veya düşük değerler modelin performansını büyük ölçüde etkileyebilir.</p>
+
+<ul>
+  <li>
+    <p><strong>Küçük gamma değeri:</strong> Küçük gamma değeri, her bir veri noktasının uzak mesafedeki diğer veri noktalarını da etkileyebilmesi anlamına gelir. Bu, daha düzgün ve geniş bir karar sınırı sağlar. Ancak, düşük bir gamma değeri, modelin karmaşık verileri doğru şekilde ayırmada başarısız olmasına yol açabilir.</p>
+  </li>
+  <li>
+    <p><strong>Büyük gamma değeri:</strong> Büyük gamma değeri, her veri noktasının sadece yakın çevresindeki noktaları etkilemesine neden olur. Bu, karar sınırlarının daha keskin olmasını sağlar ve model veriyi daha sıkı bir şekilde öğrenir. Ancak, bu durum aşırı öğrenmeye (overfitting) yol açabilir.</p>
+  </li>
+</ul>
+
+<h2 id="özet-1">Özet</h2>
+<ul>
+  <li><strong>Küçük gamma:</strong> Karar sınırları daha geniş ve basit, daha iyi genelleme, düşük hassasiyet.</li>
+  <li><strong>Büyük gamma:</strong> Karar sınırları daha keskin, yüksek hassasiyet, aşırı öğrenme riski.</li>
+</ul>
+
+<h1 id="degree-parametresi">degree parametresi</h1>
+<p>degree parametresi, yalnızca Polynomial kernel ile birlikte kullanılır ve polinomun derecesini belirtir. Yani, veriyi ayırmak için kullanılan polinomun derecesini belirler. Doğrusal olmayan sınırları modellemek için polinomsal bir yaklaşım kullanıyorsanız, polinomun derecesi bu parametre ile kontrol edilir.</p>
+
+<h2 id="küçük-degree-değeri">Küçük degree değeri</h2>
+<p>Küçük bir degree değeri, veriyi ayırmak için daha basit (örneğin, doğrusal) sınırlar oluşturur. Bu, daha hızlı bir model sağlar ancak karmaşık veri yapıları için yeterli olmayabilir.</p>
+
+<h2 id="büyük-degree-değeri">Büyük degree değeri</h2>
+<p>Yüksek degree değeri, daha karmaşık polinomsal sınırlar oluşturur. Bu, daha karmaşık veri kümelerini daha doğru sınıflandırabilir, ancak modelin aşırı uyum gösterme riski artar.</p>
+
+<h2 id="özet-2">Özet</h2>
+<ul>
+  <li><strong>Küçük degree:</strong> Daha basit karar sınırları, düşük doğruluk (karmaşık veriler için), daha hızlı hesaplama.</li>
+  <li><strong>Büyük degree:</strong> Daha karmaşık karar sınırları, aşırı öğrenme riski, daha yavaş hesaplama.</li>
+</ul>
+
+<h1 id="sonuç-hangi-durumda-hangi-parametre">Sonuç: Hangi Durumda Hangi Parametre</h1>
+<ul>
+  <li><strong>C Parametresi:</strong> Hata toleransı ile marjin genişliği arasında bir denge sağlar. Genelleme yeteneğini kontrol etmek için kullanılır.</li>
+  <li><strong>gamma Parametresi:</strong> Özellikle RBF kernelde her veri noktasının etki alanını belirler. Karar sınırlarının ne kadar keskin olacağını kontrol eder.</li>
+  <li><strong>degree Parametresi:</strong> Sadece Polynomial kernelde kullanılır ve polinomun derecesini belirler, daha karmaşık veri ayrımları yapabilmeyi sağlar.</li>
+</ul>
+
+<p>Bu parametrelerin uygun seçimi, modelin veriyi doğru bir şekilde öğrenip genelleyebilmesi açısından kritik öneme sahiptir. Parametre optimizasyonu için Grid Search veya Randomized Search gibi yöntemlerle bu hiperparametreleri ayarlamak, modelin performansını önemli ölçüde artırabilir.</p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-01-random-forest/" class="flip-title"><span>Random Forest</span></a>      <time class="faded fine" datetime="2024-09-01T00:00:00+03:00">01 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-01-random-forest/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>
