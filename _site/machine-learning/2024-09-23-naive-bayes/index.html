@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Naive Bayes | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Naive Bayes" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="Naive Bayes algoritması, olasılık teorisine dayalı, basit ve hızlı bir makine öğrenme algoritmasıdır. Özellikle sınıflandırma problemlerinde sıkça kullanılır. Algoritmanın temel prensibi, Bayes Teoremi’ne dayanarak sınıf olasılıklarını tahmin etmektir." />
+<meta property="og:description" content="Naive Bayes algoritması, olasılık teorisine dayalı, basit ve hızlı bir makine öğrenme algoritmasıdır. Özellikle sınıflandırma problemlerinde sıkça kullanılır. Algoritmanın temel prensibi, Bayes Teoremi’ne dayanarak sınıf olasılıklarını tahmin etmektir." />
+<link rel="canonical" href="http://localhost:4000/machine-learning/2024-09-23-naive-bayes/" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/2024-09-23-naive-bayes/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/machine-learning/naive_bayes_classifier.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-09-23T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/machine-learning/naive_bayes_classifier.png" />
+<meta property="twitter:title" content="Naive Bayes" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-09-24T00:00:00+03:00","datePublished":"2024-09-23T00:00:00+03:00","description":"Naive Bayes algoritması, olasılık teorisine dayalı, basit ve hızlı bir makine öğrenme algoritmasıdır. Özellikle sınıflandırma problemlerinde sıkça kullanılır. Algoritmanın temel prensibi, Bayes Teoremi’ne dayanarak sınıf olasılıklarını tahmin etmektir.","headline":"Naive Bayes","image":"http://localhost:4000/assets/img/machine-learning/naive_bayes_classifier.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/2024-09-23-naive-bayes/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/machine-learning/2024-09-23-naive-bayes/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Artificial Intelligence,Machine Learning,Data Science,Data Analysis,Naive Bayes,Yapay Zeka,Makine Öğrenmesi,Veri Bilimi,Veri Analizi">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/machine-learning/2024-09-23-naive-bayes/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-09-23T01:15:21+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/machine-learning/">machine-learning</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-09-23-naive-bayes</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-machine-learning-naive-bayes" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Naive Bayes
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-09-23T00:00:00+03:00">23 Sep 2024</time> Categorized under <a href="/machine-learning/" class="flip-title">Machine Learning</a> tagged <a href="/tag-classification/" class="flip-title">Classification</a>
+           
+          <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-23-naive-bayes/"></span>
+        
+      
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 24 Sep 2024">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2024-09-24T00:00:00+03:00">24-09-2024</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/machine-learning/naive_bayes_classifier.png"
+  
+  alt="Naive Bayes"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      Naive Bayes algoritması, olasılık teorisine dayalı, basit ve hızlı bir makine öğrenme algoritmasıdır. Özellikle sınıflandırma problemlerinde sıkça kullanılır. Algoritmanın temel prensibi, Bayes Teoremi’ne dayanarak sınıf olasılıklarını tahmin etmektir.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Naive Bayes, bağımsızlık varsayımı (naive assumption) yapar; yani bir veri kümesindeki özelliklerin birbirinden bağımsız olduğunu kabul eder. Bu, gerçek dünyada nadiren doğru olsa da, birçok problemde etkili sonuçlar verir.</p>
+
+<p>Naive Bayes, adını iki temel varsayımdan alır:</p>
+
+<h2 id="1-bayes-teoremi">1. Bayes Teoremi</h2>
+
+<p>Naive Bayes algoritması Bayes Teoremi’ni temel alır. Bayes Teoremi, bir olayın olasılığını, o olaya ait gözlemlere ve diğer ilgili olayların olasılıklarına dayanarak hesaplamamıza olanak tanır. Formülü şu şekildedir:</p>
+
+\[P(C|X) = \frac{P(X|C) * P(C)}{P(X)}\]
+
+<ul>
+  <li>\(P(C\|X)\) : \(X\) olayının gerçekleştiği bilindiğinde \(C\) olayının gerçekleşme olasılığıdır. Yani \(X\) verisinin sınıfı \(C\) olma olasılığıdır.</li>
+  <li>\(P(X\|C)\) : \(C\) olayının gerçekleştiği bilindiğinde \(X\) olayının gerçekleşme olasılığıdır. Yani sınıf \(C\) verildiğinde \(X\) verisinin gözlenme olasılığıdır.</li>
+  <li>\(P(C)\) : Sınıf \(C\) olasılığı.</li>
+  <li>\(P(X)\) : \(X\) verisinin gözlenme olasılığı.</li>
+</ul>
+
+<h2 id="2-naive-varsayım-bağımsızlık-varsayımı">2. Naive Varsayım (Bağımsızlık Varsayımı):</h2>
+
+<p>Naive Bayes’in en önemli varsayımı, tüm özelliklerin (feature) birbirinden bağımsız olduğudur. Yani bir özelliğin değeri, diğer özelliklerin değeriyle bağımsızdır. Bu varsayım genellikle gerçek dünyada nadiren geçerlidir, ancak yine de çoğu durumda algoritmanın iyi performans göstermesine engel olmaz.</p>
+
+<h1 id="naive-bayes-algoritması-türleri">Naive Bayes Algoritması Türleri</h1>
+
+<p>Naive Bayes algoritmasının birkaç çeşidi vardır ve farklı veri dağılımlarına göre uygulanır:</p>
+
+<h2 id="gaussian-naive-bayes">Gaussian Naive Bayes</h2>
+<p>Özellikler sürekli olduğunda ve normal dağılıma uygun olduğunda kullanılır.</p>
+
+<h2 id="multinomial-naive-bayes">Multinomial Naive Bayes</h2>
+<p>Belirli sayıda kategoriye sahip veriler için kullanılır. Özellikle metin sınıflandırma problemlerinde yaygın olarak kullanılır. Kelime sayımı gibi verilerle çalışır.</p>
+
+<h2 id="bernoulli-naive-bayes">Bernoulli Naive Bayes</h2>
+<p>İkili (binary) veriler için uygundur.</p>
+
+<h1 id="avantajları">Avantajları</h1>
+<ul>
+  <li><strong>Hızlı ve Verimli:</strong> Hesaplama açısından çok hızlıdır ve büyük veri setleriyle bile iyi ölçeklenir.</li>
+  <li><strong>Az Veriyle İyi Sonuçlar:</strong> Özellikle veri seti küçükken dahi iyi sonuçlar verebilir.</li>
+  <li><strong>Kolay Uygulama:</strong> Scikit-learn gibi kütüphaneler sayesinde kolayca uygulanabilir.</li>
+  <li>Yüksek boyutlu verilerle iyi başa çıkar.</li>
+</ul>
+
+<h1 id="dezavantajları">Dezavantajları</h1>
+<ul>
+  <li><strong>Bağımsızlık Varsayımı:</strong> Özelliklerin birbirinden bağımsız olması varsayımı gerçek dünyada genellikle geçerli olmadığından bazen yanıltıcı olabilir.</li>
+  <li><strong>Sürekli Veriler İçin Zayıflık:</strong> Gaussian Naive Bayes dışında, genellikle sürekli verilerle çalışmada zayıf performans gösterebilir.</li>
+</ul>
+
+<h1 id="sample-app">Sample App</h1>
+
+<p>Şimdi Naive Bayes algoritması ile sınıflandırma yaparak diabet hastalığını tahmin eden bir model geliştirelim.</p>
+
+<h1 id="dataset">Dataset</h1>
+<ul>
+  <li><a href="/assets/datasets/diabetes.csv">diabetes.csv</a></li>
+</ul>
+
+<h2 id="about-dataset">About Dataset</h2>
+
+<p>Bu veriseti 768 gözlem ve 8 sayısal bağımsız değişkenden oluşmaktadır.</p>
+
+<p>Bağımlu ve hedef değişken OUTCOME (sonuç)’dur.</p>
+<ul>
+  <li>1 diabet testi sonucunun pozitif,</li>
+  <li>
+    <p>0 ise diabet testi sonucunun negtif olduğunu gösterir.</p>
+  </li>
+  <li><strong>Pregnancies:</strong> Hastanın kaç kere hamile kaldığını gösterir.</li>
+  <li><strong>Glucose:</strong> 2 saatlik oral glukoz tolerans testinde plazma glukoz konsantrasyonu.</li>
+  <li><strong>BloodPressure:</strong> Diastolic kan basıncı (mm Hg)</li>
+  <li><strong>SkinThickness:</strong> Triceps cilt kıvrımı kalınlığı (mm).</li>
+  <li><strong>Insulin:</strong> 2 saatlik serum insülin düzeyi (mu U/ml).</li>
+  <li><strong>BMI:</strong> Vücut kitle indeksi (ağırlık kg / boy m²).</li>
+  <li><strong>DiabetesPedigreeFunction:</strong> Aile geçmişine dayalı olarak diyabet olasılığını hesaplayan bir fonksiyon.</li>
+  <li><strong>Age:</strong> Hastanın yaşı.</li>
+  <li><strong>Outcome:</strong> Diyabet durumu (0 = diyabet yok, 1 = diyabet var).</li>
+</ul>
+
+<h1 id="import-the-necessary-modules-and-libraries">Import the necessary modules and libraries</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="c1"># Models
+</span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+
+<span class="c1">#Performance metrices
+</span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">classification_report</span>
+
+<span class="c1">#For ignoring warnings
+</span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="p">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">"ignore"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="load-the-data">Load the Data</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'diabetes.csv'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">head</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Pregnancies  Glucose  BloodPressure  SkinThickness  Insulin   BMI  \
+0            6      148             72             35        0  33.6   
+1            1       85             66             29        0  26.6   
+2            8      183             64              0        0  23.3   
+3            1       89             66             23       94  28.1   
+4            0      137             40             35      168  43.1   
+
+   DiabetesPedigreeFunction  Age  Outcome  
+0                     0.627   50        1  
+1                     0.351   31        0  
+2                     0.672   32        1  
+3                     0.167   21        0  
+4                     2.288   33        1  
+</code></pre></div></div>
+
+<h1 id="checking-the-number-of-rows-and-columns">checking the number of rows and columns</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(768, 9)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># getting the some information about the data
+</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">info</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 768 entries, 0 to 767
+Data columns (total 9 columns):
+ #   Column                    Non-Null Count  Dtype  
+---  ------                    --------------  -----  
+ 0   Pregnancies               768 non-null    int64  
+ 1   Glucose                   768 non-null    int64  
+ 2   BloodPressure             768 non-null    int64  
+ 3   SkinThickness             768 non-null    int64  
+ 4   Insulin                   768 non-null    int64  
+ 5   BMI                       768 non-null    float64
+ 6   DiabetesPedigreeFunction  768 non-null    float64
+ 7   Age                       768 non-null    int64  
+ 8   Outcome                   768 non-null    int64  
+dtypes: float64(2), int64(7)
+memory usage: 54.1 KB
+None
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># checking for the missing values
+</span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pregnancies                 0
+Glucose                     0
+BloodPressure               0
+SkinThickness               0
+Insulin                     0
+BMI                         0
+DiabetesPedigreeFunction    0
+Age                         0
+Outcome                     0
+dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check number of unique values in each column
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">unique</span><span class="p">()))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pregnancies 17
+Glucose 136
+BloodPressure 47
+SkinThickness 51
+Insulin 186
+BMI 248
+DiabetesPedigreeFunction 517
+Age 52
+Outcome 2
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Descriptive statistics
+</span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">describe</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       Pregnancies     Glucose  BloodPressure  SkinThickness     Insulin  \
+count   768.000000  768.000000     768.000000     768.000000  768.000000   
+mean      3.845052  120.894531      69.105469      20.536458   79.799479   
+std       3.369578   31.972618      19.355807      15.952218  115.244002   
+min       0.000000    0.000000       0.000000       0.000000    0.000000   
+25%       1.000000   99.000000      62.000000       0.000000    0.000000   
+50%       3.000000  117.000000      72.000000      23.000000   30.500000   
+75%       6.000000  140.250000      80.000000      32.000000  127.250000   
+max      17.000000  199.000000     122.000000      99.000000  846.000000   
+
+              BMI  DiabetesPedigreeFunction         Age     Outcome  
+count  768.000000                768.000000  768.000000  768.000000  
+mean    31.992578                  0.471876   33.240885    0.348958  
+std      7.884160                  0.331329   11.760232    0.476951  
+min      0.000000                  0.078000   21.000000    0.000000  
+25%     27.300000                  0.243750   24.000000    0.000000  
+50%     32.000000                  0.372500   29.000000    0.000000  
+75%     36.600000                  0.626250   41.000000    1.000000  
+max     67.100000                  2.420000   81.000000    1.000000  
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check the distribution of the target variable
+</span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'Outcome'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">())</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Outcome
+0    500
+1    268
+Name: count, dtype: int64
+</code></pre></div></div>
+
+<h1 id="graphical-analysis-of-data">Graphical Analysis of Data</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># correlation matrix
+</span><span class="n">corr</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'BuPu'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/correlation_matrix_for_diabetes_dataset.png" alt="correlation matrix for diabetes dataset" /></p>
+
+<p>Korelasyon ısı haritasına göre;</p>
+<ul>
+  <li>Glukoz ve Outcome (diyabet durumu) arasında pozitif bir korelasyon bulunuyor, yani yüksek glukoz seviyeleri diyabetle daha çok ilişkili.</li>
+  <li>BMI ve Outcome arasında da bir ilişki mevcut, ancak daha zayıf.</li>
+  <li>Pregnancies ve outcome arasındada zayıf bir ilişki var ancak bu sütunu çıkartıyorum.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'Pregnancies'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'Glucose'</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s">'Outcome'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Glucose'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Diabetes'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Glucose vs Diabetes'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/glucose_vs_diabetes_scatter_plot.png" alt="glucos vs diabetes" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'Insulin'</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s">'Outcome'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Insulin'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Diabetes'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Insulin vs Diabetes'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/insulin_vs_diabetes_scatter_plot.png" alt="insulin vs diabetes" /></p>
+
+<h2 id="count-of-glucose">Count of Glucose</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Glucose'</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Glucose'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Diabetes'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'count of Glucose'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/count_of_glucose_countplot.png" alt="count of glucose" /></p>
+
+<h2 id="count-of-bloodpressure">Count of BloodPressure</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'BloodPressure'</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'BloodPressure'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Diabetes'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'count of BloodPressure'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/count_of_BloodPressure_countplot.png" alt="count of BloodPressure" /></p>
+
+<h2 id="count-of-age">Count of Age</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Age'</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Age'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Diabetes'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'count of Age'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/count_of_age_countplot.png" alt="count of age" /></p>
+
+<h2 id="count-of-skinthickness">Count of SkinThickness</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'SkinThickness'</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'SkinThickness'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Diabetes'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'count of SkinThickness'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/count_of_SkinThickness.png" alt="count of SkinThickness" /></p>
+
+<p>Grafikdende anlaşılacağı üzere cilt kalınlığı 0 olan aykırı değerleri çıkartıyorum.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># drop the outliers
+</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'SkinThickness'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'SkinThickness'</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">90</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">sns</span><span class="p">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'SkinThickness'</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'SkinThickness'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Diabetes'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'count of SkinThickness'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/count_of_SkinThickness_2.png" alt="count of SkinThickness" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="p">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">'any'</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># drop the missing values
+</span>
+<span class="n">data</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># reset the index
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># last shape of the data
+</span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(540, 8)
+</code></pre></div></div>
+
+<h2 id="pairplot">pairplot</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">diag_kind</span><span class="o">=</span><span class="s">'kde'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'Outcome'</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s">'copper'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/pairplot_of_diabetes_dataset.png" alt="pairplot of diabetes dataset" /></p>
+
+<h1 id="normalization">Normalization</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">data_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">data_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="separating-the-independent-and-dependent-variables">Separating the independent and dependent variables</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">data_scaled</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'Outcome'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_scaled</span><span class="p">[</span><span class="s">'Outcome'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="splitting-the-data">Splitting the data</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="create-a-gaussian-classifier">Create a Gaussian Classifier</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div></div>
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianNB()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked="" /><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianNB</label><div class="sk-toggleable__content"><pre>GaussianNB()</pre></div></div></div></div></div>
+
+<h1 id="prediction">Prediction</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Predict the response for test dataset
+</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="model-accuracy">Model Accuracy</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Accuracy:"</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Accuracy: 0.7671957671957672
+</code></pre></div></div>
+
+<h1 id="confusion-matrix">confusion matrix</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'d'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'BuPu'</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'No Diabetes'</span><span class="p">,</span> <span class="s">'Diabetes'</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s">'No Diabetes'</span><span class="p">,</span> <span class="s">'Diabetes'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Confusion Matrix'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/machine-learning/confusion_matrix_of_naive_bayes_model.png" alt="confusion matrix" /></p>
+
+<h1 id="classification-report">classification report</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              precision    recall  f1-score   support
+
+         0.0       0.84      0.81      0.83       128
+         1.0       0.63      0.67      0.65        61
+
+    accuracy                           0.77       189
+   macro avg       0.73      0.74      0.74       189
+weighted avg       0.77      0.77      0.77       189
+</code></pre></div></div>
+
+<h1 id="example-patient">Example patient</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">patient</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.56</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]]</span>
+
+<span class="c1"># Making prediction
+</span><span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">patient</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'The patient is not diabetic'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'The patient is diabetic'</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The patient is diabetic
+</code></pre></div></div>
+
+<p>0.77 accuracy değerine sahip kabul edilebilir ölçüde bir model oluşturduk.</p>
+
+<p>Son olarak örnek hastanın değerleri verildğinde, modelimiz bu hastanın diabet hastası olduğunu öngördü.</p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/machine-learning/2024-09-23-naive-bayes/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/machine-learning/2024-09-21-support-vector-machine/" class="flip-title"><span>Support Vector Machine (SVM)</span></a>      <time class="faded fine" datetime="2024-09-21T00:00:00+03:00">21 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-07-k-nn/" class="flip-title"><span>K-NN (K-Nearest Neighbors)</span></a>      <time class="faded fine" datetime="2024-09-07T00:00:00+03:00">07 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-07-k-nn/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-04-logistic-regression/" class="flip-title"><span>Logistic Regression</span></a>      <time class="faded fine" datetime="2024-09-04T00:00:00+03:00">04 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-04-logistic-regression/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>
