@@ -1,50 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr-TR, en-US"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="tr-TR, en-US" /><updated>2024-12-30T00:18:04+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Metehan Özdeniz</title><subtitle>&quot;Metehan Özdeniz&quot;. Computer Engineer
-</subtitle><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><entry><title type="html">Brain Tumor Classification</title><link href="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" rel="alternate" type="text/html" title="Brain Tumor Classification" /><published>2024-12-15T00:00:00+03:00</published><updated>2024-12-30T00:00:00+03:00</updated><id>http://localhost:4000/projects/deep-learning/brain-tumor-classification</id><content type="html" xml:base="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/">&lt;ol&gt;
-  &lt;li&gt;Source Code&lt;/li&gt;
-  &lt;li&gt;Dataset&lt;/li&gt;
-  &lt;li&gt;Introduction&lt;/li&gt;
-  &lt;li&gt;Context&lt;/li&gt;
-  &lt;li&gt;Methodology
-    &lt;ol&gt;
-      &lt;li&gt;Transfer Learning&lt;/li&gt;
-    &lt;/ol&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr-TR, en-US"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="tr-TR, en-US" /><updated>2024-12-30T00:24:09+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Metehan Özdeniz</title><subtitle>&quot;Metehan Özdeniz&quot;. Computer Engineer
+</subtitle><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><entry><title type="html">Brain Tumor Classification</title><link href="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" rel="alternate" type="text/html" title="Brain Tumor Classification" /><published>2024-12-15T00:00:00+03:00</published><updated>2024-12-30T00:00:00+03:00</updated><id>http://localhost:4000/projects/deep-learning/brain-tumor-classification</id><content type="html" xml:base="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/">&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#source-code&quot; id=&quot;markdown-toc-source-code&quot;&gt;Source Code&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dataset&quot; id=&quot;markdown-toc-dataset&quot;&gt;Dataset&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#context&quot; id=&quot;markdown-toc-context&quot;&gt;Context&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#methodology&quot; id=&quot;markdown-toc-methodology&quot;&gt;Methodology&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#transfer-learning&quot; id=&quot;markdown-toc-transfer-learning&quot;&gt;Transfer Learning&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Import Libraries&lt;/li&gt;
-  &lt;li&gt;Configure Tensorboard&lt;/li&gt;
-  &lt;li&gt;Set Hyperparameters&lt;/li&gt;
-  &lt;li&gt;Data Preprocessing
-    &lt;ol&gt;
-      &lt;li&gt;Train Test Split&lt;/li&gt;
-      &lt;li&gt;One Hot Encoding&lt;/li&gt;
-    &lt;/ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#import-libraries&quot; id=&quot;markdown-toc-import-libraries&quot;&gt;Import Libraries&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configure-tensorboard&quot; id=&quot;markdown-toc-configure-tensorboard&quot;&gt;Configure Tensorboard&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#set-hyperparameters&quot; id=&quot;markdown-toc-set-hyperparameters&quot;&gt;Set Hyperparameters&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#data-preprocessing&quot; id=&quot;markdown-toc-data-preprocessing&quot;&gt;Data Preprocessing&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#train-test-split&quot; id=&quot;markdown-toc-train-test-split&quot;&gt;Train Test Split&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#one-hot-encoding&quot; id=&quot;markdown-toc-one-hot-encoding&quot;&gt;One Hot Encoding&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Build Model
-    &lt;ol&gt;
-      &lt;li&gt;Download ResNet50 Model&lt;/li&gt;
-      &lt;li&gt;Freeze the layers&lt;/li&gt;
-      &lt;li&gt;Custom Model&lt;/li&gt;
-      &lt;li&gt;Compile Model&lt;/li&gt;
-      &lt;li&gt;Set Callbacks&lt;/li&gt;
-    &lt;/ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#build-model&quot; id=&quot;markdown-toc-build-model&quot;&gt;Build Model&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#download-resnet50-model&quot; id=&quot;markdown-toc-download-resnet50-model&quot;&gt;Download ResNet50 Model&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#freeze-the-layers&quot; id=&quot;markdown-toc-freeze-the-layers&quot;&gt;Freeze the layers&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#custom-model&quot; id=&quot;markdown-toc-custom-model&quot;&gt;Custom Model&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#compile-model&quot; id=&quot;markdown-toc-compile-model&quot;&gt;Compile Model&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#set-callbacks&quot; id=&quot;markdown-toc-set-callbacks&quot;&gt;Set Callbacks&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Start Tensorboard&lt;/li&gt;
-  &lt;li&gt;Fit the Model&lt;/li&gt;
-  &lt;li&gt;Evaluate the model
-    &lt;ol&gt;
-      &lt;li&gt;Classification Report&lt;/li&gt;
-    &lt;/ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#start-tensorboard&quot; id=&quot;markdown-toc-start-tensorboard&quot;&gt;Start Tensorboard&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#fit-the-model&quot; id=&quot;markdown-toc-fit-the-model&quot;&gt;Fit the Model&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#evaluate-the-model&quot; id=&quot;markdown-toc-evaluate-the-model&quot;&gt;Evaluate the model&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#classification-report&quot; id=&quot;markdown-toc-classification-report&quot;&gt;Classification Report&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;visualize training history
-    &lt;ol&gt;
-      &lt;li&gt;Accuracy&lt;/li&gt;
-      &lt;li&gt;Loss&lt;/li&gt;
-      &lt;li&gt;Confusion Matrix&lt;/li&gt;
-    &lt;/ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#visualize-training-history&quot; id=&quot;markdown-toc-visualize-training-history&quot;&gt;visualize training history&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#accuracy&quot; id=&quot;markdown-toc-accuracy&quot;&gt;Accuracy&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#loss&quot; id=&quot;markdown-toc-loss&quot;&gt;Loss&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#confusion-matrix&quot; id=&quot;markdown-toc-confusion-matrix&quot;&gt;Confusion Matrix&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Save the Model&lt;/li&gt;
-  &lt;li&gt;Load the Model&lt;/li&gt;
-  &lt;li&gt;Predict&lt;/li&gt;
-&lt;/ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#save-the-model&quot; id=&quot;markdown-toc-save-the-model&quot;&gt;Save the Model&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#load-the-model&quot; id=&quot;markdown-toc-load-the-model&quot;&gt;Load the Model&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#predict&quot; id=&quot;markdown-toc-predict&quot;&gt;Predict&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.&lt;/p&gt;
 
 &lt;h1 id=&quot;source-code&quot;&gt;Source Code&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/metehanozdeniz/brain-tumor&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
@@ -960,7 +956,7 @@ Test Accuracy: 0.8545176110260337
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1/1 [==============================] - 0s 31ms/step
 The MRI is :  no_tumor
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/projects/brain-tumor/predicted_mri.png&quot; alt=&quot;Predict&quot; /&gt;&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="projects" /><category term="deep-learning" /><category term="cnn" /><summary type="html">Source Code Dataset Introduction Context Methodology Transfer Learning Import Libraries Configure Tensorboard Set Hyperparameters Data Preprocessing Train Test Split One Hot Encoding Build Model Download ResNet50 Model Freeze the layers Custom Model Compile Model Set Callbacks Start Tensorboard Fit the Model Evaluate the model Classification Report visualize training history Accuracy Loss Confusion Matrix Save the Model Load the Model Predict</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" /><media:content medium="image" url="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Energy Demand Estimation with PSO Algorithm</title><link href="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/" rel="alternate" type="text/html" title="Energy Demand Estimation with PSO Algorithm" /><published>2024-10-28T00:00:00+03:00</published><updated>2024-10-29T00:00:00+03:00</updated><id>http://localhost:4000/projects/energy-demand-estimation-with-pso-algorithms</id><content type="html" xml:base="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/">&lt;ul id=&quot;markdown-toc&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/projects/brain-tumor/predicted_mri.png&quot; alt=&quot;Predict&quot; /&gt;&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="projects" /><category term="deep-learning" /><category term="cnn" /><summary type="html">This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" /><media:content medium="image" url="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Energy Demand Estimation with PSO Algorithm</title><link href="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/" rel="alternate" type="text/html" title="Energy Demand Estimation with PSO Algorithm" /><published>2024-10-28T00:00:00+03:00</published><updated>2024-10-29T00:00:00+03:00</updated><id>http://localhost:4000/projects/energy-demand-estimation-with-pso-algorithms</id><content type="html" xml:base="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#linear-model&quot; id=&quot;markdown-toc-linear-model&quot;&gt;Linear Model&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#download-and-install-libraries&quot; id=&quot;markdown-toc-download-and-install-libraries&quot;&gt;Download and install libraries&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#import-the-necessary-libraries&quot; id=&quot;markdown-toc-import-the-necessary-libraries&quot;&gt;Import the necessary libraries&lt;/a&gt;&lt;/li&gt;
