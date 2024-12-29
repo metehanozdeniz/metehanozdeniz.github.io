@@ -22,7 +22,39 @@ keywords:
   - Resim sınıflandırma
   - Derin öğrenme
 ---
+* Source Code
+* Dataset
+* Introduction
+* Context
+* Methodology
+  * Transfer Learning
+* Import Libraries
+* Configure Tensorboard
+* Set Hyperparameters
+* Data Preprocessing
+  * Train Test Split
+  * One Hot Encoding
+* Build Model
+  * Download ResNet50 Model
+  * Freeze the Layers
+  * Custom Model
+  * Compile Model
+  * Set Callbacks
+* Start Tensorboard
+* Fit the Model
+* Evaluate the model
+  * Calssification
+* visualize training history
+  * Accuracy
+  * Loss
+  * Confusion Matrix
+* Save the Model
+* Load the Model
+* Predict
+{:toc}
 This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.
+
+
 
 # Source Code
 [GitHub](https://github.com/metehanozdeniz/brain-tumor)

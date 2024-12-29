@@ -120,7 +120,7 @@ Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
   w._search = {
     DATA_URL: '/assets/sitedata.json?no-cache',
     STORAGE_KEY: 'mini-search/',
-    INDEX_KEY: 'index--2024-12-29T20:13:15+03:00',
+    INDEX_KEY: 'index--2024-12-29T20:19:34+03:00',
   };
   w._clapButton = true;
 }(window);</script>
@@ -314,7 +314,48 @@ html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);
   </header>
 
   
-    <p>This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.</p>
+    <ul id="markdown-toc">
+  <li><a href="#source-code" id="markdown-toc-source-code">Source Code</a></li>
+  <li><a href="#dataset" id="markdown-toc-dataset">Dataset</a></li>
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#context" id="markdown-toc-context">Context</a></li>
+  <li><a href="#methodology" id="markdown-toc-methodology">Methodology</a>    <ul>
+      <li><a href="#transfer-learning" id="markdown-toc-transfer-learning">Transfer Learning</a></li>
+    </ul>
+  </li>
+  <li><a href="#import-libraries" id="markdown-toc-import-libraries">Import Libraries</a></li>
+  <li><a href="#configure-tensorboard" id="markdown-toc-configure-tensorboard">Configure Tensorboard</a></li>
+  <li><a href="#set-hyperparameters" id="markdown-toc-set-hyperparameters">Set Hyperparameters</a></li>
+  <li><a href="#data-preprocessing" id="markdown-toc-data-preprocessing">Data Preprocessing</a>    <ul>
+      <li><a href="#train-test-split" id="markdown-toc-train-test-split">Train Test Split</a></li>
+      <li><a href="#one-hot-encoding" id="markdown-toc-one-hot-encoding">One Hot Encoding</a></li>
+    </ul>
+  </li>
+  <li><a href="#build-model" id="markdown-toc-build-model">Build Model</a>    <ul>
+      <li><a href="#download-resnet50-model" id="markdown-toc-download-resnet50-model">Download ResNet50 Model</a></li>
+      <li><a href="#freeze-the-layers" id="markdown-toc-freeze-the-layers">Freeze the layers</a></li>
+      <li><a href="#custom-model" id="markdown-toc-custom-model">Custom Model</a></li>
+      <li><a href="#compile-model" id="markdown-toc-compile-model">Compile Model</a></li>
+      <li><a href="#set-callbacks" id="markdown-toc-set-callbacks">Set Callbacks</a></li>
+    </ul>
+  </li>
+  <li><a href="#start-tensorboard" id="markdown-toc-start-tensorboard">Start Tensorboard</a></li>
+  <li><a href="#fit-the-model" id="markdown-toc-fit-the-model">Fit the Model</a></li>
+  <li><a href="#evaluate-the-model" id="markdown-toc-evaluate-the-model">Evaluate the model</a>    <ul>
+      <li><a href="#classification-report" id="markdown-toc-classification-report">Classification Report</a></li>
+    </ul>
+  </li>
+  <li><a href="#visualize-training-history" id="markdown-toc-visualize-training-history">visualize training history</a>    <ul>
+      <li><a href="#accuracy" id="markdown-toc-accuracy">Accuracy</a></li>
+      <li><a href="#loss" id="markdown-toc-loss">Loss</a></li>
+      <li><a href="#confusion-matrix" id="markdown-toc-confusion-matrix">Confusion Matrix</a></li>
+    </ul>
+  </li>
+  <li><a href="#save-the-model" id="markdown-toc-save-the-model">Save the Model</a></li>
+  <li><a href="#load-the-model" id="markdown-toc-load-the-model">Load the Model</a></li>
+  <li><a href="#predict" id="markdown-toc-predict">Predict</a></li>
+</ul>
+<p>This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.</p>
 
 <h1 id="source-code">Source Code</h1>
 <p><a href="https://github.com/metehanozdeniz/brain-tumor">GitHub</a></p>
