@@ -7,6 +7,7 @@ image: /assets/img/projects/brain-tumor/Brain-Scan.webp
 description: |
   This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.
 slug: brain-tumor-classification
+last_modified_at: 30.12.2024
 keywords:
   - Artificial Intelligence
   - Deep Learning
@@ -22,37 +23,35 @@ keywords:
   - Resim sınıflandırma
   - Derin öğrenme
 ---
-* Source Code
-* Dataset
-* Introduction
-* Context
-* Methodology
-  * Transfer Learning
-* Import Libraries
-* Configure Tensorboard
-* Set Hyperparameters
-* Data Preprocessing
-  * Train Test Split
-  * One Hot Encoding
-* Build Model
-  * Download ResNet50 Model
-  * Freeze the Layers
-  * Custom Model
-  * Compile Model
-  * Set Callbacks
-* Start Tensorboard
-* Fit the Model
-* Evaluate the model
-  * Calssification
-* visualize training history
-  * Accuracy
-  * Loss
-  * Confusion Matrix
-* Save the Model
-* Load the Model
-* Predict
-{:toc}
-This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.
+1. Source Code
+2. Dataset
+3. Introduction
+4. Context
+5. Methodology
+   1. Transfer Learning
+6. Import Libraries
+7. Configure Tensorboard
+8. Set Hyperparameters
+9. Data Preprocessing
+   1. Train Test Split
+   2. One Hot Encoding
+10. Build Model
+    1. Download ResNet50 Model
+    2. Freeze the layers
+    3. Custom Model
+    4. Compile Model
+    5. Set Callbacks
+11. Start Tensorboard
+12. Fit the Model
+13. Evaluate the model
+    1. Classification Report
+14. visualize training history
+    1. Accuracy
+    2. Loss
+    3. Confusion Matrix
+15. Save the Model
+16. Load the Model
+17. Predict
 
 
 
