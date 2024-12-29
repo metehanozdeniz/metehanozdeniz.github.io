@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="tr"><!--
+ __    __     ______     ______   ______     __  __     ______     __   __    
+/\ "-./  \   /\  ___\   /\__  _\ /\  ___\   /\ \_\ \   /\  __ \   /\ "-.\ \   
+\ \ \-./\ \  \ \  __\   \/_/\ \/ \ \  __\   \ \  __ \  \ \  __ \  \ \ \-.  \  
+ \ \_\ \ \_\  \ \_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\ 
+  \/_/  \/_/   \/_____/     \/_/   \/_____/   \/_/\/_/   \/_/\/_/   \/_/ \/_/
+
+Powered by Metehan Özdeniz <https://metehanozdeniz.com/>
+-->
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+
+
+
+  
+    
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Brain Tumor Classification | Metehan Özdeniz</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Brain Tumor Classification" />
+<meta name="author" content="Metehan Özdeniz" />
+<meta property="og:locale" content="tr_TR, en_US" />
+<meta name="description" content="This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors." />
+<meta property="og:description" content="This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors." />
+<link rel="canonical" href="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" />
+<meta property="og:url" content="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" />
+<meta property="og:site_name" content="Metehan Özdeniz" />
+<meta property="og:image" content="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-12-15T00:00:00+03:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" />
+<meta property="twitter:title" content="Brain Tumor Classification" />
+<meta name="twitter:site" content="@metehanozdeniz" />
+<meta name="twitter:creator" content="@metehanozdeniz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Metehan Özdeniz"},"dateModified":"2024-12-15T00:00:00+03:00","datePublished":"2024-12-15T00:00:00+03:00","description":"This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.","headline":"Brain Tumor Classification","image":"http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/pp.jpg"},"name":"Metehan Özdeniz"},"url":"http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="Artificial Intelligence,Deep Learning,Convolutional Neural Network,CNN,Transfer Learning,Resnet50,Brain Tumor,Data Science,Data Analysis,Image Classification,Yapay Zeka,Resim sınıflandırma,Derin öğrenme">
+  
+
+
+
+  <meta name="theme-color" content="rgb(0,0,0)">
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Metehan Özdeniz">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="application-name" content="Metehan Özdeniz">
+
+<meta name="generator" content="Hydejack v9.2.0" />
+
+
+<link rel="alternate" href="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" hreflang="tr-tr, en-us">
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Metehan Özdeniz" />
+
+
+<link rel="shortcut icon"    href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
+<link rel="manifest" href="/assets/site.webmanifest">
+
+
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+<link rel="preload" href="/assets/img/swipe.svg" as="image" id="_hrefSwipeSVG">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+
+
+<script>((r,a)=>{function d(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}r.loadJS=function(e,t){var n=a.createElement("script"),e=(n.src=e,t&&d(n,"load",t,{once:!0}),a.scripts[0]);return e.parentNode.insertBefore(n,e),n},r._loaded=!1,r.loadJSDeferred=function(e,t){var n=a.createElement("script");function o(){r._loaded=!0,t&&d(n,"load",t,{once:!0});var e=a.scripts[0];e.parentNode.insertBefore(n,e)}return n.src=e,r._loaded?o():d(r,"load",o,{once:!0}),n},r.setRel=r.setRelStylesheet=function(e){d(a.getElementById(e),"load",function(){this.rel="stylesheet"},{once:!0})}})(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+!function(w) {
+  w._baseURL = '/';
+  w._publicPath = '/assets/js/';
+  w._noPushState = false;
+  w._noDrawer = false;
+  w._noNavbar = false;
+  w._noToc = false;
+  w._noSearch = false;
+  w._search = {
+    DATA_URL: '/assets/sitedata.json?no-cache',
+    STORAGE_KEY: 'mini-search/',
+    INDEX_KEY: 'index--2024-12-29T20:13:15+03:00',
+  };
+  w._clapButton = true;
+}(window);</script>
+
+
+<script async src="/assets/bower_components/MathJax/es5/tex-mml-chtml.js" id="_MathJax"></script>
+
+
+<!--[if gt IE 8]><!---->
+
+  
+
+
+
+
+<link rel="stylesheet" href="/assets/css/hydejack-9.2.0.css" id="_stylePreload">
+<link rel="stylesheet" href="/assets/icomoon/style.css" id="_iconsPreload">
+
+
+
+
+  <style id="_pageStyle">
+
+html{--accent-color: rgb(79,177,186);--accent-color-faded: rgba(79,177,186,0.5);--accent-color-highlight: rgba(79,177,186,0.1);--accent-color-darkened: #409ba3;--theme-color: rgb(0,0,0);--dark-mode-body-bg: #2d2d2d;--dark-mode-border-color: #393939}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB4287NP8H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CB4287NP8H');
+</script>
+
+</head>
+
+<body class="no-break-layout">
+  
+
+<script>
+  window._sunrise = 6;
+  window._sunset =  18;
+  ((e,s)=>{var d="light-mode",a="dark-mode",o=(new Date).getHours();"matchMedia"in e&&e.matchMedia("(prefers-color-scheme)")||(e=(o=o<=e._sunrise||o>=e._sunset?a:d)==a?d:a,s.body.classList.add(o),s.body.classList.remove(e))})(window,document);
+
+</script>
+
+
+
+<hy-push-state
+  id="_pushState"
+  replace-selector="#_main"
+  link-selector="a[href]:not([href^='/assets/']):not(.external):not(.no-push-state)"
+  script-selector="script"
+  duration="500"
+  hashchange
+>
+  
+  
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <div class="nav-btn-bar">
+      <a id="_menu" class="nav-btn no-hover" href="#_drawer--opened">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <div class="nav-span"></div>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+  <main
+  id="_main"
+  class="content layout-post"
+  role="main"
+>
+  <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+    <li><a href="/">Home</a></li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/projects/">projects</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          
+          
+          <a href="/projects/deep-learning/">deep-learning</a>
+        
+      </li>
+    
+      <li>
+        
+          <span>/</span>
+          <span>2024-12-15-brain-tumor-classification</span>
+        
+      </li>
+    
+  
+</ul></nav>
+  
+
+
+
+
+
+
+
+
+
+
+
+<article id="post-projects-deep-learning-brain-tumor-classification" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      
+        Brain Tumor Classification
+      
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2024-12-15T00:00:00+03:00">15 Dec 2024</time> Categorized under <a href="/projects/" class="flip-title">My Projects</a> / <a href="/deep-learning/" class="flip-title">Deep Learning</a> tagged <a href="/tag-cnn/" class="flip-title">Convolutional Neural Network</a>
+           
+          <span class="clap-count" data-url="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/"></span>
+        
+      
+      </span>
+      
+        
+      
+    </div>
+
+    
+    
+      
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          
+            
+
+
+<img
+  
+    src="/assets/img/projects/brain-tumor/Brain-Scan.webp"
+  
+  alt="Brain Tumor Classification"
+  
+  
+  width="864"
+  height="486"
+  loading="lazy"
+/>
+
+          
+        </div>
+      
+      
+    
+
+    
+
+
+
+  
+    <p class="note-sm" >
+      This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.</p>
+
+<h1 id="source-code">Source Code</h1>
+<p><a href="https://github.com/metehanozdeniz/brain-tumor">GitHub</a></p>
+
+<h1 id="dataset">Dataset</h1>
+<p><a href="https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri">Kaggle</a></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Brain Tumors are classified as: Benign Tumor, Malignant Tumor, Pituitary Tumor, etc. Proper treatment, planning, and accurate diagnostics should be implemented to improve the life expectancy of the patients. The best technique to detect brain tumors is Magnetic Resonance Imaging (MRI). A huge amount of image data is generated through the scans. These images are examined by the radiologist. A manual examination can be error-prone due to the level of complexities involved in brain tumors and their properties.</p>
+
+<p>Application of automated classification techniques using Machine Learning(ML) and Artificial Intelligence(AI)has consistently shown higher accuracy than manual classification. Hence, proposing a system performing detection and classification by using Deep Learning Algorithms using ConvolutionNeural Network (CNN), Artificial Neural Network (ANN), and TransferLearning (TL) would be helpful to doctors all around the world.</p>
+
+<h1 id="context">Context</h1>
+
+<p>Brain Tumors are complex. There are a lot of abnormalities in the sizes and location of the brain tumor(s). This makes it really difficult for complete understanding of the nature of the tumor. Also, a professional Neurosurgeon is required for MRI analysis. Often times in developing countries the lack of skillful doctors and lack of knowledge about tumors makes it really challenging and time-consuming to generate reports from MRI’. So an automated system on Cloud can solve this problem.</p>
+
+<h1 id="methodology">Methodology</h1>
+
+<h2 id="transfer-learning">Transfer Learning</h2>
+
+<p>Transfer learning is a deep learning technique where we use a pre-defined and pre-trained neural network and train it again on the current data set. We used ResNet50 model in this project.</p>
+
+<h1 id="import-libraries">Import Libraries</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">GlobalAveragePooling2D</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dropout</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">TensorBoard</span><span class="p">,</span> <span class="n">EarlyStopping</span><span class="p">,</span> <span class="n">ReduceLROnPlateau</span><span class="p">,</span> <span class="n">ModelCheckpoint</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.applications</span> <span class="kn">import</span> <span class="n">ResNet50</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">load_model</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div></div>
+
+<h1 id="configure-tensorboard">Configure Tensorboard</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">log_dir</span> <span class="o">=</span> <span class="s">"log/resnet50/"</span> <span class="o">+</span> <span class="n">tf</span><span class="p">.</span><span class="n">timestamp</span><span class="p">().</span><span class="n">numpy</span><span class="p">().</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">tensorboard</span> <span class="o">=</span> <span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="n">log_dir</span><span class="p">,</span> <span class="n">histogram_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Clear any logs from previous runs
+</span><span class="err">!</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="p">.</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">resnet50</span><span class="o">/</span>
+</code></pre></div></div>
+
+<h1 id="set-hyperparameters">Set Hyperparameters</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X_train</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">'glioma_tumor'</span><span class="p">,</span><span class="s">'meningioma_tumor'</span><span class="p">,</span><span class="s">'no_tumor'</span><span class="p">,</span><span class="s">'pituitary_tumor'</span><span class="p">]</span>
+
+<span class="n">IMG_SIZE</span> <span class="o">=</span> <span class="mi">224</span>
+<span class="n">INPUT_SHAPE</span> <span class="o">=</span> <span class="p">(</span><span class="n">IMG_SIZE</span><span class="p">,</span> <span class="n">IMG_SIZE</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">CLASSES</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">EPOCH</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">4</span>
+</code></pre></div></div>
+
+<h1 id="data-preprocessing">Data Preprocessing</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+    <span class="n">folderPath</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">'dataset/Training'</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folderPath</span><span class="p">):</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">folderPath</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,(</span><span class="n">IMG_SIZE</span><span class="p">,</span><span class="n">IMG_SIZE</span><span class="p">))</span>
+        <span class="n">X_train</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">Y_train</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+    <span class="n">folderPath</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">'dataset/Testing'</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folderPath</span><span class="p">):</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">folderPath</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,(</span><span class="n">IMG_SIZE</span><span class="p">,</span><span class="n">IMG_SIZE</span><span class="p">))</span>
+        <span class="n">X_train</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">Y_train</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">Y_train</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'x train shape : '</span><span class="p">,</span><span class="n">X_train</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'y train shape : '</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x train shape :  (3264, 224, 224, 3)
+y train shape :  (3264,)
+</code></pre></div></div>
+
+<h2 id="train-test-split">Train Test Split</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="one-hot-encoding">One Hot Encoding</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_train_new</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">:</span>
+    <span class="n">y_train_new</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="n">Y_train</span><span class="o">=</span><span class="n">y_train_new</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">Y_train</span><span class="p">)</span>
+
+<span class="n">y_test_new</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Y_test</span><span class="p">:</span>
+    <span class="n">y_test_new</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="n">Y_test</span><span class="o">=</span><span class="n">y_test_new</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">Y_test</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="build-model">Build Model</h1>
+
+<h2 id="download-resnet50-model">Download ResNet50 Model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">base_model</span> <span class="o">=</span> <span class="n">ResNet50</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s">'imagenet'</span><span class="p">,</span>
+                      <span class="n">include_top</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                      <span class="n">input_shape</span><span class="o">=</span><span class="n">INPUT_SHAPE</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">base_model</span><span class="p">.</span><span class="n">summary</span><span class="p">()</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Model: "resnet50"
+__________________________________________________________________________________________________
+ Layer (type)                Output Shape                 Param #   Connected to                  
+==================================================================================================
+ input_1 (InputLayer)        [(None, 224, 224, 3)]        0         []                            
+                                                                                                  
+ conv1_pad (ZeroPadding2D)   (None, 230, 230, 3)          0         ['input_1[0][0]']             
+                                                                                                  
+ conv1_conv (Conv2D)         (None, 112, 112, 64)         9472      ['conv1_pad[0][0]']           
+                                                                                                  
+ conv1_bn (BatchNormalizati  (None, 112, 112, 64)         256       ['conv1_conv[0][0]']          
+ on)                                                                                              
+                                                                                                  
+ conv1_relu (Activation)     (None, 112, 112, 64)         0         ['conv1_bn[0][0]']            
+                                                                                                  
+ pool1_pad (ZeroPadding2D)   (None, 114, 114, 64)         0         ['conv1_relu[0][0]']          
+                                                                                                  
+ pool1_pool (MaxPooling2D)   (None, 56, 56, 64)           0         ['pool1_pad[0][0]']           
+                                                                                                  
+ conv2_block1_1_conv (Conv2  (None, 56, 56, 64)           4160      ['pool1_pool[0][0]']          
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_1_bn (BatchNo  (None, 56, 56, 64)           256       ['conv2_block1_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_1_relu (Activ  (None, 56, 56, 64)           0         ['conv2_block1_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block1_2_conv (Conv2  (None, 56, 56, 64)           36928     ['conv2_block1_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_2_bn (BatchNo  (None, 56, 56, 64)           256       ['conv2_block1_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_2_relu (Activ  (None, 56, 56, 64)           0         ['conv2_block1_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block1_0_conv (Conv2  (None, 56, 56, 256)          16640     ['pool1_pool[0][0]']          
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_3_conv (Conv2  (None, 56, 56, 256)          16640     ['conv2_block1_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_0_bn (BatchNo  (None, 56, 56, 256)          1024      ['conv2_block1_0_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_3_bn (BatchNo  (None, 56, 56, 256)          1024      ['conv2_block1_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_add (Add)      (None, 56, 56, 256)          0         ['conv2_block1_0_bn[0][0]',   
+                                                                     'conv2_block1_3_bn[0][0]']   
+                                                                                                  
+ conv2_block1_out (Activati  (None, 56, 56, 256)          0         ['conv2_block1_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv2_block2_1_conv (Conv2  (None, 56, 56, 64)           16448     ['conv2_block1_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv2_block2_1_bn (BatchNo  (None, 56, 56, 64)           256       ['conv2_block2_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block2_1_relu (Activ  (None, 56, 56, 64)           0         ['conv2_block2_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block2_2_conv (Conv2  (None, 56, 56, 64)           36928     ['conv2_block2_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block2_2_bn (BatchNo  (None, 56, 56, 64)           256       ['conv2_block2_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block2_2_relu (Activ  (None, 56, 56, 64)           0         ['conv2_block2_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block2_3_conv (Conv2  (None, 56, 56, 256)          16640     ['conv2_block2_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block2_3_bn (BatchNo  (None, 56, 56, 256)          1024      ['conv2_block2_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block2_add (Add)      (None, 56, 56, 256)          0         ['conv2_block1_out[0][0]',    
+                                                                     'conv2_block2_3_bn[0][0]']   
+                                                                                                  
+ conv2_block2_out (Activati  (None, 56, 56, 256)          0         ['conv2_block2_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv2_block3_1_conv (Conv2  (None, 56, 56, 64)           16448     ['conv2_block2_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv2_block3_1_bn (BatchNo  (None, 56, 56, 64)           256       ['conv2_block3_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block3_1_relu (Activ  (None, 56, 56, 64)           0         ['conv2_block3_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block3_2_conv (Conv2  (None, 56, 56, 64)           36928     ['conv2_block3_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block3_2_bn (BatchNo  (None, 56, 56, 64)           256       ['conv2_block3_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block3_2_relu (Activ  (None, 56, 56, 64)           0         ['conv2_block3_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block3_3_conv (Conv2  (None, 56, 56, 256)          16640     ['conv2_block3_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block3_3_bn (BatchNo  (None, 56, 56, 256)          1024      ['conv2_block3_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block3_add (Add)      (None, 56, 56, 256)          0         ['conv2_block2_out[0][0]',    
+                                                                     'conv2_block3_3_bn[0][0]']   
+                                                                                                  
+ conv2_block3_out (Activati  (None, 56, 56, 256)          0         ['conv2_block3_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv3_block1_1_conv (Conv2  (None, 28, 28, 128)          32896     ['conv2_block3_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_1_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block1_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_1_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block1_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block1_2_conv (Conv2  (None, 28, 28, 128)          147584    ['conv3_block1_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_2_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block1_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_2_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block1_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block1_0_conv (Conv2  (None, 28, 28, 512)          131584    ['conv2_block3_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_3_conv (Conv2  (None, 28, 28, 512)          66048     ['conv3_block1_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_0_bn (BatchNo  (None, 28, 28, 512)          2048      ['conv3_block1_0_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_3_bn (BatchNo  (None, 28, 28, 512)          2048      ['conv3_block1_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_add (Add)      (None, 28, 28, 512)          0         ['conv3_block1_0_bn[0][0]',   
+                                                                     'conv3_block1_3_bn[0][0]']   
+                                                                                                  
+ conv3_block1_out (Activati  (None, 28, 28, 512)          0         ['conv3_block1_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv3_block2_1_conv (Conv2  (None, 28, 28, 128)          65664     ['conv3_block1_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv3_block2_1_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block2_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block2_1_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block2_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block2_2_conv (Conv2  (None, 28, 28, 128)          147584    ['conv3_block2_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block2_2_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block2_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block2_2_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block2_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block2_3_conv (Conv2  (None, 28, 28, 512)          66048     ['conv3_block2_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block2_3_bn (BatchNo  (None, 28, 28, 512)          2048      ['conv3_block2_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block2_add (Add)      (None, 28, 28, 512)          0         ['conv3_block1_out[0][0]',    
+                                                                     'conv3_block2_3_bn[0][0]']   
+                                                                                                  
+ conv3_block2_out (Activati  (None, 28, 28, 512)          0         ['conv3_block2_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv3_block3_1_conv (Conv2  (None, 28, 28, 128)          65664     ['conv3_block2_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv3_block3_1_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block3_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block3_1_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block3_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block3_2_conv (Conv2  (None, 28, 28, 128)          147584    ['conv3_block3_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block3_2_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block3_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block3_2_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block3_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block3_3_conv (Conv2  (None, 28, 28, 512)          66048     ['conv3_block3_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block3_3_bn (BatchNo  (None, 28, 28, 512)          2048      ['conv3_block3_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block3_add (Add)      (None, 28, 28, 512)          0         ['conv3_block2_out[0][0]',    
+                                                                     'conv3_block3_3_bn[0][0]']   
+                                                                                                  
+ conv3_block3_out (Activati  (None, 28, 28, 512)          0         ['conv3_block3_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv3_block4_1_conv (Conv2  (None, 28, 28, 128)          65664     ['conv3_block3_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv3_block4_1_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block4_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block4_1_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block4_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block4_2_conv (Conv2  (None, 28, 28, 128)          147584    ['conv3_block4_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block4_2_bn (BatchNo  (None, 28, 28, 128)          512       ['conv3_block4_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block4_2_relu (Activ  (None, 28, 28, 128)          0         ['conv3_block4_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block4_3_conv (Conv2  (None, 28, 28, 512)          66048     ['conv3_block4_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block4_3_bn (BatchNo  (None, 28, 28, 512)          2048      ['conv3_block4_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block4_add (Add)      (None, 28, 28, 512)          0         ['conv3_block3_out[0][0]',    
+                                                                     'conv3_block4_3_bn[0][0]']   
+                                                                                                  
+ conv3_block4_out (Activati  (None, 28, 28, 512)          0         ['conv3_block4_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv4_block1_1_conv (Conv2  (None, 14, 14, 256)          131328    ['conv3_block4_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_1_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block1_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_1_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block1_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block1_2_conv (Conv2  (None, 14, 14, 256)          590080    ['conv4_block1_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_2_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block1_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_2_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block1_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block1_0_conv (Conv2  (None, 14, 14, 1024)         525312    ['conv3_block4_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_3_conv (Conv2  (None, 14, 14, 1024)         263168    ['conv4_block1_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_0_bn (BatchNo  (None, 14, 14, 1024)         4096      ['conv4_block1_0_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_3_bn (BatchNo  (None, 14, 14, 1024)         4096      ['conv4_block1_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_add (Add)      (None, 14, 14, 1024)         0         ['conv4_block1_0_bn[0][0]',   
+                                                                     'conv4_block1_3_bn[0][0]']   
+                                                                                                  
+ conv4_block1_out (Activati  (None, 14, 14, 1024)         0         ['conv4_block1_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv4_block2_1_conv (Conv2  (None, 14, 14, 256)          262400    ['conv4_block1_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv4_block2_1_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block2_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block2_1_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block2_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block2_2_conv (Conv2  (None, 14, 14, 256)          590080    ['conv4_block2_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block2_2_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block2_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block2_2_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block2_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block2_3_conv (Conv2  (None, 14, 14, 1024)         263168    ['conv4_block2_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block2_3_bn (BatchNo  (None, 14, 14, 1024)         4096      ['conv4_block2_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block2_add (Add)      (None, 14, 14, 1024)         0         ['conv4_block1_out[0][0]',    
+                                                                     'conv4_block2_3_bn[0][0]']   
+                                                                                                  
+ conv4_block2_out (Activati  (None, 14, 14, 1024)         0         ['conv4_block2_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv4_block3_1_conv (Conv2  (None, 14, 14, 256)          262400    ['conv4_block2_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv4_block3_1_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block3_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block3_1_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block3_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block3_2_conv (Conv2  (None, 14, 14, 256)          590080    ['conv4_block3_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block3_2_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block3_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block3_2_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block3_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block3_3_conv (Conv2  (None, 14, 14, 1024)         263168    ['conv4_block3_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block3_3_bn (BatchNo  (None, 14, 14, 1024)         4096      ['conv4_block3_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block3_add (Add)      (None, 14, 14, 1024)         0         ['conv4_block2_out[0][0]',    
+                                                                     'conv4_block3_3_bn[0][0]']   
+                                                                                                  
+ conv4_block3_out (Activati  (None, 14, 14, 1024)         0         ['conv4_block3_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv4_block4_1_conv (Conv2  (None, 14, 14, 256)          262400    ['conv4_block3_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv4_block4_1_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block4_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block4_1_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block4_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block4_2_conv (Conv2  (None, 14, 14, 256)          590080    ['conv4_block4_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block4_2_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block4_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block4_2_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block4_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block4_3_conv (Conv2  (None, 14, 14, 1024)         263168    ['conv4_block4_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block4_3_bn (BatchNo  (None, 14, 14, 1024)         4096      ['conv4_block4_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block4_add (Add)      (None, 14, 14, 1024)         0         ['conv4_block3_out[0][0]',    
+                                                                     'conv4_block4_3_bn[0][0]']   
+                                                                                                  
+ conv4_block4_out (Activati  (None, 14, 14, 1024)         0         ['conv4_block4_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv4_block5_1_conv (Conv2  (None, 14, 14, 256)          262400    ['conv4_block4_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv4_block5_1_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block5_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block5_1_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block5_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block5_2_conv (Conv2  (None, 14, 14, 256)          590080    ['conv4_block5_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block5_2_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block5_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block5_2_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block5_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block5_3_conv (Conv2  (None, 14, 14, 1024)         263168    ['conv4_block5_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block5_3_bn (BatchNo  (None, 14, 14, 1024)         4096      ['conv4_block5_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block5_add (Add)      (None, 14, 14, 1024)         0         ['conv4_block4_out[0][0]',    
+                                                                     'conv4_block5_3_bn[0][0]']   
+                                                                                                  
+ conv4_block5_out (Activati  (None, 14, 14, 1024)         0         ['conv4_block5_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv4_block6_1_conv (Conv2  (None, 14, 14, 256)          262400    ['conv4_block5_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv4_block6_1_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block6_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block6_1_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block6_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block6_2_conv (Conv2  (None, 14, 14, 256)          590080    ['conv4_block6_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block6_2_bn (BatchNo  (None, 14, 14, 256)          1024      ['conv4_block6_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block6_2_relu (Activ  (None, 14, 14, 256)          0         ['conv4_block6_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block6_3_conv (Conv2  (None, 14, 14, 1024)         263168    ['conv4_block6_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block6_3_bn (BatchNo  (None, 14, 14, 1024)         4096      ['conv4_block6_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block6_add (Add)      (None, 14, 14, 1024)         0         ['conv4_block5_out[0][0]',    
+                                                                     'conv4_block6_3_bn[0][0]']   
+                                                                                                  
+ conv4_block6_out (Activati  (None, 14, 14, 1024)         0         ['conv4_block6_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv5_block1_1_conv (Conv2  (None, 7, 7, 512)            524800    ['conv4_block6_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_1_bn (BatchNo  (None, 7, 7, 512)            2048      ['conv5_block1_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_1_relu (Activ  (None, 7, 7, 512)            0         ['conv5_block1_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block1_2_conv (Conv2  (None, 7, 7, 512)            2359808   ['conv5_block1_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_2_bn (BatchNo  (None, 7, 7, 512)            2048      ['conv5_block1_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_2_relu (Activ  (None, 7, 7, 512)            0         ['conv5_block1_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block1_0_conv (Conv2  (None, 7, 7, 2048)           2099200   ['conv4_block6_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_3_conv (Conv2  (None, 7, 7, 2048)           1050624   ['conv5_block1_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_0_bn (BatchNo  (None, 7, 7, 2048)           8192      ['conv5_block1_0_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_3_bn (BatchNo  (None, 7, 7, 2048)           8192      ['conv5_block1_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_add (Add)      (None, 7, 7, 2048)           0         ['conv5_block1_0_bn[0][0]',   
+                                                                     'conv5_block1_3_bn[0][0]']   
+                                                                                                  
+ conv5_block1_out (Activati  (None, 7, 7, 2048)           0         ['conv5_block1_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv5_block2_1_conv (Conv2  (None, 7, 7, 512)            1049088   ['conv5_block1_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv5_block2_1_bn (BatchNo  (None, 7, 7, 512)            2048      ['conv5_block2_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block2_1_relu (Activ  (None, 7, 7, 512)            0         ['conv5_block2_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block2_2_conv (Conv2  (None, 7, 7, 512)            2359808   ['conv5_block2_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block2_2_bn (BatchNo  (None, 7, 7, 512)            2048      ['conv5_block2_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block2_2_relu (Activ  (None, 7, 7, 512)            0         ['conv5_block2_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block2_3_conv (Conv2  (None, 7, 7, 2048)           1050624   ['conv5_block2_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block2_3_bn (BatchNo  (None, 7, 7, 2048)           8192      ['conv5_block2_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block2_add (Add)      (None, 7, 7, 2048)           0         ['conv5_block1_out[0][0]',    
+                                                                     'conv5_block2_3_bn[0][0]']   
+                                                                                                  
+ conv5_block2_out (Activati  (None, 7, 7, 2048)           0         ['conv5_block2_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+ conv5_block3_1_conv (Conv2  (None, 7, 7, 512)            1049088   ['conv5_block2_out[0][0]']    
+ D)                                                                                               
+                                                                                                  
+ conv5_block3_1_bn (BatchNo  (None, 7, 7, 512)            2048      ['conv5_block3_1_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block3_1_relu (Activ  (None, 7, 7, 512)            0         ['conv5_block3_1_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block3_2_conv (Conv2  (None, 7, 7, 512)            2359808   ['conv5_block3_1_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block3_2_bn (BatchNo  (None, 7, 7, 512)            2048      ['conv5_block3_2_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block3_2_relu (Activ  (None, 7, 7, 512)            0         ['conv5_block3_2_bn[0][0]']   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block3_3_conv (Conv2  (None, 7, 7, 2048)           1050624   ['conv5_block3_2_relu[0][0]'] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block3_3_bn (BatchNo  (None, 7, 7, 2048)           8192      ['conv5_block3_3_conv[0][0]'] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block3_add (Add)      (None, 7, 7, 2048)           0         ['conv5_block2_out[0][0]',    
+                                                                     'conv5_block3_3_bn[0][0]']   
+                                                                                                  
+ conv5_block3_out (Activati  (None, 7, 7, 2048)           0         ['conv5_block3_add[0][0]']    
+ on)                                                                                              
+                                                                                                  
+==================================================================================================
+Total params: 23587712 (89.98 MB)
+Trainable params: 23534592 (89.78 MB)
+Non-trainable params: 53120 (207.50 KB)
+__________________________________________________________________________________________________
+</code></pre></div></div>
+
+<h2 id="freeze-the-layers">Freeze the layers</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">base_model</span><span class="p">.</span><span class="n">layers</span><span class="p">[:</span><span class="mi">33</span><span class="p">]:</span>
+    <span class="n">layer</span><span class="p">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<h2 id="custom-model">Custom Model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">base_model</span><span class="p">,</span>
+    <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span><span class="p">),</span>
+    <span class="n">GlobalAveragePooling2D</span><span class="p">(),</span>
+    <span class="n">Flatten</span><span class="p">(),</span>
+    <span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span><span class="p">),</span>
+    <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span>
+    <span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span><span class="p">),</span>
+    <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span>
+    <span class="n">Dense</span><span class="p">(</span><span class="n">CLASSES</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'softmax'</span><span class="p">)</span>
+<span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span><span class="p">.</span><span class="n">summary</span><span class="p">()</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ resnet50 (Functional)       (None, 7, 7, 2048)        23587712  
+                                                                 
+ conv2d (Conv2D)             (None, 5, 5, 32)          589856    
+                                                                 
+ global_average_pooling2d (  (None, 32)                0         
+ GlobalAveragePooling2D)                                         
+                                                                 
+ flatten (Flatten)           (None, 32)                0         
+                                                                 
+ dense (Dense)               (None, 128)               4224      
+                                                                 
+ dropout (Dropout)           (None, 128)               0         
+                                                                 
+ dense_1 (Dense)             (None, 256)               33024     
+                                                                 
+ dropout_1 (Dropout)         (None, 256)               0         
+                                                                 
+ dense_2 (Dense)             (None, 4)                 1028      
+                                                                 
+=================================================================
+Total params: 24215844 (92.38 MB)
+Trainable params: 23953188 (91.37 MB)
+Non-trainable params: 262656 (1.00 MB)
+_________________________________________________________________
+</code></pre></div></div>
+
+<h2 id="compile-model">Compile Model</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">),</span>
+    <span class="n">loss</span><span class="o">=</span><span class="s">'categorical_crossentropy'</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s">'accuracy'</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="set-callbacks">Set Callbacks</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="s">'model/resnet50/resnet50.keras'</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s">'val_loss'</span><span class="p">,</span> <span class="n">save_best_only</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'auto'</span><span class="p">),</span>
+    <span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s">'val_loss'</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s">'val_loss'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+    <span class="n">tensorboard</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="start-tensorboard">Start Tensorboard</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%load_ext tensorboard
+%tensorboard <span class="nt">--logdir</span><span class="o">=</span>log/resnet50/
+</code></pre></div></div>
+
+<h1 id="fit-the-model">Fit the Model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span>
+                    <span class="n">Y_train</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="n">EPOCH</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">),</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch 1/20
+2024-12-14 18:45:06.362479: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:454] Loaded cuDNN version 8904
+2024-12-14 18:45:10.831202: I external/local_xla/xla/service/service.cc:168] XLA service 0x7fdea9cdf610 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2024-12-14 18:45:10.831235: I external/local_xla/xla/service/service.cc:176]   StreamExecutor device (0): NVIDIA GeForce RTX 3050 Laptop GPU, Compute Capability 8.6
+2024-12-14 18:45:10.845818: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1734191110.939775  426987 device_compiler.h:186] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+653/653 [==============================] - ETA: 0s - loss: 1.2957 - accuracy: 0.3818
+Epoch 1: val_loss improved from inf to 1.86073, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 87s 92ms/step - loss: 1.2957 - accuracy: 0.3818 - val_loss: 1.8607 - val_accuracy: 0.3691 - lr: 0.0010
+Epoch 2/20
+651/653 [============================&gt;.] - ETA: 0s - loss: 1.0962 - accuracy: 0.5169
+Epoch 2: val_loss improved from 1.86073 to 1.20823, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 48s 73ms/step - loss: 1.0951 - accuracy: 0.5178 - val_loss: 1.2082 - val_accuracy: 0.4181 - lr: 0.0010
+Epoch 3/20
+653/653 [==============================] - ETA: 0s - loss: 0.9141 - accuracy: 0.6128
+Epoch 3: val_loss improved from 1.20823 to 0.84988, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 50s 76ms/step - loss: 0.9141 - accuracy: 0.6128 - val_loss: 0.8499 - val_accuracy: 0.6371 - lr: 0.0010
+Epoch 4/20
+653/653 [==============================] - ETA: 0s - loss: 0.7563 - accuracy: 0.7009
+Epoch 4: val_loss did not improve from 0.84988
+653/653 [==============================] - 47s 72ms/step - loss: 0.7563 - accuracy: 0.7009 - val_loss: 0.8919 - val_accuracy: 0.6432 - lr: 0.0010
+Epoch 5/20
+653/653 [==============================] - ETA: 0s - loss: 0.6614 - accuracy: 0.7434
+Epoch 5: val_loss improved from 0.84988 to 0.62626, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 49s 75ms/step - loss: 0.6614 - accuracy: 0.7434 - val_loss: 0.6263 - val_accuracy: 0.7381 - lr: 0.0010
+Epoch 6/20
+653/653 [==============================] - ETA: 0s - loss: 0.5779 - accuracy: 0.7756
+Epoch 6: val_loss did not improve from 0.62626
+653/653 [==============================] - 47s 72ms/step - loss: 0.5779 - accuracy: 0.7756 - val_loss: 0.6481 - val_accuracy: 0.7519 - lr: 0.0010
+Epoch 7/20
+653/653 [==============================] - ETA: 0s - loss: 0.5336 - accuracy: 0.8054
+Epoch 7: val_loss did not improve from 0.62626
+653/653 [==============================] - 48s 74ms/step - loss: 0.5336 - accuracy: 0.8054 - val_loss: 0.6483 - val_accuracy: 0.7657 - lr: 0.0010
+Epoch 8/20
+653/653 [==============================] - ETA: 0s - loss: 0.4573 - accuracy: 0.8277
+Epoch 8: val_loss did not improve from 0.62626
+
+Epoch 8: ReduceLROnPlateau reducing learning rate to 0.00010000000474974513.
+653/653 [==============================] - 49s 76ms/step - loss: 0.4573 - accuracy: 0.8277 - val_loss: 0.8256 - val_accuracy: 0.7412 - lr: 0.0010
+Epoch 9/20
+653/653 [==============================] - ETA: 0s - loss: 0.3162 - accuracy: 0.8893
+Epoch 9: val_loss improved from 0.62626 to 0.44506, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 49s 74ms/step - loss: 0.3162 - accuracy: 0.8893 - val_loss: 0.4451 - val_accuracy: 0.8346 - lr: 1.0000e-04
+Epoch 10/20
+653/653 [==============================] - ETA: 0s - loss: 0.2407 - accuracy: 0.9180
+Epoch 10: val_loss improved from 0.44506 to 0.43980, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 50s 77ms/step - loss: 0.2407 - accuracy: 0.9180 - val_loss: 0.4398 - val_accuracy: 0.8453 - lr: 1.0000e-04
+Epoch 11/20
+653/653 [==============================] - ETA: 0s - loss: 0.1878 - accuracy: 0.9341
+Epoch 11: val_loss did not improve from 0.43980
+653/653 [==============================] - 47s 71ms/step - loss: 0.1878 - accuracy: 0.9341 - val_loss: 0.4438 - val_accuracy: 0.8515 - lr: 1.0000e-04
+Epoch 12/20
+653/653 [==============================] - ETA: 0s - loss: 0.1630 - accuracy: 0.9433
+Epoch 12: val_loss did not improve from 0.43980
+653/653 [==============================] - 48s 73ms/step - loss: 0.1630 - accuracy: 0.9433 - val_loss: 0.4579 - val_accuracy: 0.8530 - lr: 1.0000e-04
+Epoch 13/20
+653/653 [==============================] - ETA: 0s - loss: 0.1275 - accuracy: 0.9567
+Epoch 13: val_loss did not improve from 0.43980
+
+Epoch 13: ReduceLROnPlateau reducing learning rate to 1.0000000474974514e-05.
+653/653 [==============================] - 46s 71ms/step - loss: 0.1275 - accuracy: 0.9567 - val_loss: 0.4924 - val_accuracy: 0.8484 - lr: 1.0000e-04
+Epoch 14/20
+653/653 [==============================] - ETA: 0s - loss: 0.1088 - accuracy: 0.9602
+Epoch 14: val_loss did not improve from 0.43980
+653/653 [==============================] - 48s 74ms/step - loss: 0.1088 - accuracy: 0.9602 - val_loss: 0.4802 - val_accuracy: 0.8499 - lr: 1.0000e-05
+Epoch 15/20
+653/653 [==============================] - ETA: 0s - loss: 0.0961 - accuracy: 0.9674
+Epoch 15: val_loss did not improve from 0.43980
+653/653 [==============================] - 47s 71ms/step - loss: 0.0961 - accuracy: 0.9674 - val_loss: 0.4828 - val_accuracy: 0.8545 - lr: 1.0000e-05
+Epoch 15: early stopping
+</code></pre></div></div>
+
+<h1 id="evaluate-the-model">Evaluate the model</h1>
+
+<h2 id="classification-report">Classification Report</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Y_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">labels</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Test Accuracy:'</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>21/21 [==============================] - 9s 217ms/step
+                  precision    recall  f1-score   support
+
+    glioma_tumor       0.89      0.83      0.86       219
+meningioma_tumor       0.76      0.80      0.78       187
+        no_tumor       0.85      0.89      0.87        87
+ pituitary_tumor       0.94      0.93      0.93       160
+
+        accuracy                           0.85       653
+       macro avg       0.86      0.86      0.86       653
+    weighted avg       0.86      0.85      0.86       653
+
+Test Accuracy: 0.8545176110260337
+</code></pre></div></div>
+
+<h1 id="visualize-training-history">visualize training history</h1>
+
+<h2 id="accuracy">Accuracy</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'val_accuracy'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'model accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'epoch'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'test'</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s">'upper left'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/projects/brain-tumor/model_accuracy.png" alt="Model Accuracy" /></p>
+
+<h2 id="loss">Loss</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'loss'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">.</span><span class="n">history</span><span class="p">[</span><span class="s">'val_loss'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'model loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'epoch'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'test'</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s">'upper left'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/projects/brain-tumor/model_loss.png" alt="Model Loss" /></p>
+
+<h2 id="confusion-matrix">Confusion Matrix</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">"d"</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Confusion matrix'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual label'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted label'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/img/projects/brain-tumor/confusion_matrix.png" alt="Confusion Matrix" /></p>
+
+<h1 id="save-the-model">Save the Model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">'model/resnet50/resnet50.keras'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="load-the-model">Load the Model</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s">'model/resnet50/resnet50.keras'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="predict">Predict</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load the image file
+</span><span class="n">image_path</span> <span class="o">=</span> <span class="s">'dataset/Testing/no_tumor/image(16).jpg'</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">IMG_SIZE</span><span class="p">,</span> <span class="n">IMG_SIZE</span><span class="p">))</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">IMG_SIZE</span><span class="p">,</span> <span class="n">IMG_SIZE</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Predict the image
+</span><span class="n">prediction</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">prediction</span><span class="p">)]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'The MRI is : '</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span>
+
+<span class="c1"># Display the image
+</span><span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'The MRI is : '</span> <span class="o">+</span> <span class="n">prediction</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1/1 [==============================] - 0s 31ms/step
+The MRI is :  no_tumor
+</code></pre></div></div>
+<p><img src="/assets/img/projects/brain-tumor/predicted_mri.png" alt="Predict" /></p>
+
+  
+</article>
+
+
+
+  <applause-button
+    color=rgb(79,177,186)
+    url=http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/ >
+  </applause-button>
+
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+<img
+  
+    src="/assets/img/pp.jpg"
+    srcset="/assets/img/pp.jpg 1x,/assets/img/pp.jpg 2x"
+    
+  
+  alt="Metehan Özdeniz"
+  class="avatar"
+  
+  width="120"
+  height="120"
+  loading="lazy"
+/>
+
+  
+
+  
+  
+  <h2  class="page-title hr-bottom">
+    About
+  </h2>
+
+  <p>Computer Engineer Candidate - AI &amp; Software Developer</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+  <aside class="related mb4" role="complementary">  <h2 class="hr-bottom">Related Posts</h2>  <ul class="related-posts">                  <li class="h4">  <a href="/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/" class="flip-title"><span>Energy Demand Estimation with PSO Algorithm</span></a>      <time class="faded fine" datetime="2024-10-28T00:00:00+03:00">28 Oct 2024</time>        <span class="clap-count" data-url="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-23-naive-bayes/" class="flip-title"><span>Naive Bayes</span></a>      <time class="faded fine" datetime="2024-09-23T00:00:00+03:00">23 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-23-naive-bayes/"></span>  </li>                        <li class="h4">  <a href="/machine-learning/2024-09-21-support-vector-machine/" class="flip-title"><span>Support Vector Machine (SVM)</span></a>      <time class="faded fine" datetime="2024-09-21T00:00:00+03:00">21 Sep 2024</time>        <span class="clap-count" data-url="http://localhost:4000/machine-learning/2024-09-21-support-vector-machine/"></span>  </li>            </ul></aside>
+
+  
+
+  
+  
+
+  
+    
+<aside class="comments related" role="complementary">
+  <h2 class="hr-bottom">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="metehanozdeniz/metehanozdeniz.github.io"
+        data-repo-id="R_kgDOKY9pBQ"
+        data-category="Comments"
+        data-category-id="DIC_kwDOKY9pBc4CZqUD"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="top"
+        data-theme="noborder_dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</aside>
+
+
+  
+
+
+  
+<footer class="content" role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2024. All rights reserved.
+</small></p>
+  
+  
+    <p><small>Powered by <a class="external" href="https://metehanozdeniz.github.io/">Metehan Özdeniz</a></small></p>
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+  <hy-drawer
+  id="_drawer"
+  class=""
+  side="left"
+  threshold="10"
+  noscroll
+  
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    <!-- 
+
+
+
+ -->
+<div id="tsparticles"></div>
+
+<!-- <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(0,0,0);background-image:url(/assets/img/sidebar-bg.gif)"></div> -->
+    <div class="sidebar-sticky no-fouc">
+  <div class="sidebar-about">
+    
+      <a class="no-hover" href="/" tabindex="-1">
+        <img src="/assets/img/pp.jpg" class="avatar" alt="Metehan Özdeniz" width="120" height="120" loading="lazy" />
+      </a>
+    
+    <a class="sidebar-title" href="/"><h2 class="h1">Metehan Özdeniz</h2></a>
+    
+    
+      <p class="">
+        Gerçekliğin ardındaki sistemle oynayan birisi.
+
+      </p>
+    
+  </div>
+
+  <nav class="sidebar-nav heading" role="navigation">
+    <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_drawer--opened"
+          href="/"
+          class="sidebar-nav-item "
+          
+        >
+          Blog
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item "
+          
+        >
+          My Projects
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/machine-learning/"
+          class="sidebar-nav-item "
+          
+        >
+          Machine Learning
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/software/"
+          class="sidebar-nav-item "
+          
+        >
+          Software
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item "
+          
+        >
+          About Me
+        </a>
+      </li>
+    
+  
+</ul>
+
+  </nav>
+
+  
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://x.com/metehanozdeniz" title="X" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">X</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/metehanozdeniz" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:contact@metehanozdeniz.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/metehanozdeniz" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.linkedin.com/in/metehan-özdeniz" title="LinkedIn" class="no-mark-external">
+      <span class="icon-linkedin2"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="/resume.pdf" title="Download Resume" class="no-mark-external">
+      <span class="icon-file-pdf"></span>
+      <span class="sr-only">Download Resume</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+</hy-push-state>
+
+
+  <!--[if gt IE 10]><!---->
+  <script nomodule>(()=>{var t,n=document.createElement("script");!("noModule"in n)&&"onbeforeload"in n&&(t=!1,document.addEventListener("beforeload",function(e){if(e.target===n)t=!0;else if(!e.target.hasAttribute("nomodule")||!t)return;e.preventDefault()},!0),n.type="module",n.src=".",document.head.appendChild(n),n.remove())})();
+</script>
+  <script src="/assets/js/hydejack-9.2.0.js" type="module"></script>
+  <script src="/assets/js/LEGACY-hydejack-9.2.0.js" nomodule defer></script>
+  
+  <script src="/assets/js/lightbox.js"></script>
+
+
+<script>
+  document
+    .getElementById("_pushState")
+    .addEventListener("hy-push-state-load", function () {
+      get_clap_count();
+      addLoadEvent(initLightbox)
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+<script src="/assets/js/tsparticles.js"></script>
+  
+  <script>!function(w, d) {
+    w.ga=w.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      if (navigator.CookiesOK) {
+        ga('create', 'G-CB4287NP8H', 'auto');
+      } else if (d.cookie.indexOf("hy--cookies-ok=true") > -1) {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none',
+          'clientId': localStorage ? localStorage.getItem('ga--client-id') : undefined
+        });
+      } else {
+        ga('create', 'G-CB4287NP8H', {
+          'storage': 'none'
+        });
+        ga('set', 'forceSSL', true);
+        ga('set', 'anonymizeIp', true);
+      }
+    /**/
+
+    var pushStateEl = d.getElementById('_pushState');
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      w.clearTimeout(timeoutId);
+      timeoutId = w.setTimeout(function() {
+        ga('set', 'page', w.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    d.addEventListener('hy--cookies-ok', function () {
+      w.ga(function(tracker) {
+        w.ga("set", "anonymizeIp", undefined);
+        localStorage && localStorage.setItem("ga--client-id", tracker.get("clientId"));
+      });
+    });
+
+    w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  }(window, document);</script>
+
+
+<!--<![endif]-->
+  
+
+
+
+<div hidden>
+  
+  <h2 class="sr-only">Templates (for web app):</h2>
+
+  <template id="_animation-template">
+  <div class="animation-main fixed-top">
+    <nav id="breadcrumbs" class="screen-only"><ul>
+  
+  
+</ul></nav>
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+  <template id="_loading-template">
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading...</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+  <template id="_error-template">
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, but something went wrong. <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+  <template id="_permalink-template">
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="content-hash"></span>
+  </a>
+</template>
+
+  
+    <template id="_dark-mode-template">
+  <button id="_dark-mode" class="nav-btn no-hover" >
+    <span class="sr-only">Dark Mode</span>
+    <span class="icon-brightness-contrast"></span>
+  </button>
+</template>
+
+  
+</div>
+
+
+</body>
+</html>

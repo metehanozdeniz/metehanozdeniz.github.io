@@ -1,5 +1,921 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr-TR, en-US"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="tr-TR, en-US" /><updated>2024-10-28T22:17:28+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Metehan Özdeniz</title><subtitle>&quot;Metehan Özdeniz&quot;. Computer Engineer
-</subtitle><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><entry><title type="html">Energy Demand Estimation with PSO Algorithm</title><link href="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/" rel="alternate" type="text/html" title="Energy Demand Estimation with PSO Algorithm" /><published>2024-10-28T00:00:00+03:00</published><updated>2024-10-29T00:00:00+03:00</updated><id>http://localhost:4000/projects/energy-demand-estimation-with-pso-algorithms</id><content type="html" xml:base="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/">&lt;ul id=&quot;markdown-toc&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr-TR, en-US"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="tr-TR, en-US" /><updated>2024-12-29T20:13:15+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Metehan Özdeniz</title><subtitle>&quot;Metehan Özdeniz&quot;. Computer Engineer
+</subtitle><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><entry><title type="html">Brain Tumor Classification</title><link href="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" rel="alternate" type="text/html" title="Brain Tumor Classification" /><published>2024-12-15T00:00:00+03:00</published><updated>2024-12-15T00:00:00+03:00</updated><id>http://localhost:4000/projects/deep-learning/brain-tumor-classification</id><content type="html" xml:base="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/">&lt;p&gt;This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.&lt;/p&gt;
+
+&lt;h1 id=&quot;source-code&quot;&gt;Source Code&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/metehanozdeniz/brain-tumor&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;dataset&quot;&gt;Dataset&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri&quot;&gt;Kaggle&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Brain Tumors are classified as: Benign Tumor, Malignant Tumor, Pituitary Tumor, etc. Proper treatment, planning, and accurate diagnostics should be implemented to improve the life expectancy of the patients. The best technique to detect brain tumors is Magnetic Resonance Imaging (MRI). A huge amount of image data is generated through the scans. These images are examined by the radiologist. A manual examination can be error-prone due to the level of complexities involved in brain tumors and their properties.&lt;/p&gt;
+
+&lt;p&gt;Application of automated classification techniques using Machine Learning(ML) and Artificial Intelligence(AI)has consistently shown higher accuracy than manual classification. Hence, proposing a system performing detection and classification by using Deep Learning Algorithms using ConvolutionNeural Network (CNN), Artificial Neural Network (ANN), and TransferLearning (TL) would be helpful to doctors all around the world.&lt;/p&gt;
+
+&lt;h1 id=&quot;context&quot;&gt;Context&lt;/h1&gt;
+
+&lt;p&gt;Brain Tumors are complex. There are a lot of abnormalities in the sizes and location of the brain tumor(s). This makes it really difficult for complete understanding of the nature of the tumor. Also, a professional Neurosurgeon is required for MRI analysis. Often times in developing countries the lack of skillful doctors and lack of knowledge about tumors makes it really challenging and time-consuming to generate reports from MRI’. So an automated system on Cloud can solve this problem.&lt;/p&gt;
+
+&lt;h1 id=&quot;methodology&quot;&gt;Methodology&lt;/h1&gt;
+
+&lt;h2 id=&quot;transfer-learning&quot;&gt;Transfer Learning&lt;/h2&gt;
+
+&lt;p&gt;Transfer learning is a deep learning technique where we use a pre-defined and pre-trained neural network and train it again on the current data set. We used ResNet50 model in this project.&lt;/p&gt;
+
+&lt;h1 id=&quot;import-libraries&quot;&gt;Import Libraries&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.keras.models&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sequential&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.keras.layers&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Conv2D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlobalAveragePooling2D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flatten&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dropout&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.keras.optimizers&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Adam&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.keras.callbacks&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TensorBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EarlyStopping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReduceLROnPlateau&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ModelCheckpoint&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.keras.applications&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResNet50&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.keras.utils&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_categorical&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;tensorflow.keras.models&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load_model&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.metrics&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classification_report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accuracy_score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;confusion_matrix&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.model_selection&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;seaborn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;configure-tensorboard&quot;&gt;Configure Tensorboard&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;log_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;log/resnet50/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tensorboard&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TensorBoard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log_dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;histogram_freq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Clear any logs from previous runs
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rf&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resnet50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;set-hyperparameters&quot;&gt;Set Hyperparameters&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;glioma_tumor&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;meningioma_tumor&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;no_tumor&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;pituitary_tumor&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;224&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;INPUT_SHAPE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLASSES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;EPOCH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;BATCH_SIZE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;data-preprocessing&quot;&gt;Data Preprocessing&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;folderPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;dataset/Training&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folderPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folderPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;folderPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;dataset/Testing&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folderPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folderPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;x train shape : &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;y train shape : &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x train shape :  (3264, 224, 224, 3)
+y train shape :  (3264,)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;train-test-split&quot;&gt;Train Test Split&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random_state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;one-hot-encoding&quot;&gt;One Hot Encoding&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;y_train_new&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;y_train_new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_train_new&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keras&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_categorical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;y_test_new&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;y_test_new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_test_new&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keras&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_categorical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;build-model&quot;&gt;Build Model&lt;/h1&gt;
+
+&lt;h2 id=&quot;download-resnet50-model&quot;&gt;Download ResNet50 Model&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;base_model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResNet50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weights&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;imagenet&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                      &lt;span class=&quot;n&quot;&gt;include_top&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                      &lt;span class=&quot;n&quot;&gt;input_shape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INPUT_SHAPE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;base_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Model: &quot;resnet50&quot;
+__________________________________________________________________________________________________
+ Layer (type)                Output Shape                 Param #   Connected to                  
+==================================================================================================
+ input_1 (InputLayer)        [(None, 224, 224, 3)]        0         []                            
+                                                                                                  
+ conv1_pad (ZeroPadding2D)   (None, 230, 230, 3)          0         [&apos;input_1[0][0]&apos;]             
+                                                                                                  
+ conv1_conv (Conv2D)         (None, 112, 112, 64)         9472      [&apos;conv1_pad[0][0]&apos;]           
+                                                                                                  
+ conv1_bn (BatchNormalizati  (None, 112, 112, 64)         256       [&apos;conv1_conv[0][0]&apos;]          
+ on)                                                                                              
+                                                                                                  
+ conv1_relu (Activation)     (None, 112, 112, 64)         0         [&apos;conv1_bn[0][0]&apos;]            
+                                                                                                  
+ pool1_pad (ZeroPadding2D)   (None, 114, 114, 64)         0         [&apos;conv1_relu[0][0]&apos;]          
+                                                                                                  
+ pool1_pool (MaxPooling2D)   (None, 56, 56, 64)           0         [&apos;pool1_pad[0][0]&apos;]           
+                                                                                                  
+ conv2_block1_1_conv (Conv2  (None, 56, 56, 64)           4160      [&apos;pool1_pool[0][0]&apos;]          
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_1_bn (BatchNo  (None, 56, 56, 64)           256       [&apos;conv2_block1_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_1_relu (Activ  (None, 56, 56, 64)           0         [&apos;conv2_block1_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block1_2_conv (Conv2  (None, 56, 56, 64)           36928     [&apos;conv2_block1_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_2_bn (BatchNo  (None, 56, 56, 64)           256       [&apos;conv2_block1_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_2_relu (Activ  (None, 56, 56, 64)           0         [&apos;conv2_block1_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block1_0_conv (Conv2  (None, 56, 56, 256)          16640     [&apos;pool1_pool[0][0]&apos;]          
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_3_conv (Conv2  (None, 56, 56, 256)          16640     [&apos;conv2_block1_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block1_0_bn (BatchNo  (None, 56, 56, 256)          1024      [&apos;conv2_block1_0_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_3_bn (BatchNo  (None, 56, 56, 256)          1024      [&apos;conv2_block1_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block1_add (Add)      (None, 56, 56, 256)          0         [&apos;conv2_block1_0_bn[0][0]&apos;,   
+                                                                     &apos;conv2_block1_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv2_block1_out (Activati  (None, 56, 56, 256)          0         [&apos;conv2_block1_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv2_block2_1_conv (Conv2  (None, 56, 56, 64)           16448     [&apos;conv2_block1_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv2_block2_1_bn (BatchNo  (None, 56, 56, 64)           256       [&apos;conv2_block2_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block2_1_relu (Activ  (None, 56, 56, 64)           0         [&apos;conv2_block2_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block2_2_conv (Conv2  (None, 56, 56, 64)           36928     [&apos;conv2_block2_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block2_2_bn (BatchNo  (None, 56, 56, 64)           256       [&apos;conv2_block2_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block2_2_relu (Activ  (None, 56, 56, 64)           0         [&apos;conv2_block2_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block2_3_conv (Conv2  (None, 56, 56, 256)          16640     [&apos;conv2_block2_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block2_3_bn (BatchNo  (None, 56, 56, 256)          1024      [&apos;conv2_block2_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block2_add (Add)      (None, 56, 56, 256)          0         [&apos;conv2_block1_out[0][0]&apos;,    
+                                                                     &apos;conv2_block2_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv2_block2_out (Activati  (None, 56, 56, 256)          0         [&apos;conv2_block2_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv2_block3_1_conv (Conv2  (None, 56, 56, 64)           16448     [&apos;conv2_block2_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv2_block3_1_bn (BatchNo  (None, 56, 56, 64)           256       [&apos;conv2_block3_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block3_1_relu (Activ  (None, 56, 56, 64)           0         [&apos;conv2_block3_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block3_2_conv (Conv2  (None, 56, 56, 64)           36928     [&apos;conv2_block3_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block3_2_bn (BatchNo  (None, 56, 56, 64)           256       [&apos;conv2_block3_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block3_2_relu (Activ  (None, 56, 56, 64)           0         [&apos;conv2_block3_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv2_block3_3_conv (Conv2  (None, 56, 56, 256)          16640     [&apos;conv2_block3_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv2_block3_3_bn (BatchNo  (None, 56, 56, 256)          1024      [&apos;conv2_block3_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv2_block3_add (Add)      (None, 56, 56, 256)          0         [&apos;conv2_block2_out[0][0]&apos;,    
+                                                                     &apos;conv2_block3_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv2_block3_out (Activati  (None, 56, 56, 256)          0         [&apos;conv2_block3_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv3_block1_1_conv (Conv2  (None, 28, 28, 128)          32896     [&apos;conv2_block3_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_1_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block1_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_1_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block1_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block1_2_conv (Conv2  (None, 28, 28, 128)          147584    [&apos;conv3_block1_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_2_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block1_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_2_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block1_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block1_0_conv (Conv2  (None, 28, 28, 512)          131584    [&apos;conv2_block3_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_3_conv (Conv2  (None, 28, 28, 512)          66048     [&apos;conv3_block1_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block1_0_bn (BatchNo  (None, 28, 28, 512)          2048      [&apos;conv3_block1_0_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_3_bn (BatchNo  (None, 28, 28, 512)          2048      [&apos;conv3_block1_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block1_add (Add)      (None, 28, 28, 512)          0         [&apos;conv3_block1_0_bn[0][0]&apos;,   
+                                                                     &apos;conv3_block1_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv3_block1_out (Activati  (None, 28, 28, 512)          0         [&apos;conv3_block1_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv3_block2_1_conv (Conv2  (None, 28, 28, 128)          65664     [&apos;conv3_block1_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv3_block2_1_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block2_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block2_1_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block2_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block2_2_conv (Conv2  (None, 28, 28, 128)          147584    [&apos;conv3_block2_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block2_2_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block2_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block2_2_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block2_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block2_3_conv (Conv2  (None, 28, 28, 512)          66048     [&apos;conv3_block2_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block2_3_bn (BatchNo  (None, 28, 28, 512)          2048      [&apos;conv3_block2_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block2_add (Add)      (None, 28, 28, 512)          0         [&apos;conv3_block1_out[0][0]&apos;,    
+                                                                     &apos;conv3_block2_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv3_block2_out (Activati  (None, 28, 28, 512)          0         [&apos;conv3_block2_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv3_block3_1_conv (Conv2  (None, 28, 28, 128)          65664     [&apos;conv3_block2_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv3_block3_1_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block3_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block3_1_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block3_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block3_2_conv (Conv2  (None, 28, 28, 128)          147584    [&apos;conv3_block3_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block3_2_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block3_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block3_2_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block3_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block3_3_conv (Conv2  (None, 28, 28, 512)          66048     [&apos;conv3_block3_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block3_3_bn (BatchNo  (None, 28, 28, 512)          2048      [&apos;conv3_block3_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block3_add (Add)      (None, 28, 28, 512)          0         [&apos;conv3_block2_out[0][0]&apos;,    
+                                                                     &apos;conv3_block3_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv3_block3_out (Activati  (None, 28, 28, 512)          0         [&apos;conv3_block3_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv3_block4_1_conv (Conv2  (None, 28, 28, 128)          65664     [&apos;conv3_block3_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv3_block4_1_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block4_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block4_1_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block4_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block4_2_conv (Conv2  (None, 28, 28, 128)          147584    [&apos;conv3_block4_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block4_2_bn (BatchNo  (None, 28, 28, 128)          512       [&apos;conv3_block4_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block4_2_relu (Activ  (None, 28, 28, 128)          0         [&apos;conv3_block4_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv3_block4_3_conv (Conv2  (None, 28, 28, 512)          66048     [&apos;conv3_block4_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv3_block4_3_bn (BatchNo  (None, 28, 28, 512)          2048      [&apos;conv3_block4_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv3_block4_add (Add)      (None, 28, 28, 512)          0         [&apos;conv3_block3_out[0][0]&apos;,    
+                                                                     &apos;conv3_block4_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv3_block4_out (Activati  (None, 28, 28, 512)          0         [&apos;conv3_block4_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv4_block1_1_conv (Conv2  (None, 14, 14, 256)          131328    [&apos;conv3_block4_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_1_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block1_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_1_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block1_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block1_2_conv (Conv2  (None, 14, 14, 256)          590080    [&apos;conv4_block1_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_2_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block1_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_2_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block1_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block1_0_conv (Conv2  (None, 14, 14, 1024)         525312    [&apos;conv3_block4_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_3_conv (Conv2  (None, 14, 14, 1024)         263168    [&apos;conv4_block1_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block1_0_bn (BatchNo  (None, 14, 14, 1024)         4096      [&apos;conv4_block1_0_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_3_bn (BatchNo  (None, 14, 14, 1024)         4096      [&apos;conv4_block1_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block1_add (Add)      (None, 14, 14, 1024)         0         [&apos;conv4_block1_0_bn[0][0]&apos;,   
+                                                                     &apos;conv4_block1_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv4_block1_out (Activati  (None, 14, 14, 1024)         0         [&apos;conv4_block1_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv4_block2_1_conv (Conv2  (None, 14, 14, 256)          262400    [&apos;conv4_block1_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv4_block2_1_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block2_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block2_1_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block2_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block2_2_conv (Conv2  (None, 14, 14, 256)          590080    [&apos;conv4_block2_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block2_2_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block2_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block2_2_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block2_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block2_3_conv (Conv2  (None, 14, 14, 1024)         263168    [&apos;conv4_block2_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block2_3_bn (BatchNo  (None, 14, 14, 1024)         4096      [&apos;conv4_block2_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block2_add (Add)      (None, 14, 14, 1024)         0         [&apos;conv4_block1_out[0][0]&apos;,    
+                                                                     &apos;conv4_block2_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv4_block2_out (Activati  (None, 14, 14, 1024)         0         [&apos;conv4_block2_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv4_block3_1_conv (Conv2  (None, 14, 14, 256)          262400    [&apos;conv4_block2_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv4_block3_1_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block3_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block3_1_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block3_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block3_2_conv (Conv2  (None, 14, 14, 256)          590080    [&apos;conv4_block3_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block3_2_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block3_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block3_2_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block3_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block3_3_conv (Conv2  (None, 14, 14, 1024)         263168    [&apos;conv4_block3_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block3_3_bn (BatchNo  (None, 14, 14, 1024)         4096      [&apos;conv4_block3_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block3_add (Add)      (None, 14, 14, 1024)         0         [&apos;conv4_block2_out[0][0]&apos;,    
+                                                                     &apos;conv4_block3_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv4_block3_out (Activati  (None, 14, 14, 1024)         0         [&apos;conv4_block3_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv4_block4_1_conv (Conv2  (None, 14, 14, 256)          262400    [&apos;conv4_block3_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv4_block4_1_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block4_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block4_1_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block4_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block4_2_conv (Conv2  (None, 14, 14, 256)          590080    [&apos;conv4_block4_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block4_2_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block4_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block4_2_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block4_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block4_3_conv (Conv2  (None, 14, 14, 1024)         263168    [&apos;conv4_block4_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block4_3_bn (BatchNo  (None, 14, 14, 1024)         4096      [&apos;conv4_block4_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block4_add (Add)      (None, 14, 14, 1024)         0         [&apos;conv4_block3_out[0][0]&apos;,    
+                                                                     &apos;conv4_block4_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv4_block4_out (Activati  (None, 14, 14, 1024)         0         [&apos;conv4_block4_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv4_block5_1_conv (Conv2  (None, 14, 14, 256)          262400    [&apos;conv4_block4_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv4_block5_1_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block5_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block5_1_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block5_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block5_2_conv (Conv2  (None, 14, 14, 256)          590080    [&apos;conv4_block5_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block5_2_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block5_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block5_2_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block5_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block5_3_conv (Conv2  (None, 14, 14, 1024)         263168    [&apos;conv4_block5_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block5_3_bn (BatchNo  (None, 14, 14, 1024)         4096      [&apos;conv4_block5_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block5_add (Add)      (None, 14, 14, 1024)         0         [&apos;conv4_block4_out[0][0]&apos;,    
+                                                                     &apos;conv4_block5_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv4_block5_out (Activati  (None, 14, 14, 1024)         0         [&apos;conv4_block5_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv4_block6_1_conv (Conv2  (None, 14, 14, 256)          262400    [&apos;conv4_block5_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv4_block6_1_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block6_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block6_1_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block6_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block6_2_conv (Conv2  (None, 14, 14, 256)          590080    [&apos;conv4_block6_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block6_2_bn (BatchNo  (None, 14, 14, 256)          1024      [&apos;conv4_block6_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block6_2_relu (Activ  (None, 14, 14, 256)          0         [&apos;conv4_block6_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv4_block6_3_conv (Conv2  (None, 14, 14, 1024)         263168    [&apos;conv4_block6_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv4_block6_3_bn (BatchNo  (None, 14, 14, 1024)         4096      [&apos;conv4_block6_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv4_block6_add (Add)      (None, 14, 14, 1024)         0         [&apos;conv4_block5_out[0][0]&apos;,    
+                                                                     &apos;conv4_block6_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv4_block6_out (Activati  (None, 14, 14, 1024)         0         [&apos;conv4_block6_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv5_block1_1_conv (Conv2  (None, 7, 7, 512)            524800    [&apos;conv4_block6_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_1_bn (BatchNo  (None, 7, 7, 512)            2048      [&apos;conv5_block1_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_1_relu (Activ  (None, 7, 7, 512)            0         [&apos;conv5_block1_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block1_2_conv (Conv2  (None, 7, 7, 512)            2359808   [&apos;conv5_block1_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_2_bn (BatchNo  (None, 7, 7, 512)            2048      [&apos;conv5_block1_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_2_relu (Activ  (None, 7, 7, 512)            0         [&apos;conv5_block1_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block1_0_conv (Conv2  (None, 7, 7, 2048)           2099200   [&apos;conv4_block6_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_3_conv (Conv2  (None, 7, 7, 2048)           1050624   [&apos;conv5_block1_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block1_0_bn (BatchNo  (None, 7, 7, 2048)           8192      [&apos;conv5_block1_0_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_3_bn (BatchNo  (None, 7, 7, 2048)           8192      [&apos;conv5_block1_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block1_add (Add)      (None, 7, 7, 2048)           0         [&apos;conv5_block1_0_bn[0][0]&apos;,   
+                                                                     &apos;conv5_block1_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv5_block1_out (Activati  (None, 7, 7, 2048)           0         [&apos;conv5_block1_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv5_block2_1_conv (Conv2  (None, 7, 7, 512)            1049088   [&apos;conv5_block1_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv5_block2_1_bn (BatchNo  (None, 7, 7, 512)            2048      [&apos;conv5_block2_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block2_1_relu (Activ  (None, 7, 7, 512)            0         [&apos;conv5_block2_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block2_2_conv (Conv2  (None, 7, 7, 512)            2359808   [&apos;conv5_block2_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block2_2_bn (BatchNo  (None, 7, 7, 512)            2048      [&apos;conv5_block2_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block2_2_relu (Activ  (None, 7, 7, 512)            0         [&apos;conv5_block2_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block2_3_conv (Conv2  (None, 7, 7, 2048)           1050624   [&apos;conv5_block2_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block2_3_bn (BatchNo  (None, 7, 7, 2048)           8192      [&apos;conv5_block2_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block2_add (Add)      (None, 7, 7, 2048)           0         [&apos;conv5_block1_out[0][0]&apos;,    
+                                                                     &apos;conv5_block2_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv5_block2_out (Activati  (None, 7, 7, 2048)           0         [&apos;conv5_block2_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+ conv5_block3_1_conv (Conv2  (None, 7, 7, 512)            1049088   [&apos;conv5_block2_out[0][0]&apos;]    
+ D)                                                                                               
+                                                                                                  
+ conv5_block3_1_bn (BatchNo  (None, 7, 7, 512)            2048      [&apos;conv5_block3_1_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block3_1_relu (Activ  (None, 7, 7, 512)            0         [&apos;conv5_block3_1_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block3_2_conv (Conv2  (None, 7, 7, 512)            2359808   [&apos;conv5_block3_1_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block3_2_bn (BatchNo  (None, 7, 7, 512)            2048      [&apos;conv5_block3_2_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block3_2_relu (Activ  (None, 7, 7, 512)            0         [&apos;conv5_block3_2_bn[0][0]&apos;]   
+ ation)                                                                                           
+                                                                                                  
+ conv5_block3_3_conv (Conv2  (None, 7, 7, 2048)           1050624   [&apos;conv5_block3_2_relu[0][0]&apos;] 
+ D)                                                                                               
+                                                                                                  
+ conv5_block3_3_bn (BatchNo  (None, 7, 7, 2048)           8192      [&apos;conv5_block3_3_conv[0][0]&apos;] 
+ rmalization)                                                                                     
+                                                                                                  
+ conv5_block3_add (Add)      (None, 7, 7, 2048)           0         [&apos;conv5_block2_out[0][0]&apos;,    
+                                                                     &apos;conv5_block3_3_bn[0][0]&apos;]   
+                                                                                                  
+ conv5_block3_out (Activati  (None, 7, 7, 2048)           0         [&apos;conv5_block3_add[0][0]&apos;]    
+ on)                                                                                              
+                                                                                                  
+==================================================================================================
+Total params: 23587712 (89.98 MB)
+Trainable params: 23534592 (89.78 MB)
+Non-trainable params: 53120 (207.50 KB)
+__________________________________________________________________________________________________
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;freeze-the-layers&quot;&gt;Freeze the layers&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trainable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;custom-model&quot;&gt;Custom Model&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sequential&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;base_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Conv2D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;activation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;relu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;GlobalAveragePooling2D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Flatten&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Dense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;activation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;relu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Dropout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Dense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;activation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;relu&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Dropout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Dense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CLASSES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;activation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;softmax&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ resnet50 (Functional)       (None, 7, 7, 2048)        23587712  
+                                                                 
+ conv2d (Conv2D)             (None, 5, 5, 32)          589856    
+                                                                 
+ global_average_pooling2d (  (None, 32)                0         
+ GlobalAveragePooling2D)                                         
+                                                                 
+ flatten (Flatten)           (None, 32)                0         
+                                                                 
+ dense (Dense)               (None, 128)               4224      
+                                                                 
+ dropout (Dropout)           (None, 128)               0         
+                                                                 
+ dense_1 (Dense)             (None, 256)               33024     
+                                                                 
+ dropout_1 (Dropout)         (None, 256)               0         
+                                                                 
+ dense_2 (Dense)             (None, 4)                 1028      
+                                                                 
+=================================================================
+Total params: 24215844 (92.38 MB)
+Trainable params: 23953188 (91.37 MB)
+Non-trainable params: 262656 (1.00 MB)
+_________________________________________________________________
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;compile-model&quot;&gt;Compile Model&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;optimizer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Adam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;loss&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;categorical_crossentropy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;accuracy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;set-callbacks&quot;&gt;Set Callbacks&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ModelCheckpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filepath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;model/resnet50/resnet50.keras&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;monitor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;val_loss&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;save_best_only&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verbose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;auto&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ReduceLROnPlateau&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;monitor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;val_loss&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patience&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verbose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;EarlyStopping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;monitor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;val_loss&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verbose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patience&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tensorboard&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;start-tensorboard&quot;&gt;Start Tensorboard&lt;/h1&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%load_ext tensorboard
+%tensorboard &lt;span class=&quot;nt&quot;&gt;--logdir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;log/resnet50/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;fit-the-model&quot;&gt;Fit the Model&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BATCH_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;epochs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EPOCH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;validation_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Epoch 1/20
+2024-12-14 18:45:06.362479: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:454] Loaded cuDNN version 8904
+2024-12-14 18:45:10.831202: I external/local_xla/xla/service/service.cc:168] XLA service 0x7fdea9cdf610 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2024-12-14 18:45:10.831235: I external/local_xla/xla/service/service.cc:176]   StreamExecutor device (0): NVIDIA GeForce RTX 3050 Laptop GPU, Compute Capability 8.6
+2024-12-14 18:45:10.845818: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1734191110.939775  426987 device_compiler.h:186] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+653/653 [==============================] - ETA: 0s - loss: 1.2957 - accuracy: 0.3818
+Epoch 1: val_loss improved from inf to 1.86073, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 87s 92ms/step - loss: 1.2957 - accuracy: 0.3818 - val_loss: 1.8607 - val_accuracy: 0.3691 - lr: 0.0010
+Epoch 2/20
+651/653 [============================&amp;gt;.] - ETA: 0s - loss: 1.0962 - accuracy: 0.5169
+Epoch 2: val_loss improved from 1.86073 to 1.20823, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 48s 73ms/step - loss: 1.0951 - accuracy: 0.5178 - val_loss: 1.2082 - val_accuracy: 0.4181 - lr: 0.0010
+Epoch 3/20
+653/653 [==============================] - ETA: 0s - loss: 0.9141 - accuracy: 0.6128
+Epoch 3: val_loss improved from 1.20823 to 0.84988, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 50s 76ms/step - loss: 0.9141 - accuracy: 0.6128 - val_loss: 0.8499 - val_accuracy: 0.6371 - lr: 0.0010
+Epoch 4/20
+653/653 [==============================] - ETA: 0s - loss: 0.7563 - accuracy: 0.7009
+Epoch 4: val_loss did not improve from 0.84988
+653/653 [==============================] - 47s 72ms/step - loss: 0.7563 - accuracy: 0.7009 - val_loss: 0.8919 - val_accuracy: 0.6432 - lr: 0.0010
+Epoch 5/20
+653/653 [==============================] - ETA: 0s - loss: 0.6614 - accuracy: 0.7434
+Epoch 5: val_loss improved from 0.84988 to 0.62626, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 49s 75ms/step - loss: 0.6614 - accuracy: 0.7434 - val_loss: 0.6263 - val_accuracy: 0.7381 - lr: 0.0010
+Epoch 6/20
+653/653 [==============================] - ETA: 0s - loss: 0.5779 - accuracy: 0.7756
+Epoch 6: val_loss did not improve from 0.62626
+653/653 [==============================] - 47s 72ms/step - loss: 0.5779 - accuracy: 0.7756 - val_loss: 0.6481 - val_accuracy: 0.7519 - lr: 0.0010
+Epoch 7/20
+653/653 [==============================] - ETA: 0s - loss: 0.5336 - accuracy: 0.8054
+Epoch 7: val_loss did not improve from 0.62626
+653/653 [==============================] - 48s 74ms/step - loss: 0.5336 - accuracy: 0.8054 - val_loss: 0.6483 - val_accuracy: 0.7657 - lr: 0.0010
+Epoch 8/20
+653/653 [==============================] - ETA: 0s - loss: 0.4573 - accuracy: 0.8277
+Epoch 8: val_loss did not improve from 0.62626
+
+Epoch 8: ReduceLROnPlateau reducing learning rate to 0.00010000000474974513.
+653/653 [==============================] - 49s 76ms/step - loss: 0.4573 - accuracy: 0.8277 - val_loss: 0.8256 - val_accuracy: 0.7412 - lr: 0.0010
+Epoch 9/20
+653/653 [==============================] - ETA: 0s - loss: 0.3162 - accuracy: 0.8893
+Epoch 9: val_loss improved from 0.62626 to 0.44506, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 49s 74ms/step - loss: 0.3162 - accuracy: 0.8893 - val_loss: 0.4451 - val_accuracy: 0.8346 - lr: 1.0000e-04
+Epoch 10/20
+653/653 [==============================] - ETA: 0s - loss: 0.2407 - accuracy: 0.9180
+Epoch 10: val_loss improved from 0.44506 to 0.43980, saving model to model/resnet50/resnet50.keras
+653/653 [==============================] - 50s 77ms/step - loss: 0.2407 - accuracy: 0.9180 - val_loss: 0.4398 - val_accuracy: 0.8453 - lr: 1.0000e-04
+Epoch 11/20
+653/653 [==============================] - ETA: 0s - loss: 0.1878 - accuracy: 0.9341
+Epoch 11: val_loss did not improve from 0.43980
+653/653 [==============================] - 47s 71ms/step - loss: 0.1878 - accuracy: 0.9341 - val_loss: 0.4438 - val_accuracy: 0.8515 - lr: 1.0000e-04
+Epoch 12/20
+653/653 [==============================] - ETA: 0s - loss: 0.1630 - accuracy: 0.9433
+Epoch 12: val_loss did not improve from 0.43980
+653/653 [==============================] - 48s 73ms/step - loss: 0.1630 - accuracy: 0.9433 - val_loss: 0.4579 - val_accuracy: 0.8530 - lr: 1.0000e-04
+Epoch 13/20
+653/653 [==============================] - ETA: 0s - loss: 0.1275 - accuracy: 0.9567
+Epoch 13: val_loss did not improve from 0.43980
+
+Epoch 13: ReduceLROnPlateau reducing learning rate to 1.0000000474974514e-05.
+653/653 [==============================] - 46s 71ms/step - loss: 0.1275 - accuracy: 0.9567 - val_loss: 0.4924 - val_accuracy: 0.8484 - lr: 1.0000e-04
+Epoch 14/20
+653/653 [==============================] - ETA: 0s - loss: 0.1088 - accuracy: 0.9602
+Epoch 14: val_loss did not improve from 0.43980
+653/653 [==============================] - 48s 74ms/step - loss: 0.1088 - accuracy: 0.9602 - val_loss: 0.4802 - val_accuracy: 0.8499 - lr: 1.0000e-05
+Epoch 15/20
+653/653 [==============================] - ETA: 0s - loss: 0.0961 - accuracy: 0.9674
+Epoch 15: val_loss did not improve from 0.43980
+653/653 [==============================] - 47s 71ms/step - loss: 0.0961 - accuracy: 0.9674 - val_loss: 0.4828 - val_accuracy: 0.8545 - lr: 1.0000e-05
+Epoch 15: early stopping
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;evaluate-the-model&quot;&gt;Evaluate the model&lt;/h1&gt;
+
+&lt;h2 id=&quot;classification-report&quot;&gt;Classification Report&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;classification_report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target_names&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Test Accuracy:&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accuracy_score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;21/21 [==============================] - 9s 217ms/step
+                  precision    recall  f1-score   support
+
+    glioma_tumor       0.89      0.83      0.86       219
+meningioma_tumor       0.76      0.80      0.78       187
+        no_tumor       0.85      0.89      0.87        87
+ pituitary_tumor       0.94      0.93      0.93       160
+
+        accuracy                           0.85       653
+       macro avg       0.86      0.86      0.86       653
+    weighted avg       0.86      0.85      0.86       653
+
+Test Accuracy: 0.8545176110260337
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;visualize-training-history&quot;&gt;visualize training history&lt;/h1&gt;
+
+&lt;h2 id=&quot;accuracy&quot;&gt;Accuracy&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;accuracy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;val_accuracy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;model accuracy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;accuracy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;epoch&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;train&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;test&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;upper left&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/projects/brain-tumor/model_accuracy.png&quot; alt=&quot;Model Accuracy&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;loss&quot;&gt;Loss&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;loss&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;val_loss&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;model loss&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;loss&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;epoch&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;train&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;test&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;upper left&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/projects/brain-tumor/model_loss.png&quot; alt=&quot;Model Loss&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;confusion-matrix&quot;&gt;Confusion Matrix&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;confusion_matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heatmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;annot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xticklabels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yticklabels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Confusion matrix&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Actual label&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Predicted label&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/projects/brain-tumor/confusion_matrix.png&quot; alt=&quot;Confusion Matrix&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;save-the-model&quot;&gt;Save the Model&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;model/resnet50/resnet50.keras&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;load-the-model&quot;&gt;Load the Model&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;model/resnet50/resnet50.keras&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;predict&quot;&gt;Predict&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Load the image file
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;dataset/Testing/no_tumor/image(16).jpg&apos;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IMG_SIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Predict the image
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prediction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prediction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prediction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;The MRI is : &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prediction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Display the image
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2RGB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;The MRI is : &apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prediction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;off&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1/1 [==============================] - 0s 31ms/step
+The MRI is :  no_tumor
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/projects/brain-tumor/predicted_mri.png&quot; alt=&quot;Predict&quot; /&gt;&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="projects" /><category term="deep-learning" /><category term="cnn" /><summary type="html">This project aimed to build a Convolutional Neural Network based deep learning model to first identify brain tumors and then classify them as Benign Tumors, Malignant Tumors or Pituitary Tumors.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" /><media:content medium="image" url="http://localhost:4000/assets/img/projects/brain-tumor/Brain-Scan.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Energy Demand Estimation with PSO Algorithm</title><link href="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/" rel="alternate" type="text/html" title="Energy Demand Estimation with PSO Algorithm" /><published>2024-10-28T00:00:00+03:00</published><updated>2024-10-29T00:00:00+03:00</updated><id>http://localhost:4000/projects/energy-demand-estimation-with-pso-algorithms</id><content type="html" xml:base="http://localhost:4000/projects/2024-10-28-energy-demand-estimation-with-pso-algorithms/">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#linear-model&quot; id=&quot;markdown-toc-linear-model&quot;&gt;Linear Model&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#download-and-install-libraries&quot; id=&quot;markdown-toc-download-and-install-libraries&quot;&gt;Download and install libraries&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#import-the-necessary-libraries&quot; id=&quot;markdown-toc-import-the-necessary-libraries&quot;&gt;Import the necessary libraries&lt;/a&gt;&lt;/li&gt;
@@ -3550,301 +4466,4 @@ Eğitim seviyesi [10] 	Gerçek Maaş :  [50000] 	Polynomial Maaş :  [49445.8041
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/polynomial_regression_scatter_and_plot2.png&quot; alt=&quot;polynomial regression&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Grafikten de anlaşılacağı üzere 4. derece bir polynomial regression modeli daha iyi bir sonuç verdi.&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="machine-learning" /><category term="prediction" /><summary type="html">Bu modelde, bağımsız değişkenler üzerindeki polinom terimleri (x, x², x³, vb.) eklenir. Bu sayede, verideki doğrusal olmayan ilişkiler yakalanabilir.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/machine-learning/polynomial_regression.gif" /><media:content medium="image" url="http://localhost:4000/assets/img/machine-learning/polynomial_regression.gif" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Multiple Linear Regression Example</title><link href="http://localhost:4000/machine-learning/2024-08-07-multiple-linear-regression-example/" rel="alternate" type="text/html" title="Multiple Linear Regression Example" /><published>2024-08-07T00:00:00+03:00</published><updated>2024-08-08T00:00:00+03:00</updated><id>http://localhost:4000/machine-learning/multiple-linear-regression-example</id><content type="html" xml:base="http://localhost:4000/machine-learning/2024-08-07-multiple-linear-regression-example/">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#dataset&quot; id=&quot;markdown-toc-dataset&quot;&gt;Dataset&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#import-libraries&quot; id=&quot;markdown-toc-import-libraries&quot;&gt;Import Libraries&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#read-and-preprocessing-data&quot; id=&quot;markdown-toc-read-and-preprocessing-data&quot;&gt;Read and Preprocessing Data&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#read-data&quot; id=&quot;markdown-toc-read-data&quot;&gt;Read Data&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#analysis-of-data&quot; id=&quot;markdown-toc-analysis-of-data&quot;&gt;Analysis of Data&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#split-data&quot; id=&quot;markdown-toc-split-data&quot;&gt;Split Data&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#encoding&quot; id=&quot;markdown-toc-encoding&quot;&gt;Encoding&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#concatenate-data&quot; id=&quot;markdown-toc-concatenate-data&quot;&gt;Concatenate data&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#train-test-split&quot; id=&quot;markdown-toc-train-test-split&quot;&gt;Train Test Split&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#train-model&quot; id=&quot;markdown-toc-train-model&quot;&gt;Train Model&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#predict&quot; id=&quot;markdown-toc-predict&quot;&gt;Predict&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#visualize-results-of-the-model&quot; id=&quot;markdown-toc-visualize-results-of-the-model&quot;&gt;Visualize results of the model&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#backward-elimination&quot; id=&quot;markdown-toc-backward-elimination&quot;&gt;Backward Elimination&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#adding-constant&quot; id=&quot;markdown-toc-adding-constant&quot;&gt;Adding constant&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#backward-elimination-1&quot; id=&quot;markdown-toc-backward-elimination-1&quot;&gt;Backward Elimination&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#eliminate-x5&quot; id=&quot;markdown-toc-eliminate-x5&quot;&gt;Eliminate x5&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#re-build-model&quot; id=&quot;markdown-toc-re-build-model&quot;&gt;Re-build Model&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#re-predict&quot; id=&quot;markdown-toc-re-predict&quot;&gt;Re-predict&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#visualize-the-results&quot; id=&quot;markdown-toc-visualize-the-results&quot;&gt;Visualize the results&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#results&quot; id=&quot;markdown-toc-results&quot;&gt;Results&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Bu yazıda, hava durumu, sıcaklık, rüzgar durumu gibi değişkenler kullanarak nem (humidity) seviyesini tahmin etmeyi amaçladığımız bir çoklu doğrusal regresyon çalışmasını ele alacağız.&lt;/p&gt;
-
-&lt;h1 id=&quot;dataset&quot;&gt;Dataset&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.githubusercontent.com/metehanozdeniz/7c0e41d8b639ea1a8fb1299a955a0b90/raw/9133fea7bcf9e4729689da5baca931ca453e94e1/tennis.csv&quot;&gt;tennis.csv&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;import-libraries&quot;&gt;Import Libraries&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;seaborn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sbn&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;read-and-preprocessing-data&quot;&gt;Read and Preprocessing Data&lt;/h1&gt;
-
-&lt;h2 id=&quot;read-data&quot;&gt;Read Data&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;tennis.csv&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;      outlook  temperature  humidity  windy play
-0      sunny           85        85  False   no
-1      sunny           80        90   True   no
-2   overcast           83        86  False  yes
-3      rainy           70        96  False  yes
-4      rainy           68        80  False  yes
-5      rainy           65        70   True   no
-6   overcast           64        65   True  yes
-7      sunny           72        95  False   no
-8      sunny           69        70  False  yes
-9      rainy           75        80  False  yes
-10     sunny           75        70   True  yes
-11  overcast           72        90   True  yes
-12  overcast           81        75  False  yes
-13     rainy           71        91   True   no
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;analysis-of-data&quot;&gt;Analysis of Data&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sbn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pairplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# for better visualization
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/seaborn_output.png&quot; alt=&quot;seaborn graph&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;       temperature   humidity
-count    14.000000  14.000000
-mean     73.571429  81.642857
-std       6.571667  10.285218
-min      64.000000  65.000000
-25%      69.250000  71.250000
-50%      72.000000  82.500000
-75%      78.750000  90.000000
-max      85.000000  96.000000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;split-data&quot;&gt;Split Data&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;outlook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;temperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;humidity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;wind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;play&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;encoding&quot;&gt;Encoding&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.preprocessing&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LabelEncoder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OneHotEncoder&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;le&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LabelEncoder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ohe&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OneHotEncoder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;outlook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ohe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit_transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outlook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;wind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;le&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit_transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;play&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;le&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit_transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;concatenate-data&quot;&gt;Concatenate data&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;last_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concatenate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outlook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;humidity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# Convert to DataFrame from numpy array
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;overcast&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;rainy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;sunny&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;temperature&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;humidity&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;windy&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;play&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    overcast  rainy  sunny  temperature  humidity  windy  play
-0        0.0    0.0    1.0         85.0      85.0    0.0   0.0
-1        0.0    0.0    1.0         80.0      90.0    1.0   0.0
-2        1.0    0.0    0.0         83.0      86.0    0.0   1.0
-3        0.0    1.0    0.0         70.0      96.0    0.0   1.0
-4        0.0    1.0    0.0         68.0      80.0    0.0   1.0
-5        0.0    1.0    0.0         65.0      70.0    1.0   0.0
-6        1.0    0.0    0.0         64.0      65.0    1.0   1.0
-7        0.0    0.0    1.0         72.0      95.0    0.0   0.0
-8        0.0    0.0    1.0         69.0      70.0    0.0   1.0
-9        0.0    1.0    0.0         75.0      80.0    0.0   1.0
-10       0.0    0.0    1.0         75.0      70.0    1.0   1.0
-11       1.0    0.0    0.0         72.0      90.0    1.0   1.0
-12       1.0    0.0    0.0         81.0      75.0    0.0   1.0
-13       0.0    1.0    0.0         71.0      91.0    1.0   0.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;train-test-split&quot;&gt;Train Test Split&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; bağımsız değişkeni; overcast, rainy, sunny, temperature, windy, play&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; bağımlı değişkeni; humidty&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;olacak şekilde verisetini ayırıyorum.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.model_selection&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;x_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.33&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random_state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;train-model&quot;&gt;Train Model&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.linear_model&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinearRegression&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinearRegression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;predict&quot;&gt;Predict&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Predicted: &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Real: &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Predicted:  84.45365572826714 	Real:  70.0
-Predicted:  63.938399539435814 	Real:  65.0
-Predicted:  85.76050662061026 	Real:  80.0
-Predicted:  64.21013241220496 	Real:  90.0
-Predicted:  75.06793321819228 	Real:  86.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;visualize-results-of-the-model&quot;&gt;Visualize results of the model&lt;/h1&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;red&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Real&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;blue&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Predicted&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Real vs Predicted&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Index&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Humidity&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/plot_graph1.png&quot; alt=&quot;plot graph&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;backward-elimination&quot;&gt;Backward Elimination&lt;/h1&gt;
-&lt;h2 id=&quot;adding-constant&quot;&gt;Adding constant&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;backward-elimination-1&quot;&gt;Backward Elimination&lt;/h2&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;statsmodels.api&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sm&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;x_opt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OLS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_opt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                      y   R-squared:                       0.294
-Model:                            OLS   Adj. R-squared:                 -0.148
-Method:                 Least Squares   F-statistic:                    0.6653
-Date:                Tue, 06 Aug 2024   Prob (F-statistic):              0.661
-Time:                        19:03:32   Log-Likelihood:                -49.542
-No. Observations:                  14   AIC:                             111.1
-Df Residuals:                       8   BIC:                             114.9
-Df Model:                           5                                         
-Covariance Type:            nonrobust                                         
-==============================================================================
-                 coef    std err          t      P&amp;gt;|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-const         39.3630     35.781      1.100      0.303     -43.149     121.875
-x1            13.0261     15.032      0.867      0.411     -21.637      47.689
-x2            16.2707     10.134      1.605      0.147      -7.099      39.641
-x3            10.0661     13.179      0.764      0.467     -20.325      40.457
-x4             0.4920      0.597      0.825      0.433      -0.884       1.868
-x5            -4.0286      7.229     -0.557      0.593     -20.698      12.641
-x6            -8.2778      8.029     -1.031      0.333     -26.793      10.237
-==============================================================================
-Omnibus:                        0.935   Durbin-Watson:                   2.416
-Prob(Omnibus):                  0.627   Jarque-Bera (JB):                0.823
-Skew:                           0.389   Prob(JB):                        0.663
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;eliminate-x5&quot;&gt;Eliminate x5&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x_opt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_opt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OLS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_opt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                      y   R-squared:                       0.266
-Model:                            OLS   Adj. R-squared:                 -0.060
-Method:                 Least Squares   F-statistic:                    0.8165
-Date:                Wed, 07 Aug 2024   Prob (F-statistic):              0.546
-Time:                        00:04:08   Log-Likelihood:                -49.809
-No. Observations:                  14   AIC:                             109.6
-Df Residuals:                       9   BIC:                             112.8
-Df Model:                           4                                         
-Covariance Type:            nonrobust                                         
-==============================================================================
-                 coef    std err          t      P&amp;gt;|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-const         28.4191     28.743      0.989      0.349     -36.601      93.440
-x1             8.2373     11.852      0.695      0.505     -18.573      35.047
-x2            13.4944      8.481      1.591      0.146      -5.690      32.679
-x3             6.6873     11.245      0.595      0.567     -18.750      32.125
-x4             0.6484      0.506      1.282      0.232      -0.496       1.793
-x5            -6.2865      6.909     -0.910      0.387     -21.916       9.343
-==============================================================================
-Omnibus:                        0.887   Durbin-Watson:                   2.360
-Prob(Omnibus):                  0.642   Jarque-Bera (JB):                0.810
-Skew:                           0.424   Prob(JB):                        0.667
-Kurtosis:                       2.181   Cond. No.                     8.20e+17
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;re-build-model&quot;&gt;Re-build Model&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_opt&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;x_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.33&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random_state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinearRegression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;re-predict&quot;&gt;Re-predict&lt;/h1&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Predicted: &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Real: &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Predicted:  77.98135141680795 	Real:  70.0
-Predicted:  68.29304916444661 	Real:  65.0
-Predicted:  81.05037539355777 	Real:  80.0
-Predicted:  71.44926132235409 	Real:  90.0
-Predicted:  75.78905303947685 	Real:  86.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;visualize-the-results&quot;&gt;Visualize the results&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;red&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Real&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;blue&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Predicted&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Real vs Predicted&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Index&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Humidity&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/plot_graph2.png&quot; alt=&quot;plot graph2&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;results&quot;&gt;Results&lt;/h1&gt;
-
-&lt;p&gt;Bu çalışmada, hava durumu ve diğer çevresel değişkenleri kullanarak nem seviyesini tahmin eden bir çoklu doğrusal regresyon modeli geliştirdik ve değerlendirdik. Çoklu doğrusal regresyon modeli, nem tahmininde makul bir doğruluk sağlamıştır. Ayrıca, spor aktiviteleri gibi hava koşullarının kritik rol oynadığı alanlarda veri bilimi ve makine öğrenmesi uygulamalarının nasıl değer katabileceğini de ortaya koymaktadır.&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="machine-learning" /><category term="prediction" /><summary type="html">Bu yazıda, hava durumu, sıcaklık, rüzgar durumu gibi değişkenler kullanarak nem (humidity) seviyesini tahmin etmeyi amaçladığımız bir çoklu doğrusal regresyon çalışmasını ele alacağız.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/machine-learning/mlr.gif" /><media:content medium="image" url="http://localhost:4000/assets/img/machine-learning/mlr.gif" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;Grafikten de anlaşılacağı üzere 4. derece bir polynomial regression modeli daha iyi bir sonuç verdi.&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="machine-learning" /><category term="prediction" /><summary type="html">Bu modelde, bağımsız değişkenler üzerindeki polinom terimleri (x, x², x³, vb.) eklenir. Bu sayede, verideki doğrusal olmayan ilişkiler yakalanabilir.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/machine-learning/polynomial_regression.gif" /><media:content medium="image" url="http://localhost:4000/assets/img/machine-learning/polynomial_regression.gif" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
