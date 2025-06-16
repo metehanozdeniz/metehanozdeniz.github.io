@@ -1,5 +1,297 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr-TR, en-US"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="tr-TR, en-US" /><updated>2025-06-16T22:20:58+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Metehan Özdeniz</title><subtitle>&quot;Metehan Özdeniz&quot;. Computer Engineer
-</subtitle><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><entry><title type="html">Brain Tumor Classification</title><link href="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" rel="alternate" type="text/html" title="Brain Tumor Classification" /><published>2024-12-15T00:00:00+03:00</published><updated>2024-12-30T00:00:00+03:00</updated><id>http://localhost:4000/projects/deep-learning/brain-tumor-classification</id><content type="html" xml:base="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/">&lt;ul id=&quot;markdown-toc&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr-TR, en-US"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="tr-TR, en-US" /><updated>2025-06-16T23:22:42+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Metehan Özdeniz</title><subtitle>&quot;Metehan Özdeniz&quot;. Computer Engineer
+</subtitle><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><entry><title type="html">Sign Language Recognition</title><link href="http://localhost:4000/projects/deep-learning/2025-06-05-sign-language-recognition/" rel="alternate" type="text/html" title="Sign Language Recognition" /><published>2025-06-05T00:00:00+03:00</published><updated>2025-06-06T00:00:00+03:00</updated><id>http://localhost:4000/projects/deep-learning/sign-language-recognition</id><content type="html" xml:base="http://localhost:4000/projects/deep-learning/2025-06-05-sign-language-recognition/">&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#github&quot; id=&quot;markdown-toc-github&quot;&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#-demo&quot; id=&quot;markdown-toc--demo&quot;&gt;📸 Demo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#️-inference&quot; id=&quot;markdown-toc-️-inference&quot;&gt;▶️ Inference&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dataset&quot; id=&quot;markdown-toc-dataset&quot;&gt;Dataset&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#features&quot; id=&quot;markdown-toc-features&quot;&gt;Features&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#-features-in-detail&quot; id=&quot;markdown-toc--features-in-detail&quot;&gt;🔬 Features in Detail&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#real-time-recognition&quot; id=&quot;markdown-toc-real-time-recognition&quot;&gt;Real-time Recognition&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#dataset-management&quot; id=&quot;markdown-toc-dataset-management&quot;&gt;Dataset Management&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#training-pipeline&quot; id=&quot;markdown-toc-training-pipeline&quot;&gt;Training Pipeline&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#-how-it-works&quot; id=&quot;markdown-toc--how-it-works&quot;&gt;🚀 How It Works&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#-step-1-capture-input&quot; id=&quot;markdown-toc--step-1-capture-input&quot;&gt;🔹 Step 1: Capture Input&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#-step-2-extract-features&quot; id=&quot;markdown-toc--step-2-extract-features&quot;&gt;🔹 Step 2: Extract Features&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#-step-3-predict-word&quot; id=&quot;markdown-toc--step-3-predict-word&quot;&gt;🔹 Step 3: Predict Word&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#-tips-for-better-recognition&quot; id=&quot;markdown-toc--tips-for-better-recognition&quot;&gt;🔑 Tips for Better Recognition&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#-model-architecture&quot; id=&quot;markdown-toc--model-architecture&quot;&gt;🧠 Model Architecture&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tech-stack&quot; id=&quot;markdown-toc-tech-stack&quot;&gt;Tech Stack&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#-system-requirements&quot; id=&quot;markdown-toc--system-requirements&quot;&gt;🔧 System Requirements&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#️-installation&quot; id=&quot;markdown-toc-️-installation&quot;&gt;🛠️ Installation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#-project-structure&quot; id=&quot;markdown-toc--project-structure&quot;&gt;📁 Project Structure&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#database-schema&quot; id=&quot;markdown-toc-database-schema&quot;&gt;Database Schema&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#video&quot; id=&quot;markdown-toc-video&quot;&gt;Video&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#framelandmark&quot; id=&quot;markdown-toc-framelandmark&quot;&gt;FrameLandmark&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#videofeature&quot; id=&quot;markdown-toc-videofeature&quot;&gt;VideoFeature&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#api-endpoints&quot; id=&quot;markdown-toc-api-endpoints&quot;&gt;API Endpoints&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#recognition&quot; id=&quot;markdown-toc-recognition&quot;&gt;Recognition&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#dataset-management-1&quot; id=&quot;markdown-toc-dataset-management-1&quot;&gt;Dataset Management&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#️-troubleshooting&quot; id=&quot;markdown-toc-️-troubleshooting&quot;&gt;⚠️ Troubleshooting&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#acknowledgments&quot; id=&quot;markdown-toc-acknowledgments&quot;&gt;Acknowledgments&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A real-time sign language recognition system built with Flask, MediaPipe, and deep learning. The system can recognize &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;word-level&lt;/code&gt; sign language gestures in real-time through a web interface, as well as manage a dataset of sign language videos for training.&lt;/p&gt;
+
+&lt;h1 id=&quot;github&quot;&gt;GitHub&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/metehanozdeniz/sign-language-recognition&quot;&gt;github.com/metehanozdeniz/sign-language-recognition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;-demo&quot;&gt;📸 Demo&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/projects/sign-language-recognition/demo.gif&quot; alt=&quot;demo-gif&quot; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Real-time webcam feed with live sign prediction.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;️-inference&quot;&gt;▶️ Inference&lt;/h1&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python real_time_inference.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;You should edit it according to the camera id on your device. cam_id = your_cam_id&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;dataset&quot;&gt;Dataset&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.kaggle.com/datasets/metehanzdeniz/sign-language-recognition/data&quot;&gt;Kaggle&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;features&quot;&gt;Features&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Real-time Recognition&lt;/strong&gt;: Live sign language gesture recognition through webcam&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Modern Web Interface&lt;/strong&gt;: Clean, responsive dashboard with real-time predictions&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Dataset Management&lt;/strong&gt;: Tools for recording, importing, and managing sign language videos&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;MediaPipe&lt;/strong&gt;: MediaPipe landmark extraction for hands and pose&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Video Processing&lt;/strong&gt;: Automatic landmark extraction and feature generation&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Training Pipeline&lt;/strong&gt;: Complete pipeline for training sign language recognition models&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;LSTM-based prediction&lt;/strong&gt;: Using sliding windows&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;-features-in-detail&quot;&gt;🔬 Features in Detail&lt;/h1&gt;
+
+&lt;h2 id=&quot;real-time-recognition&quot;&gt;Real-time Recognition&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Uses MediaPipe for hand and pose landmark detection&lt;/li&gt;
+  &lt;li&gt;LSTM model for sequence-based gesture recognition&lt;/li&gt;
+  &lt;li&gt;Live video streaming with real-time predictions&lt;/li&gt;
+  &lt;li&gt;Top-3 prediction display with confidence scores&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataset-management&quot;&gt;Dataset Management&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Record videos directly through the web interface&lt;/li&gt;
+  &lt;li&gt;Import existing videos with custom labels&lt;/li&gt;
+  &lt;li&gt;Automatic landmark extraction and feature generation&lt;/li&gt;
+  &lt;li&gt;Mirror augmentation support&lt;/li&gt;
+  &lt;li&gt;Video segmentation for precise gesture isolation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;training-pipeline&quot;&gt;Training Pipeline&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Automated feature extraction from video segments&lt;/li&gt;
+  &lt;li&gt;Standardized preprocessing pipeline&lt;/li&gt;
+  &lt;li&gt;LSTM-based deep learning model&lt;/li&gt;
+  &lt;li&gt;Performance visualization and evaluation tools&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;-how-it-works&quot;&gt;🚀 How It Works&lt;/h1&gt;
+
+&lt;h2 id=&quot;-step-1-capture-input&quot;&gt;🔹 Step 1: Capture Input&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Uses webcam feed via OpenCV.&lt;/li&gt;
+  &lt;li&gt;MediaPipe detects:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Pose landmarks:&lt;/strong&gt; shoulders, elbows, wrists (6 points)&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Hand landmarks:&lt;/strong&gt; only &lt;strong&gt;fingertips&lt;/strong&gt; (5 per hand)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;-step-2-extract-features&quot;&gt;🔹 Step 2: Extract Features&lt;/h2&gt;
+&lt;p&gt;For each 0.5s window (~7–8 frames):&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Calculates &lt;strong&gt;mean&lt;/strong&gt; and &lt;strong&gt;std&lt;/strong&gt; of X/Y/Z positions for:
+    &lt;ul&gt;
+      &lt;li&gt;Left &amp;amp; right hand fingertips&lt;/li&gt;
+      &lt;li&gt;Upper body joints&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These features are stacked across 5 consecutive windows to form an LSTM input.&lt;/p&gt;
+
+&lt;h2 id=&quot;-step-3-predict-word&quot;&gt;🔹 Step 3: Predict Word&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Preprocessed input is passed to an LSTM model.&lt;/li&gt;
+  &lt;li&gt;Top-3 predictions are shown on screen in real-time.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;-tips-for-better-recognition&quot;&gt;🔑 Tips for Better Recognition&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Lighting&lt;/strong&gt;: Ensure good lighting conditions&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Background&lt;/strong&gt;: Use a plain background for better landmark detection&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Distance&lt;/strong&gt;: Stay at an appropriate distance from the camera&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Movement&lt;/strong&gt;: Perform signs clearly and at a moderate speed&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Framing&lt;/strong&gt;: Keep your hands and upper body visible in the frame&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;-model-architecture&quot;&gt;🧠 Model Architecture&lt;/h1&gt;
+
+&lt;p&gt;The script uses:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/model/sign_language_recognition.keras&lt;/code&gt;: LSTM model trained on sign language data
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Input shape:&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(5, N)&lt;/code&gt; where 5 = time steps, N = number of extracted features (e.g., 18–36)&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Architecture:&lt;/strong&gt; LSTM + Dense layers&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Output:&lt;/strong&gt; Softmax over sign vocabulary&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/model/scaler.pkl&lt;/code&gt;: StandardScaler for feature normalization&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/model/label_encoder.pkl&lt;/code&gt;: LabelEncoder for class labels&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/model/feature_order.json&lt;/code&gt;: Ensures features are in the correct order&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;tech-stack&quot;&gt;Tech Stack&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Backend&lt;/strong&gt;: Flask, Celery, Redis&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Frontend&lt;/strong&gt;: Bootstrap 5, JavaScript&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Computer Vision&lt;/strong&gt;: OpenCV, MediaPipe&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Machine Learning&lt;/strong&gt;: TensorFlow, scikit-learn&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Database&lt;/strong&gt;: SQLite with SQLAlchemy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;-system-requirements&quot;&gt;🔧 System Requirements&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Python 3.10.12&lt;/li&gt;
+  &lt;li&gt;Redis Server&lt;/li&gt;
+  &lt;li&gt;Webcam for real-time recognition&lt;/li&gt;
+  &lt;li&gt;Modern web browser with JavaScript enabled&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;️-installation&quot;&gt;🛠️ Installation&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Clone the repository:
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/metehanozdeniz/sign-language-recognition.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;sign-language-recognition
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Create and activate a virtual environment:
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; venv venv
+&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;venv/bin/activate  &lt;span class=&quot;c&quot;&gt;# On Windows: venv\Scripts\activate&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;📦 Install dependencies:
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Start Redis server:
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;redis-server
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Run the application:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#Terminal 1: Start Celery worker&lt;/span&gt;
+celery &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; celery_worker.celery worker &lt;span class=&quot;nt&quot;&gt;--loglevel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;info
+
+&lt;span class=&quot;c&quot;&gt;#Terminal 2: Start Flask application&lt;/span&gt;
+python run.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The application will be available at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost:5000&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;-project-structure&quot;&gt;📁 Project Structure&lt;/h1&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sign-language-recognition/
+├── app/
+│   ├── model/                   # Trained models and preprocessing files
+│   ├── static/                  # Static files (JS, CSS, images)
+│   ├── templates/               # HTML templates
+│   ├── utils/                   # Utility modules
+│   ├── videos/                  # Stored video files
+│   ├── __init__.py              # App initialization
+│   ├── config.py                # Configuration settings
+│   ├── models.py                # Database models
+│   ├── routes.py                # Route handlers
+│   └── tasks.py                 # Celery tasks
+├── venv/                        # Virtual environment
+├── celery_worker.py             # Celery worker configuration
+├── requirements.txt             # Project dependencies
+├── run.py                       # Application entry point
+└── train.ipynb                  # Model training script
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;database-schema&quot;&gt;Database Schema&lt;/h1&gt;
+
+&lt;h2 id=&quot;video&quot;&gt;Video&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Stores video metadata and file paths&lt;/li&gt;
+  &lt;li&gt;Tracks video duration and creation time&lt;/li&gt;
+  &lt;li&gt;Links to landmarks and features&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;framelandmark&quot;&gt;FrameLandmark&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Stores extracted MediaPipe landmarks&lt;/li&gt;
+  &lt;li&gt;Supports both hand and pose landmarks&lt;/li&gt;
+  &lt;li&gt;Maintains frame-level temporal information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;videofeature&quot;&gt;VideoFeature&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Stores processed features for model training&lt;/li&gt;
+  &lt;li&gt;Supports windowed feature extraction&lt;/li&gt;
+  &lt;li&gt;Links features to source videos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;api-endpoints&quot;&gt;API Endpoints&lt;/h1&gt;
+
+&lt;h2 id=&quot;recognition&quot;&gt;Recognition&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/video_feed&lt;/code&gt; - Live video stream&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/current_predictions&lt;/code&gt; - Real-time prediction results&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/toggle_recognition&lt;/code&gt; - Start/stop recognition&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/recognition_status&lt;/code&gt; - Current recognition state&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataset-management-1&quot;&gt;Dataset Management&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/record&lt;/code&gt; - Video recording interface&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/import&lt;/code&gt; - Video import interface&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/gallery&lt;/code&gt; - Video gallery and management&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/process_video&lt;/code&gt; - Landmark extraction endpoint&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/task_status/&amp;lt;task_id&amp;gt;&lt;/code&gt; - Processing status endpoint&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;️-troubleshooting&quot;&gt;⚠️ Troubleshooting&lt;/h1&gt;
+
+&lt;p&gt;If you encounter issues:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Check that your webcam is working and accessible&lt;/li&gt;
+  &lt;li&gt;Verify all model files are present in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/model/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Ensure MediaPipe can detect your hands and pose&lt;/li&gt;
+  &lt;li&gt;Try adjusting the detection confidence thresholds in the code&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MediaPipe for providing the pose and hand landmark detection models&lt;/li&gt;
+  &lt;li&gt;TensorFlow and Keras for the deep learning framework&lt;/li&gt;
+  &lt;li&gt;Flask team for the excellent web framework&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="projects" /><category term="deep-learning" /><category term="lstm" /><summary type="html">A real-time sign language recognition system built with Flask, MediaPipe, and deep learning. The system can recognize word-level sign language gestures in real-time through a web interface, as well as manage a dataset of sign language videos for training.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/projects/sign-language-recognition/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/img/projects/sign-language-recognition/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Brain Tumor Classification</title><link href="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/" rel="alternate" type="text/html" title="Brain Tumor Classification" /><published>2024-12-15T00:00:00+03:00</published><updated>2024-12-30T00:00:00+03:00</updated><id>http://localhost:4000/projects/deep-learning/brain-tumor-classification</id><content type="html" xml:base="http://localhost:4000/projects/deep-learning/2024-12-15-brain-tumor-classification/">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#source-code&quot; id=&quot;markdown-toc-source-code&quot;&gt;Source Code&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#dataset&quot; id=&quot;markdown-toc-dataset&quot;&gt;Dataset&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
@@ -4315,196 +4607,4 @@ Gerçek Maaş:  [2.64250325] 	Tahmin Maaş:  1.0850064515089588
 &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/svr_matplotlib_outout.png&quot; alt=&quot;SVR matplotlib graph&quot; /&gt;&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="machine-learning" /><category term="prediction" /><summary type="html">Support Vector Regression (SVR), Makine Öğrenimi alanında kullanılan bir regresyon tekniğidir ve Support Vector Machines (SVM) prensiplerine dayanır.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/machine-learning/support_vector_regression_cover.png" /><media:content medium="image" url="http://localhost:4000/assets/img/machine-learning/support_vector_regression_cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Polynomial Regression Example</title><link href="http://localhost:4000/machine-learning/2024-08-08-polynomial-regression-example/" rel="alternate" type="text/html" title="Polynomial Regression Example" /><published>2024-08-08T00:00:00+03:00</published><updated>2024-08-09T00:00:00+03:00</updated><id>http://localhost:4000/machine-learning/polynomial-regression-example</id><content type="html" xml:base="http://localhost:4000/machine-learning/2024-08-08-polynomial-regression-example/">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#dataset&quot; id=&quot;markdown-toc-dataset&quot;&gt;Dataset&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#import-libraries&quot; id=&quot;markdown-toc-import-libraries&quot;&gt;Import Libraries&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#data-preprocessing&quot; id=&quot;markdown-toc-data-preprocessing&quot;&gt;Data Preprocessing&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#read-data&quot; id=&quot;markdown-toc-read-data&quot;&gt;Read Data&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#graphical-analysis-of-data&quot; id=&quot;markdown-toc-graphical-analysis-of-data&quot;&gt;Graphical Analysis of Data&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#split-data&quot; id=&quot;markdown-toc-split-data&quot;&gt;Split Data&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#polynomial-regression&quot; id=&quot;markdown-toc-polynomial-regression&quot;&gt;Polynomial Regression&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#train-and-predict&quot; id=&quot;markdown-toc-train-and-predict&quot;&gt;Train and Predict&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#visualize-results&quot; id=&quot;markdown-toc-visualize-results&quot;&gt;Visualize Results&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Bu modelde, bağımsız değişkenler üzerindeki polinom terimleri (x, x², x³, vb.) eklenir. Bu sayede, verideki doğrusal olmayan ilişkiler yakalanabilir.&lt;/p&gt;
-
-\[y= β_0 + β_1 x_1 + β_2 x_2^2 + … + β_n x_n^n\]
-
-&lt;p&gt;Örneğin, doğrusal regresyon (lineer regresyon) bir veriyi düz bir çizgi ile modellemeye çalışırken, polynomial regresyon bu çizgiyi eğrilerle modelleyebilir. Bu özellikle verilerdeki karmaşık desenleri daha iyi yakalamak için faydalıdır.&lt;/p&gt;
-
-&lt;p&gt;Bu yazıda da &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eğitim seviyesi&lt;/code&gt; ile &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maaş miktarı&lt;/code&gt; arasındaki ilişkiyi inceleyen bir polynomial regression modelini ele alacağız.&lt;/p&gt;
-
-&lt;h1 id=&quot;dataset&quot;&gt;Dataset&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.githubusercontent.com/metehanozdeniz/be330879f29b0a9c49521c6ffc48aa16/raw/18b58e460944f24326df6ff639f035fca1540464/salaries.csv&quot;&gt;salaries.csv&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;import-libraries&quot;&gt;Import Libraries&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;seaborn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sbn&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.preprocessing&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PolynomialFeatures&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.linear_model&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinearRegression&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;data-preprocessing&quot;&gt;Data Preprocessing&lt;/h1&gt;
-
-&lt;h2 id=&quot;read-data&quot;&gt;Read Data&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;salaries.csv&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;graphical-analysis-of-data&quot;&gt;Graphical Analysis of Data&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sbn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pairplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/seaborn_polynomial_output.png&quot; alt=&quot;seaborn graph&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;       Egitim Seviyesi          maas
-count         10.00000     10.000000
-mean           5.50000  12475.000000
-std            3.02765  14968.694183
-min            1.00000   2250.000000
-25%            3.25000   3250.000000
-50%            5.50000   6500.000000
-75%            7.75000  13750.000000
-max           10.00000  50000.000000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;split-data&quot;&gt;Split Data&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;maas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;polynomial-regression&quot;&gt;Polynomial Regression&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;poly_reg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PolynomialFeatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;degree&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;poly_reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit_transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[[  1.   1.   1.]
- [  1.   2.   4.]
- [  1.   3.   9.]
- [  1.   4.  16.]
- [  1.   5.  25.]
- [  1.   6.  36.]
- [  1.   7.  49.]
- [  1.   8.  64.]
- [  1.   9.  81.]
- [  1.  10. 100.]]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PolynomialFeatures&lt;/code&gt; sınıfındaki &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;degree&lt;/code&gt; parametresi, oluşturulacak olan polinomun derecesini belirler.&lt;/p&gt;
-
-&lt;p&gt;Bu parametre, modelin karmaşıklığını ve eğitim verilerindeki doğrusal olmayan ilişkileri yakalama kapasitesini doğrudan etkiler.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;degree&lt;/code&gt; parametresi, aşağıdaki faktörlere göre ayarlanır:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Verinin Doğası ve Karmaşıklığı :&lt;/strong&gt; Verinin içerdiği ilişkilere bağlı olarak daha yüksek dereceli polinomlar (örneğin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;degree=3&lt;/code&gt; veya &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;degree=4&lt;/code&gt;) daha karmaşık ilişkileri modelleyebilir. Ancak, derece arttıkça modelin aşırı uyum (overfitting) yapma riski de artar.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Model Karmaşıklığı ve Genelleme Yeteneği :&lt;/strong&gt; Yüksek dereceli polinomlar, eğitim verilerine çok iyi uyabilir, ancak bu durumda model genelleme yeteneğini kaybedebilir. Genellikle düşük dereceler (örneğin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;degree=2&lt;/code&gt;) daha basit ve genelleyici modeller sağlar.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Deneysel Değerlendirme ve Doğrulama :&lt;/strong&gt; Farklı dereceler için model performansı çapraz doğrulama (cross-validation) ile değerlendirilebilir. Bu sayede, veri seti üzerinde en iyi performansı gösteren &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;degree&lt;/code&gt; değeri seçilebilir.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Veri Miktarı ve Gürültü :&lt;/strong&gt; Az sayıda veri veya yüksek gürültü içeren veri setlerinde, düşük dereceli polinomlar tercih edilebilir, çünkü bu durumda yüksek dereceler gürültüyü modelleyerek hatalı sonuçlara yol açabilir.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;train-and-predict&quot;&gt;Train and Predict&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lin_reg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinearRegression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;lin_reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lin_reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Eğitim seviyesi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Gerçek Maaş : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Polynomial Maaş : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Eğitim seviyesi [1] 	Gerçek Maaş :  [2250] 	Polynomial Maaş :  [5936.36363636]
-Eğitim seviyesi [2] 	Gerçek Maaş :  [2500] 	Polynomial Maaş :  [2207.57575758]
-Eğitim seviyesi [3] 	Gerçek Maaş :  [3000] 	Polynomial Maaş :  [421.96969697]
-Eğitim seviyesi [4] 	Gerçek Maaş :  [4000] 	Polynomial Maaş :  [579.54545455]
-Eğitim seviyesi [5] 	Gerçek Maaş :  [5500] 	Polynomial Maaş :  [2680.3030303]
-Eğitim seviyesi [6] 	Gerçek Maaş :  [7500] 	Polynomial Maaş :  [6724.24242424]
-Eğitim seviyesi [7] 	Gerçek Maaş :  [10000] 	Polynomial Maaş :  [12711.36363636]
-Eğitim seviyesi [8] 	Gerçek Maaş :  [15000] 	Polynomial Maaş :  [20641.66666667]
-Eğitim seviyesi [9] 	Gerçek Maaş :  [25000] 	Polynomial Maaş :  [30515.15151515]
-Eğitim seviyesi [10] 	Gerçek Maaş :  [50000] 	Polynomial Maaş :  [42331.81818182]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;visualize-results&quot;&gt;Visualize Results&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;red&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;Data&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;blue&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;Poly&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Egitim Seviyesi&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Maas&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/polynomial_regression_scatter_and_plot.png&quot; alt=&quot;polynomial regression&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Şimdi dereceyi arttıralım ve modeli oluşturup tekrar train edelim.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;poly_reg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PolynomialFeatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;degree&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;poly_reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit_transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[[1.000e+00 1.000e+00 1.000e+00 1.000e+00 1.000e+00]
- [1.000e+00 2.000e+00 4.000e+00 8.000e+00 1.600e+01]
- [1.000e+00 3.000e+00 9.000e+00 2.700e+01 8.100e+01]
- [1.000e+00 4.000e+00 1.600e+01 6.400e+01 2.560e+02]
- [1.000e+00 5.000e+00 2.500e+01 1.250e+02 6.250e+02]
- [1.000e+00 6.000e+00 3.600e+01 2.160e+02 1.296e+03]
- [1.000e+00 7.000e+00 4.900e+01 3.430e+02 2.401e+03]
- [1.000e+00 8.000e+00 6.400e+01 5.120e+02 4.096e+03]
- [1.000e+00 9.000e+00 8.100e+01 7.290e+02 6.561e+03]
- [1.000e+00 1.000e+01 1.000e+02 1.000e+03 1.000e+04]]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lin_reg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinearRegression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;lin_reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lin_reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi_poly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Eğitim seviyesi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Gerçek Maaş : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Polynomial Maaş : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Eğitim seviyesi [1] 	Gerçek Maaş :  [2250] 	Polynomial Maaş :  [2667.83216783]
-Eğitim seviyesi [2] 	Gerçek Maaş :  [2500] 	Polynomial Maaş :  [1587.99533799]
-Eğitim seviyesi [3] 	Gerçek Maaş :  [3000] 	Polynomial Maaş :  [2932.1095571]
-Eğitim seviyesi [4] 	Gerçek Maaş :  [4000] 	Polynomial Maaş :  [4731.64335664]
-Eğitim seviyesi [5] 	Gerçek Maaş :  [5500] 	Polynomial Maaş :  [6086.24708625]
-Eğitim seviyesi [6] 	Gerçek Maaş :  [7500] 	Polynomial Maaş :  [7163.75291375]
-Eğitim seviyesi [7] 	Gerçek Maaş :  [10000] 	Polynomial Maaş :  [9200.17482518]
-Eğitim seviyesi [8] 	Gerçek Maaş :  [15000] 	Polynomial Maaş :  [14499.70862471]
-Eğitim seviyesi [9] 	Gerçek Maaş :  [25000] 	Polynomial Maaş :  [26434.73193474]
-Eğitim seviyesi [10] 	Gerçek Maaş :  [50000] 	Polynomial Maaş :  [49445.80419581]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;red&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;Data&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;egitim_seviyesi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maas_predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;blue&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;Poly&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Egitim Seviyesi&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Maas&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/polynomial_regression_scatter_and_plot2.png&quot; alt=&quot;polynomial regression&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Grafikten de anlaşılacağı üzere 4. derece bir polynomial regression modeli daha iyi bir sonuç verdi.&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="machine-learning" /><category term="prediction" /><summary type="html">Bu modelde, bağımsız değişkenler üzerindeki polinom terimleri (x, x², x³, vb.) eklenir. Bu sayede, verideki doğrusal olmayan ilişkiler yakalanabilir.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/machine-learning/polynomial_regression.gif" /><media:content medium="image" url="http://localhost:4000/assets/img/machine-learning/polynomial_regression.gif" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/img/machine-learning/svr_matplotlib_outout.png&quot; alt=&quot;SVR matplotlib graph&quot; /&gt;&lt;/p&gt;</content><author><name>Metehan Özdeniz</name><email>contact@metehanozdeniz.com</email></author><category term="machine-learning" /><category term="prediction" /><summary type="html">Support Vector Regression (SVR), Makine Öğrenimi alanında kullanılan bir regresyon tekniğidir ve Support Vector Machines (SVM) prensiplerine dayanır.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/machine-learning/support_vector_regression_cover.png" /><media:content medium="image" url="http://localhost:4000/assets/img/machine-learning/support_vector_regression_cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
