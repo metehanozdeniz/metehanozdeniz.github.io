@@ -1,5 +1,8 @@
 ---
 layout: post
+related_posts:
+  - projects/_posts/2024-12-15-brain-tumor-classification.md
+  - projects/_posts/2024-04-30-text-classification-and-sentiment-analysis-using-cnn.md
 title: Sign Language Recognition
 categories: [projects, deep-learning]
 tags: [lstm]
@@ -11,15 +14,18 @@ last_modified_at: 06.06.2025
 keywords:
   - Artificial Intelligence
   - Deep Learning
+  - Long Short Time Memory
   - LSTM
   - MediaPipe
   - OpenCV
+  - Time Series
   - Flask
   - Sign Language Recognition
   - Data Analysis
   - Yapay Zeka
   - Derin öğrenme
   - İşaret Dili Tanıma
+  - Zaman Serisi
 ---
 * GitHub
 {:toc}

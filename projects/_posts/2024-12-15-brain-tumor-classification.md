@@ -1,5 +1,8 @@
 ---
 layout: post
+related_posts:
+  - projects/_posts/2025-06-05-sign-language-recognition.md
+  - projects/_posts/2024-04-30-text-classification-and-sentiment-analysis-using-cnn.md
 title: Brain Tumor Classification
 categories: [projects, deep-learning]
 tags: [cnn]
