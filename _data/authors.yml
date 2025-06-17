@@ -59,7 +59,7 @@ author1:
     # delicious:       <username>
     # stumbleupon:     <username>
     # paypal:          <username>
-    download:        /resume.pdf
+    download:        /assets/doc/resume.pdf
     # keybase          <username>
 
 # Another author (optional)

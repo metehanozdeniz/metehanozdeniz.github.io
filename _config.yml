@@ -32,7 +32,7 @@ description:           >
 tagline:               "Gerçekliğin ardındaki sistemle oynayan birisi."
 
 # A list of keywords for your blog
-keywords:              [Metehan Özdeniz,Metehan,Özdeniz,Software Developer,Software,Developer,Programmer,Web Design,Yazlım,Kod,Code,Computer Engineer, Hacking,Web Hacking,Cyber Security,Exploit,Vulnerability,Linux,Windows,Computer]
+keywords:              [Metehan Özdeniz,Metehan,Özdeniz,Software Developer,Software,Developer,Artificial Intelligence, AI, Machine Learning, ML, Deep Learning, DL,Programmer,Web Design,Yazlım,Kod,Code,Computer Engineer, Hacking,Web Hacking,Cyber Security,Exploit,Vulnerability,Linux,Windows,Computer]
 
 # A (square) logo for your site.
 # If provided, it will be shown at the top of the sidebar.
@@ -63,14 +63,14 @@ menu:
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
 legal:
-  # - title:             LICENSE
-  #   url:               /LICENSE/
+  - title:             LICENSE
+    url:               /LICENSE/
   # - title:             NOTICE
   #   url:               /NOTICE/
   # - title:             CHANGELOG
   #   url:               /CHANGELOG/
 # This text will appear in a `<small>` tag in the footer of every page.
-copyright:             © 2024. All rights reserved.
+copyright:             © 2025. All rights reserved.
 
 # Format of the permalinks
 permalink:             /:categories/:year-:month-:day-:title/
