@@ -3,7 +3,7 @@ layout: post
 title: Sign Language Recognition
 categories: [projects, deep-learning]
 tags: [lstm]
-image: /assets/img/projects/sign-language-recognition/cover.png
+image: /assets/img/projects/sign-language-recognition/cover.jpg
 description: |
   A real-time word level sign language recognition system built with Flask, MediaPipe, and deep learning.
 slug: sign-language-recognition
