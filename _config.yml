@@ -65,6 +65,8 @@ menu:
 legal:
   - title:             LICENSE
     url:               /LICENSE/
+  - title:             Cookie Policy
+    url:               /cookie-policy/
   # - title:             NOTICE
   #   url:               /NOTICE/
   # - title:             CHANGELOG
