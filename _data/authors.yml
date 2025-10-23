@@ -16,7 +16,7 @@ author1:
     # srcset is optional, but can be used to provide higher res versions for retina displays
     srcset:
       1x:            /assets/img/avatar.jpg
-      2x:            /assets/img/avatar.jpg
+      2x:            /assets/img/avatar@2x.jpg
 
   # Social media icons in sidebar
   # Comment/uncommet to show/hide
