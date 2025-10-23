@@ -9,15 +9,15 @@ description: >
 
 ## Cookie policy
 
-1. [What are cookies?](#what-are-cookies)
-2. [What type of cookies do we use?](#what-type-of-cookies-do-we-use)
-   1. [Necessary cookies](#necessary-cookies)
-   2. [Functionality cookies](#functionality-cookies)
-3. [What are your cookie options?](#what-are-your-cookie-options)
-4. [Changes and amendments](#changes-and-amendments)
-5. [Acceptance of this policy](#acceptance-of-this-policy)
-6. [Contacting us](#contacting-us)
-{:toc}
+- [Cookie policy](#cookie-policy)
+- [What are cookies?](#what-are-cookies)
+- [What type of cookies do we use?](#what-type-of-cookies-do-we-use)
+  - [Necessary cookies](#necessary-cookies)
+  - [Functionality cookies](#functionality-cookies)
+- [What are your cookie options?](#what-are-your-cookie-options)
+- [Changes and amendments](#changes-and-amendments)
+- [Acceptance of this policy](#acceptance-of-this-policy)
+- [Contacting us](#contacting-us)
 
 ## What are cookies?
 
@@ -51,7 +51,7 @@ An updated version of this Policy will be effective immediately upon the posting
 
 ## Acceptance of this policy
 
-You acknowledge that you have read this Policy and agree to all its terms and conditions. By accessing and using the Website and Services you agree to be bound by this Policy. If you do not agree to abide by the terms of this Policy, you are not authorized to access or use the Website and Services. This policy has been created with the help of the <a href="https://www.websitepolicies.com/cookie-policy-generator" target="_blank" plerdy-tracking-id="56119860401">cookie policy generator</a>.
+You acknowledge that you have read this Policy and agree to all its terms and conditions. By accessing and using the Website and Services you agree to be bound by this Policy. If you do not agree to abide by the terms of this Policy, you are not authorized to access or use the Website and Services.
 
 ## Contacting us
 
