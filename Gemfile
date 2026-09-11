@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '~> 3.3.0'
+
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
 # file and run `bundle install`. Run Jekyll with `bundle exec`, like so:
@@ -11,8 +13,8 @@ source 'https://rubygems.org'
 # gem "jekyll", "~> 3.9"
 
 group :jekyll_plugins do
-  gem 'github-pages'
-  gem 'jekyll-include-cache'
+  gem 'github-pages', '232'
+  gem 'jekyll-include-cache', '0.2.1'
   gem 'jekyll-compose'
 end
 
